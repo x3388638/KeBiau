@@ -8,7 +8,15 @@ import CONFIG from './config.js';
 import './App.css';
 
 export default class App extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			user: null
+		};
+	}
+
 	componentDidMount() {
+		const _this = this;
 		window.fbAsyncInit = function() {
 			window.FB.init({
 				appId      : CONFIG.FB.AppID,
@@ -16,16 +24,33 @@ export default class App extends React.Component {
 				version    : 'v2.10'
 			});
 			window.FB.AppEvents.logPageView();
-			window.FB.getLoginStatus(function(response) {
-				console.log(response);
+			window.FB.getLoginStatus((response) => {
+				if (response.status === 'connected') {
+					window.FB.api('/me', (res) => {
+						_this.setState({
+							user: Object.assign({}, res)
+						});
+					});
+				} else {
+					_this.setState({
+						user: {
+							name: null,
+							id: null
+						}
+					})
+				}
 			});
 		};
+		(typeof window.FB !== 'undefined') && window.fbAsyncInit();
 	}
 
 	render() {
 		return (
 			<div>
-				<Navigation {...this.props} />
+				<Navigation
+					user={this.state.user}
+					{...this.props}
+				/>
 				<Container>
 					{this.props.children}
 				</Container>

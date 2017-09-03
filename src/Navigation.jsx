@@ -19,28 +19,65 @@ export default class Navigation extends React.Component {
 			isOpen: false
 		};
 	}
+
 	toggle() {
 		this.setState({
 			isOpen: !this.state.isOpen
 		});
 	}
+
+	handleLogin() {
+		window.FB.login(function (res) {
+			if (res.authResponse) {
+				window.location.reload();
+			}
+		});
+	}
+
+	handleLogout() {
+		window.FB.logout(function (res) {
+			window.location.reload();
+		});
+	}
+
 	render() {
+		const fbInit = !!this.props.user;
+		const isLogin = fbInit && !!this.props.user.name && !!this.props.user.id;
+		console.log([fbInit, isLogin]);
 		return (
 			<div>
 				<Navbar color="inverse" light inverse toggleable>
 					<NavbarToggler right onClick={this.toggle} />
 					<NavbarBrand href="/">自己的課表自己排</NavbarBrand>
 					<Collapse isOpen={this.state.isOpen} navbar>
-						<Nav className="ml-auto" navbar>
+						<Nav navbar>
 							<NavItem>
 								<Link className={this.props.match.path === '/' ? 'active nav-link' : ' nav-link'} to="/">我的課表</Link>
 							</NavItem>
 							<NavItem>
 								<Link className={this.props.match.path === '/exchange' ? 'active nav-link' : ' nav-link'} to="/exchange">換課平台</Link>
 							</NavItem>
-							<NavItem>
-								<NavLink href="https://github.com/x3388638/KeBiau" target="_blank">Github</NavLink>
-							</NavItem>
+						</Nav>
+						<Nav className="ml-auto" navbar>
+							{
+								fbInit && isLogin &&
+								<NavItem>
+									<NavLink href={`https://fb.com/${this.props.user.id}`} target="_blank">{this.props.user.name}</NavLink>
+								</NavItem>
+							}
+							{
+								fbInit &&
+								<NavItem>
+									{
+										isLogin &&
+										<NavLink href="#" onClick={this.handleLogout}>登出</NavLink>
+									}
+									{
+										isLogin ||
+										<NavLink href="#" onClick={this.handleLogin}>登入</NavLink>
+									}
+								</NavItem>
+							}
 						</Nav>
 					</Collapse>
 				</Navbar>
