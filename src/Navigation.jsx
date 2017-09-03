@@ -26,16 +26,19 @@ export default class Navigation extends React.Component {
 	render() {
 		return (
 			<div>
-				<Navbar color="faded" light toggleable>
+				<Navbar color="inverse" light inverse toggleable>
 					<NavbarToggler right onClick={this.toggle} />
-					<NavbarBrand href="/">reactstrap</NavbarBrand>
+					<NavbarBrand href="/">自己的課表自己排</NavbarBrand>
 					<Collapse isOpen={this.state.isOpen} navbar>
 						<Nav className="ml-auto" navbar>
 							<NavItem>
-								<NavLink href="/components/">Components</NavLink>
+								<NavLink className={this.props.match.path === '/' ? 'active' : ''} href="/">我的課表</NavLink>
 							</NavItem>
 							<NavItem>
-								<NavLink href="https://github.com/reactstrap/reactstrap">Github</NavLink>
+								<NavLink className={this.props.match.path === '/exchange' ? 'active' : ''} href="/exchange">換課平台</NavLink>
+							</NavItem>
+							<NavItem>
+								<NavLink href="https://github.com/x3388638/KeBiau" target="_blank">Github</NavLink>
 							</NavItem>
 						</Nav>
 					</Collapse>

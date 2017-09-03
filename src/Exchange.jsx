@@ -9,7 +9,7 @@ export default class Exchange extends React.Component {
 
 	render() {
 		return (
-			<App>
+			<App {...this.props}>
 				this is &lt;Exchange /&gt;
 			</App>
 		);

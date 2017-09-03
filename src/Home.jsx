@@ -9,7 +9,7 @@ export default class Home extends React.Component {
 
 	render() {
 		return (
-			<App>
+			<App {...this.props}>
 				this is &lt;Home /&gt;
 			</App>
 		);
