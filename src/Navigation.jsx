@@ -43,7 +43,6 @@ export default class Navigation extends React.Component {
 	render() {
 		const fbInit = !!this.props.user;
 		const isLogin = fbInit && !!this.props.user.name && !!this.props.user.id;
-		console.log([fbInit, isLogin]);
 		return (
 			<div>
 				<Navbar color="inverse" light inverse toggleable>
