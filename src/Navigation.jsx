@@ -8,6 +8,7 @@ import {
 	NavItem,
 	NavLink,
 } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 export default class Navigation extends React.Component {
 	constructor(props) {
@@ -32,10 +33,10 @@ export default class Navigation extends React.Component {
 					<Collapse isOpen={this.state.isOpen} navbar>
 						<Nav className="ml-auto" navbar>
 							<NavItem>
-								<NavLink className={this.props.match.path === '/' ? 'active' : ''} href="/">我的課表</NavLink>
+								<Link className={this.props.match.path === '/' ? 'active nav-link' : ' nav-link'} to="/">我的課表</Link>
 							</NavItem>
 							<NavItem>
-								<NavLink className={this.props.match.path === '/exchange' ? 'active' : ''} href="/exchange">換課平台</NavLink>
+								<Link className={this.props.match.path === '/exchange' ? 'active nav-link' : ' nav-link'} to="/exchange">換課平台</Link>
 							</NavItem>
 							<NavItem>
 								<NavLink href="https://github.com/x3388638/KeBiau" target="_blank">Github</NavLink>
