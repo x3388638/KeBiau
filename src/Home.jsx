@@ -1,6 +1,7 @@
 import React from 'react';
 
 import App from './App.jsx';
+import CourseTable from './CourseTable.jsx';
 
 export default class Home extends React.Component {
 	constructor(props) {
@@ -10,7 +11,7 @@ export default class Home extends React.Component {
 	render() {
 		return (
 			<App {...this.props}>
-				this is &lt;Home /&gt;
+				<CourseTable />
 			</App>
 		);
 	}

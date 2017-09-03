@@ -80,6 +80,7 @@ export default class Navigation extends React.Component {
 						</Nav>
 					</Collapse>
 				</Navbar>
+				{JSON.stringify(this.context.user)}
 			</div>
 		);
 	}

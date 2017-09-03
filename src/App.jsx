@@ -1,5 +1,6 @@
 import React from 'react';
 import { Container } from 'reactstrap';
+import PropTypes from 'prop-types';
 
 import Navigation from './Navigation.jsx';
 
@@ -13,6 +14,12 @@ export default class App extends React.Component {
 		this.state = {
 			user: null
 		};
+	}
+
+	getChildContext() {
+		return {
+			user: this.state.user
+		}
 	}
 
 	componentDidMount() {
@@ -58,3 +65,7 @@ export default class App extends React.Component {
 		);
 	}
 }
+
+App.childContextTypes = {
+	user: PropTypes.object
+};

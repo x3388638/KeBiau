@@ -5,6 +5,7 @@
   "homepage": "https://x3388638.github.io/KeBiau",
   "dependencies": {
     "bootstrap": "4.0.0-alpha.6",
+    "prop-types": "^15.5.10",
     "react": "^15.6.1",
     "react-addons-css-transition-group": "^15.6.0",
     "react-addons-transition-group": "^15.6.0",
