@@ -1,3 +1,4 @@
+#!/bin/bash
 git checkout gh-pages
 git merge master -X theirs
 npm install
