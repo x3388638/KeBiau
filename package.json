@@ -2,6 +2,7 @@
   "name": "ke-biau",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://x3388638.github.io/KeBiau",
   "dependencies": {
     "bootstrap": "4.0.0-alpha.6",
     "react": "^15.6.1",

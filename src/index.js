@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {
-	HashRouter as Router,
+	BrowserRouter as Router,
 	Route,
 	Link,
 	Redirect,
@@ -15,7 +15,7 @@ import Exchange from './Exchange.jsx';
 import registerServiceWorker from './registerServiceWorker';
 
 ReactDOM.render(
-	<Router>
+	<Router basename="/KeBiau">
 		<Switch>
 			<Route exact path="/" component={Home} />
 			<Route path="/exchange" component={Exchange} />
