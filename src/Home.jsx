@@ -10,7 +10,7 @@ export default class Home extends React.Component {
 
 	render() {
 		return (
-			<App {...this.props}>
+			<App>
 				<CourseTable />
 			</App>
 		);

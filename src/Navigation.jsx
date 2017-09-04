@@ -9,6 +9,7 @@ import {
 	NavLink,
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 export default class Navigation extends React.Component {
 	constructor(props) {
@@ -27,22 +28,29 @@ export default class Navigation extends React.Component {
 	}
 
 	handleLogin() {
-		window.FB.login(function (res) {
-			if (res.authResponse) {
-				window.location.reload();
-			}
+		const provider = new window.firebase.auth.FacebookAuthProvider();
+		window.firebase.auth().signInWithPopup(provider).then(function(result) {
+			window.location.reload();
+		}).catch(function(error) {
+			const errorCode = error.code;
+			const errorMessage = error.message;
+			console.error(`[${errorCode}] ${errorMessage}`)
 		});
 	}
 
 	handleLogout() {
-		window.FB.logout(function (res) {
+		window.firebase.auth().signOut().then(function() {
 			window.location.reload();
+		}).catch(function(error) {
+			console.error(error);
 		});
 	}
 
 	render() {
-		const fbInit = !!this.props.user;
-		const isLogin = fbInit && !!this.props.user.name && !!this.props.user.id;
+		const route = this.context.router.route;
+		const user = this.context.user;
+		const loginStatusInit = !!user;
+		const isLogin = loginStatusInit && !!user.uid;
 		return (
 			<div>
 				<Navbar color="inverse" light inverse toggleable>
@@ -51,21 +59,21 @@ export default class Navigation extends React.Component {
 					<Collapse isOpen={this.state.isOpen} navbar>
 						<Nav navbar>
 							<NavItem>
-								<Link className={this.props.match.path === '/' ? 'active nav-link' : ' nav-link'} to="/">我的課表</Link>
+								<Link className={route.match.path === '/' ? 'active nav-link' : ' nav-link'} to="/">我的課表</Link>
 							</NavItem>
 							<NavItem>
-								<Link className={this.props.match.path === '/exchange' ? 'active nav-link' : ' nav-link'} to="/exchange">換課平台</Link>
+								<Link className={route.match.path === '/exchange' ? 'active nav-link' : ' nav-link'} to="/exchange">換課平台</Link>
 							</NavItem>
 						</Nav>
 						<Nav className="ml-auto" navbar>
 							{
-								fbInit && isLogin &&
+								loginStatusInit && isLogin &&
 								<NavItem>
-									<NavLink href={`https://fb.com/${this.props.user.id}`} target="_blank">{this.props.user.name}</NavLink>
+									<NavLink href={`https://fb.com/${user.uid}`} target="_blank">{user.displayName}</NavLink>
 								</NavItem>
 							}
 							{
-								fbInit &&
+								loginStatusInit &&
 								<NavItem>
 									{
 										isLogin &&
@@ -81,7 +89,13 @@ export default class Navigation extends React.Component {
 					</Collapse>
 				</Navbar>
 				{JSON.stringify(this.context.user)}
+				{JSON.stringify(this.context.router)}
 			</div>
 		);
 	}
 }
+
+Navigation.contextTypes = {
+	user: PropTypes.object,
+	router: PropTypes.object
+};

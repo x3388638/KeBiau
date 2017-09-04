@@ -14,6 +14,20 @@ export default class App extends React.Component {
 		this.state = {
 			user: null
 		};
+
+		window.firebase.auth().onAuthStateChanged((user) => {
+			if (user) {
+				this.setState({
+					user: Object.assign({}, user.providerData[0])
+				});
+			} else {
+				this.setState({
+					user: {
+						uid: null
+					}
+				});
+			}
+		});
 	}
 
 	getChildContext() {
@@ -22,42 +36,10 @@ export default class App extends React.Component {
 		}
 	}
 
-	componentDidMount() {
-		const _this = this;
-		window.fbAsyncInit = function() {
-			window.FB.init({
-				appId      : CONFIG.FB.AppID,
-				xfbml      : true,
-				version    : 'v2.10'
-			});
-			window.FB.AppEvents.logPageView();
-			window.FB.getLoginStatus((response) => {
-				if (response.status === 'connected') {
-					window.FB.api('/me', (res) => {
-						_this.setState({
-							user: Object.assign({}, res)
-						});
-					});
-				} else {
-					_this.setState({
-						user: {
-							name: null,
-							id: null
-						}
-					})
-				}
-			});
-		};
-		(typeof window.FB !== 'undefined') && window.fbAsyncInit();
-	}
-
 	render() {
 		return (
 			<div>
-				<Navigation
-					user={this.state.user}
-					{...this.props}
-				/>
+				<Navigation />
 				<Container>
 					{this.props.children}
 				</Container>
