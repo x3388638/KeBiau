@@ -1,7 +1,0 @@
-const CONFIG = {
-	FB: {
-		AppID: '',
-	}
-};
-
-export default CONFIG;
