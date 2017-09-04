@@ -47,7 +47,7 @@ export default class Navigation extends React.Component {
 			<div>
 				<Navbar color="inverse" light inverse toggleable>
 					<NavbarToggler right onClick={this.toggle} />
-					<NavbarBrand href="/">自己的課表自己排</NavbarBrand>
+					<NavbarBrand href="/">自己的課表自己排 2.0</NavbarBrand>
 					<Collapse isOpen={this.state.isOpen} navbar>
 						<Nav navbar>
 							<NavItem>
