@@ -1,7 +1,6 @@
 const CONFIG = {
 	FB: {
-		AppID: '231164050744735', // test
-		// AppID: '1218737564897109',
+		AppID: process.env.REACT_APP_FB_APP_ID
 	}
 };
 
