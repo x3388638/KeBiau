@@ -4,8 +4,6 @@ import PropTypes from 'prop-types';
 
 import Navigation from './Navigation.jsx';
 
-import CONFIG from './config.js';
-
 import './App.css';
 
 export default class App extends React.Component {
