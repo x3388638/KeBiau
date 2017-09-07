@@ -23,10 +23,21 @@ export default class CourseTableContainer extends React.Component {
 	}
 
 	getCourseList(dept = '通識') {
+		const sessionCourseList = window.sessionStorage.courseList ? JSON.parse(window.sessionStorage.courseList) : "{}";
+		if (sessionCourseList[dept]) {
+			console.log(`course in ${dept} exist in sessionStorage`);
+			this.setState({
+				courseList: Object.assign({}, sessionCourseList[dept])
+			});
+			return;
+		}
+		
+		console.log(`Getting course in ${dept}`);
 		this.db.ref(`course/${dept}`).once('value').then((snapshot) => {
 			this.setState({
 				courseList: snapshot.val() || {}
 			});
+			sessionStorage.courseList = JSON.stringify(Object.assign({}, sessionCourseList, {[dept]: snapshot.val()}));
 		});
 	}
 
