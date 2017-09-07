@@ -20,11 +20,13 @@ export default class CourseTableContainer extends React.Component {
 		this.getCourseList = this.getCourseList.bind(this);
 		this.getCourseData = this.getCourseData.bind(this);
 		this.changeDept = this.changeDept.bind(this);
+		this.getTableData = this.getTableData.bind(this);
 
 	}
 
 	componentDidMount() {
 		this.getCourseData();
+		this.getTableData();
 	}
 
 	getCourseList(dept = '通識') {
@@ -59,6 +61,23 @@ export default class CourseTableContainer extends React.Component {
 
 	changeDept(dept) {
 		this.getCourseList(dept);
+	}
+
+	getTableData() {
+		const user = this.context.user;
+		if (user === null) {
+			setTimeout(this.getTableData, 100);
+			return;
+		}
+
+		if (user.uid) {
+			// logged in, get data from db
+			this.db.ref(`customTable/${user.uuid}`).once('value').then((snapshot) => {
+				const tableData = snapshot.val();
+			});
+		} else {
+			// no login, set default value
+		}
 	}
 
 	render() {
