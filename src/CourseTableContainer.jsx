@@ -18,7 +18,9 @@ export default class CourseTableContainer extends React.Component {
 		this.getCourseList = this.getCourseList.bind(this);
 		this.getCourseData = this.getCourseData.bind(this);
 		this.changeDept = this.changeDept.bind(this);
+	}
 
+	componentDidMount() {
 		this.getCourseData();
 	}
 
