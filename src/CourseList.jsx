@@ -26,7 +26,7 @@ class DeptSelector extends React.Component {
 			selected: e.target.value
 		});
 
-		// TOSO: send value to get course
+		this.props.onChangeDept(e.target.value);
 	}
 
 	render() {

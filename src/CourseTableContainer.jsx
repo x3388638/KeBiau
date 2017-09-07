@@ -15,9 +15,19 @@ export default class CourseTableContainer extends React.Component {
 			courseList: {}
 		};
 		this.db = window.firebase.database();
+		this.getCourseList = this.getCourseList.bind(this);
 		this.getCourseData = this.getCourseData.bind(this);
+		this.changeDept = this.changeDept.bind(this);
 
 		this.getCourseData();
+	}
+
+	getCourseList(dept = '通識') {
+		this.db.ref(`course/${dept}`).once('value').then((snapshot) => {
+			this.setState({
+				courseList: snapshot.val() || {}
+			});
+		});
 	}
 
 	getCourseData() {
@@ -28,11 +38,11 @@ export default class CourseTableContainer extends React.Component {
 			});
 		});
 
-		this.db.ref('course/通識').once('value').then((snapshot) => {
-			this.setState({
-				courseList: snapshot.val() || {}
-			});
-		});
+		this.getCourseList();
+	}
+
+	changeDept(dept) {
+		this.getCourseList(dept);
 	}
 
 	render() {
@@ -45,7 +55,7 @@ export default class CourseTableContainer extends React.Component {
 				</Row>
 				<Row>
 					<Col xs="12">
-						<CourseList deptList={this.state.deptList} courseList={this.state.courseList} />
+						<CourseList deptList={this.state.deptList} courseList={this.state.courseList} onChangeDept={this.changeDept} />
 					</Col>
 				</Row>
 			</div>
