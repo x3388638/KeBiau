@@ -11,7 +11,8 @@ export default class CourseTableContainer extends React.Component {
 		super(props);
 		
 		this.state = {
-			deptList: {}
+			deptList: {},
+			courseList: {}
 		};
 		this.db = window.firebase.database();
 		this.getCourseData = this.getCourseData.bind(this);
@@ -20,10 +21,16 @@ export default class CourseTableContainer extends React.Component {
 	}
 
 	getCourseData() {
-		console.log('Getting dept list data...')
+		console.log('Getting course data...')
 		this.db.ref('deptList/').once('value').then((snapshot) => {
 			this.setState({
 				deptList: snapshot.val() || {}
+			});
+		});
+
+		this.db.ref('course/通識').once('value').then((snapshot) => {
+			this.setState({
+				courseList: snapshot.val() || {}
 			});
 		});
 	}
@@ -38,7 +45,7 @@ export default class CourseTableContainer extends React.Component {
 				</Row>
 				<Row>
 					<Col xs="12">
-						<CourseList deptList={ this.state.deptList } />
+						<CourseList deptList={this.state.deptList} courseList={this.state.courseList} />
 					</Col>
 				</Row>
 			</div>

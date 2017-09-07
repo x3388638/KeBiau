@@ -1,6 +1,7 @@
 import React from 'react';
 import {
-	Table
+	Table,
+	Button
 } from 'reactstrap';
 
 class DeptSelector extends React.Component {
@@ -24,6 +25,8 @@ class DeptSelector extends React.Component {
 		this.setState({
 			selected: e.target.value
 		});
+
+		// TOSO: send value to get course
 	}
 
 	render() {
@@ -44,57 +47,50 @@ class DeptSelector extends React.Component {
 
 export default class CourseList extends React.Component {
 	render() {
+		const list = this.props.courseList;
 		return (
 			<div>
 				<DeptSelector { ...this.props } />
-				<Table hover responsive striped>
-					<thead>
-						<tr>
-							<th>課號</th>
-							<th>課程名稱</th>
-							<th>班別</th>
-							<th>時段</th>
-							<th>授課地點</th>
-							<th>教師</th>
-							<th>年級</th>
-							<th></th>
-							<th></th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>010004</td>
-							<td>中國史</td>
-							<td>0</td>
-							<td>1bcd</td>
-							<td>人107</td>
-							<td>John</td>
-							<td>1</td>
-							<td>大綱</td>
-							<td>加入</td>
-						</tr><tr>
-							<td>010004</td>
-							<td>中國史</td>
-							<td>0</td>
-							<td>1bcd</td>
-							<td>人107</td>
-							<td>John</td>
-							<td>1</td>
-							<td>大綱</td>
-							<td>加入</td>
-						</tr><tr>
-							<td>010004</td>
-							<td>中國史</td>
-							<td>0</td>
-							<td>1bcd</td>
-							<td>人107</td>
-							<td>John</td>
-							<td>1</td>
-							<td>大綱</td>
-							<td>加入</td>
-						</tr>
-					</tbody>
-				</Table>
+				<div style={{overflow: 'auto', maxHeight: '487px'}}>
+					<Table hover responsive striped>
+						<thead>
+							<tr>
+								<th>課號</th>
+								<th>課程名稱</th>
+								<th>班別</th>
+								<th>時段</th>
+								<th>授課地點</th>
+								<th>教師</th>
+								<th>年級</th>
+								<th></th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							{
+								Object.keys(list).map((val) => {
+									return (
+										<tr key={val} data-uuid={val}>
+											<td>{list[val].cid}</td>
+											<td>{list[val].cname}</td>
+											<td>{list[val].classes}</td>
+											<td>{list[val].time}</td>
+											<td>{list[val].location}</td>
+											<td>{list[val].teacher}</td>
+											<td>{list[val].grade}</td>
+											<td>
+												<a href={`https://ccweb.ncnu.edu.tw/student/aspmaker_course_opened_detail_viewview.asp?zyear=${1061}&courseid=${list[val].cid}&zclass=${list[val].classes}`} target="_blank">課綱 <i className="fa fa-external-link" aria-hidden="true"></i></a>
+											</td>
+											<td>
+												<Button color="success" size="sm">加入</Button>
+											</td>
+										</tr>
+									);
+								})
+							}
+						</tbody>
+					</Table>
+				</div>
 			</div>
 		);
 	}
