@@ -3,8 +3,10 @@ import {
 	Row,
 	Col,
 } from 'reactstrap';
+import PropTypes from 'prop-types';
 
 import CourseList from './CourseList.jsx';
+import CourseTable from './CourseTable.jsx';
 
 export default class CourseTableContainer extends React.Component {
 	constructor(props) {
@@ -18,6 +20,7 @@ export default class CourseTableContainer extends React.Component {
 		this.getCourseList = this.getCourseList.bind(this);
 		this.getCourseData = this.getCourseData.bind(this);
 		this.changeDept = this.changeDept.bind(this);
+
 	}
 
 	componentDidMount() {
@@ -61,12 +64,16 @@ export default class CourseTableContainer extends React.Component {
 	render() {
 		return (
 			<div>
-				<Row>
+				{this.context.user && this.context.user.uid &&
+					<div>logged in {JSON.stringify(this.context.user)}</div>
+				}
+				<Row className="mb-2 mt-3">
 					<Col xs="12">
-						custom table here
+						<CourseTable />
+						<hr />
 					</Col>
 				</Row>
-				<Row>
+				<Row className="mb-5">
 					<Col xs="12">
 						<CourseList deptList={this.state.deptList} courseList={this.state.courseList} onChangeDept={this.changeDept} />
 					</Col>
@@ -75,3 +82,7 @@ export default class CourseTableContainer extends React.Component {
 		);
 	}
 }
+
+CourseTableContainer.contextTypes = {
+	user: PropTypes.object
+};

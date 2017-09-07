@@ -79,7 +79,7 @@ export default class CourseList extends React.Component {
 											<td>{list[val].teacher}</td>
 											<td>{list[val].grade}</td>
 											<td>
-												<a href={`https://ccweb.ncnu.edu.tw/student/aspmaker_course_opened_detail_viewview.asp?zyear=${1061}&courseid=${list[val].cid}&zclass=${list[val].classes}`} target="_blank">課綱 <i className="fa fa-external-link" aria-hidden="true"></i></a>
+												<a href={`https://ccweb.ncnu.edu.tw/student/aspmaker_course_opened_detail_viewview.asp?zyear=${list[val].year}&courseid=${list[val].cid}&zclass=${list[val].classes}`} target="_blank">課綱 <i className="fa fa-external-link" aria-hidden="true"></i></a>
 											</td>
 											<td>
 												<Button color="success" size="sm">加入</Button>
