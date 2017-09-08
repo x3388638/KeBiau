@@ -43,7 +43,7 @@ export default class CourseTableContainer extends React.Component {
 		this.getCourseData = this.getCourseData.bind(this);
 		this.changeDept = this.changeDept.bind(this);
 		this.getTableData = this.getTableData.bind(this);
-
+		this.addCourse = this.addCourse.bind(this);
 	}
 
 	componentDidMount() {
@@ -104,6 +104,73 @@ export default class CourseTableContainer extends React.Component {
 		}
 	}
 
+	addCourse(courseData) {
+		console.log(courseData);
+		// validate time
+		const time = courseData.time;
+		console.log(this.validateTime(time))
+
+		// 判斷是否衝堂
+	}
+
+	validateTime(t) {
+		if(/^[1-7]{1}[A-MZa-mz]+$/.test(t)) {
+			// 2bcd, 2abz, 2cba
+			let arr = []; // ['b', 'c', 'd']
+			for(let i = 1; i < t.length; i++) {
+				arr.push(t.charAt(i));
+			}
+
+			let last = -1;
+			let err = 0;
+			arr.some((val, i) => {
+				var current = val.charCodeAt();
+				if(last !== -1) {
+					if(current === 122) { // z
+						if(last !== 100) {
+							err++;
+							return true;
+						}
+						last = current;
+						return false; 
+					}
+
+					if(current === 101) { // e
+						if(last !== 122) {
+							err++;
+							return true;
+						}
+						last = current;
+						return false; 
+					}
+
+					if(current !== (+last +1)) {
+						err++;
+						return true;
+					}
+				}
+				last = current;
+				return false;
+			});
+
+			if(err) {
+				return {
+					valid: false, 
+					msg: '時段不連續'
+				}
+			} else {
+				return {
+					valid: true
+				}
+			}
+		} else {
+			return {
+				valid: false, 
+				msg: '時間格式錯誤'
+			}
+		}
+	}
+
 	render() {
 		return (
 			<div>
@@ -115,7 +182,12 @@ export default class CourseTableContainer extends React.Component {
 				</Row>
 				<Row className="mb-5">
 					<Col xs="12">
-						<CourseList deptList={this.state.deptList} courseList={this.state.courseList} onChangeDept={this.changeDept} />
+						<CourseList
+							deptList={this.state.deptList}
+							courseList={this.state.courseList}
+							onChangeDept={this.changeDept}
+							onAddCourse={this.addCourse}
+						/>
 					</Col>
 				</Row>
 			</div>

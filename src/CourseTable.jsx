@@ -42,7 +42,7 @@ export default class CourseTable extends React.Component {
 								this.props.tableData.sat &&
 								<th className="text-center" style={{width: 'auto'}}>星期六</th>
 							}
-							
+
 							{
 								this.props.tableData.sun &&
 								<th className="text-center" style={{width: 'auto'}}>星期日</th>
@@ -54,7 +54,7 @@ export default class CourseTable extends React.Component {
 							timeNo.map((t, i) => {
 								return (
 									<tr data-time={t} key={i}>
-										<td className="text-center">{t}</td>
+										<th className="text-center">{t}</th>
 										{
 											Object.values(this.props.tableData.course[t]).map((courseData, i) => {
 												return <CourseGrid key={i} {...courseData}/>
