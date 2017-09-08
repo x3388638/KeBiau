@@ -107,53 +107,52 @@ export default class CourseTableContainer extends React.Component {
 	addCourse(courseData) {
 		console.log(courseData);
 		// validate time
-		const time = courseData.time;
-		console.log(this.validateTime(time))
+		const time = courseData.time; // '2bc3g'
+		const sections = this.apartCourseTime(time); // ['abc', '3g']
+		sections.forEach((val) => {
+			console.log(val);
+		});
 
 		// 判斷是否衝堂
 	}
 
 	validateTime(t) {
-		if(/^[1-7]{1}[A-MZa-mz]+$/.test(t)) {
-			// 2bcd, 2abz, 2cba
-			let arr = []; // ['b', 'c', 'd']
-			for(let i = 1; i < t.length; i++) {
-				arr.push(t.charAt(i));
-			}
-
+		if (/^[1-7]{1}[A-MZa-mz]+$/.test(t)) {
 			let last = -1;
 			let err = 0;
-			arr.some((val, i) => {
-				var current = val.charCodeAt();
-				if(last !== -1) {
-					if(current === 122) { // z
-						if(last !== 100) {
+			for (let i = i; i < t.length; i ++) {
+				let current = t[i].charCodeAt();
+				if (last !== -1) {
+					if (current === 122) { // z
+						if (last !== 100) {
 							err++;
-							return true;
+							break;
 						}
+
 						last = current;
-						return false; 
+						continue;
 					}
 
-					if(current === 101) { // e
-						if(last !== 122) {
+					if (current === 101) { // e
+						if (last !== 122) {
 							err++;
-							return true;
+							break;
 						}
+
 						last = current;
-						return false; 
+						continue;
 					}
 
-					if(current !== (+last +1)) {
+					if (current !== (+last +1)) {
 						err++;
-						return true;
+						break;
 					}
 				}
-				last = current;
-				return false;
-			});
 
-			if(err) {
+				last = current;
+			}
+
+			if (err) {
 				return {
 					valid: false, 
 					msg: '時段不連續'
@@ -169,6 +168,16 @@ export default class CourseTableContainer extends React.Component {
 				msg: '時間格式錯誤'
 			}
 		}
+	}
+
+	apartCourseTime(t) {
+		let result = [];
+		if (t.replace(/[1-7]{1}[A-MZa-mz]+/g, '').length > 0) {
+			result.push(t);
+			return result;
+		}
+
+		return t.match(/[1-7]{1}[A-MZa-mz]+/g);
 	}
 
 	render() {
