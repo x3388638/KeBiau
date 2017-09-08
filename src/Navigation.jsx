@@ -91,7 +91,7 @@ export default class Navigation extends React.Component {
 								loginStatusInit && isLogin &&
 								<NavItem>
 									<NavLink href={`https://fb.com/${user.uid}`} target="_blank">
-										<img src={`http://graph.facebook.com/${user.uid}/picture`} alt="" height="20" />
+										<img src={`http://graph.facebook.com/${user.uid}/picture`} alt="" height="21" style={{borderRadius: '50px'}} />
 										<span className="ml-2">{user.displayName}</span>
 									</NavLink>
 								</NavItem>
