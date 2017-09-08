@@ -14,7 +14,29 @@ export default class CourseTableContainer extends React.Component {
 		
 		this.state = {
 			deptList: {},
-			courseList: {}
+			courseList: {},
+			customTable: {
+				course: {
+					'a/08': {0: {}, 1: {}, 2: {}, 3: {}, 4: {asf: 'saf'}},
+					'b/09': {0: {}, 1: {}, 2: {}, 3: {}, 4: {}},
+					'c/10': {0: {}, 1: {'asd':'asf'}, 2: {}, 3: {}, 4: {}},
+					'd/11': {0: {}, 1: {}, 2: {}, 3: {}, 4: {}},
+					'z/12': {0: {}, 1: {}, 2: {}, 3: {}, 4: {}},
+					'e/13': {0: {}, 1: {}, 2: {}, 3: {}, 4: {}},
+					'f/14': {0: {}, 1: {}, 2: {}, 3: {}, 4: {}},
+					'g/15': {0: {}, 1: {}, 2: {}, 3: {}, 4: {}},
+					'h/16': {0: {}, 1: {}, 2: {}, 3: {}, 4: {}},
+					'i/17': {0: {}, 1: {}, 2: {}, 3: {}, 4: {}},
+					'j/18': {0: {}, 1: {}, 2: {}, 3: {}, 4: {}},
+					'k/19': {0: {}, 1: {}, 2: {}, 3: {}, 4: {a:'s'}},
+					'l/20': {0: {}, 1: {}, 2: {}, 3: {}, 4: {}},
+					'm/21': {0: {asd:'wef'}, 1: {}, 2: {}, 3: {}, 4: {}},
+				},
+				sat: false,
+				sun: false,
+				shared: false,
+				shareLink: '',
+			}
 		};
 		this.db = window.firebase.database();
 		this.getCourseList = this.getCourseList.bind(this);
@@ -72,23 +94,22 @@ export default class CourseTableContainer extends React.Component {
 
 		if (user.uid) {
 			// logged in, get data from db
+			console.log('Getting custom table data');
 			this.db.ref(`customTable/${user.uuid}`).once('value').then((snapshot) => {
 				const tableData = snapshot.val();
+				tableData && this.setState({
+					customTable: Object.assign({}, tableData)
+				});
 			});
-		} else {
-			// no login, set default value
 		}
 	}
 
 	render() {
 		return (
 			<div>
-				{this.context.user && this.context.user.uid &&
-					<div>logged in {JSON.stringify(this.context.user)}</div>
-				}
 				<Row className="mb-2 mt-3">
 					<Col xs="12">
-						<CourseTable />
+						<CourseTable tableData={this.state.customTable} />
 						<hr />
 					</Col>
 				</Row>
