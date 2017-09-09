@@ -74,12 +74,21 @@ export default class CourseTableContainer extends React.Component {
 	}
 
 	getCourseData() {
-		console.log('Getting course data...')
-		this.db.ref('deptList/').once('value').then((snapshot) => {
-			this.setState({
-				deptList: snapshot.val() || {}
+		console.log('Getting course data...');
+		if (!window.sessionStorage.deptList) {
+			console.log('Getting deptList from db...')
+			this.db.ref('deptList/').once('value').then((snapshot) => {
+				window.sessionStorage.deptList = JSON.stringify(snapshot.val() || {});
+				this.setState({
+					deptList: snapshot.val() || {}
+				});
 			});
-		});
+		} else {
+			console.log('deptList exist in sessionStorage.')
+			this.setState({
+				deptList: Object.assign({}, JSON.parse(window.sessionStorage.deptList))
+			});
+		}
 
 		this.getCourseList();
 	}
@@ -151,7 +160,7 @@ export default class CourseTableContainer extends React.Component {
 			});
 		}
 
-		// 判斷是否衝堂
+		// TODO: 判斷是否衝堂, 刪除, 編輯, 上色
 	}
 
 	validateTime(t) {
