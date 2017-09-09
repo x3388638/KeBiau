@@ -38,6 +38,8 @@ export default class CourseTableContainer extends React.Component {
 				shareLink: '',
 			}
 		};
+		this.timeMap = {a: 'a/08', b: 'b/09', c: 'c/10', d: 'd/11', z: 'z/12', e: 'e/13', f: 'f/14',
+			g: 'g/15', h: 'h/16', i: 'i/17', j: 'j/18', k: 'k/19', l: 'l/20', m: 'm/21'};
 		this.db = window.firebase.database();
 		this.getCourseList = this.getCourseList.bind(this);
 		this.getCourseData = this.getCourseData.bind(this);
@@ -109,9 +111,37 @@ export default class CourseTableContainer extends React.Component {
 		// validate time
 		const time = courseData.time; // '2bc3g'
 		const sections = this.apartCourseTime(time); // ['abc', '3g']
-		sections.forEach((val) => {
-			console.log(val);
+		let timeValid = true;
+		sections.some((t) => {
+			const valid = this.validateTime(t)
+			if (!valid.valid) {
+				alert (valid.msg);
+				timeValid = false;
+				return true;
+			}
+
+			return false;
 		});
+
+		if (timeValid) {
+			sections.forEach((t) => {
+				const time = t;
+				const dayOfWeek = time[0];
+				const startTime = time[1];
+				const rowspan = time.length - 1;
+				const customTable = Object.assign({}, this.state.customTable);
+				customTable.course[this.timeMap[startTime]][dayOfWeek - 1] = {
+					rowspan: rowspan,
+					title: courseData.cname,
+					desc: `${courseData.location} ${courseData.teacher}`,
+					bg: ''
+				};
+
+				this.setState({
+					customTable: Object.assign({}, customTable)
+				});
+			});
+		}
 
 		// 判斷是否衝堂
 	}
