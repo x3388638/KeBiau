@@ -25,11 +25,19 @@ class CourseGrid extends React.Component {
 }
 
 export default class CourseTable extends React.Component {
+	componentDidUpdate(prevProps, prevState) {
+		const classArr = document.getElementById('customTable').className.replace('table-bordered', '').trim().split(' ');
+		document.getElementById('customTable').className = classArr.join(' ');
+		setTimeout(() => {
+			document.getElementById('customTable').className += ' table-bordered';
+		}, 1);
+	}
+
 	render() {
 		const timeNo = ['a/08', 'b/09', 'c/10', 'd/11', 'z/12', 'e/13', 'f/14', 'g/15', 'h/16', 'i/17', 'j/18', 'k/19', 'l/20', 'm/21'];
 		return (
 			<div>
-				<Table bordered responsive size="sm" style={{background: '#fff', tableLayout: 'fixed'}}>
+				<Table id="customTable" bordered responsive size="sm" style={{background: '#fff', tableLayout: 'fixed'}}>
 					<thead>
 						<tr>
 							<th style={{width: '60px'}}></th>
@@ -57,6 +65,10 @@ export default class CourseTable extends React.Component {
 										<th className="text-center">{t}</th>
 										{
 											Object.values(this.props.tableData.course[t]).map((courseData, i) => {
+												if (courseData === null) {
+													return null;
+												}
+
 												return <CourseGrid key={i} {...courseData}/>
 											})
 										}

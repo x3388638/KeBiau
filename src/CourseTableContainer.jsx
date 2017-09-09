@@ -40,6 +40,7 @@ export default class CourseTableContainer extends React.Component {
 		};
 		this.timeMap = {a: 'a/08', b: 'b/09', c: 'c/10', d: 'd/11', z: 'z/12', e: 'e/13', f: 'f/14',
 			g: 'g/15', h: 'h/16', i: 'i/17', j: 'j/18', k: 'k/19', l: 'l/20', m: 'm/21'};
+		this.timeOrder = ['a', 'b', 'c', 'd', 'z', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm'];
 		this.db = window.firebase.database();
 		this.getCourseList = this.getCourseList.bind(this);
 		this.getCourseData = this.getCourseData.bind(this);
@@ -107,7 +108,6 @@ export default class CourseTableContainer extends React.Component {
 	}
 
 	addCourse(courseData) {
-		console.log(courseData);
 		// validate time
 		const time = courseData.time; // '2bc3g'
 		const sections = this.apartCourseTime(time); // ['abc', '3g']
@@ -136,6 +136,14 @@ export default class CourseTableContainer extends React.Component {
 					desc: `${courseData.location} ${courseData.teacher}`,
 					bg: ''
 				};
+
+				let nextTimeOrder = this.timeOrder.indexOf(startTime) + 1;
+				let nextTime = this.timeMap[this.timeOrder[nextTimeOrder]];
+				for (let i = 0; i < rowspan - 1; i ++) {
+					customTable.course[nextTime][dayOfWeek - 1] = null;
+					nextTimeOrder ++;
+					nextTime = this.timeMap[this.timeOrder[nextTimeOrder]];
+				}
 
 				this.setState({
 					customTable: Object.assign({}, customTable)
