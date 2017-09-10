@@ -9,12 +9,23 @@ class CourseGrid extends React.Component {
 	constructor(props) {
 		super(props);
 		this.handleDel = this.handleDel.bind(this);
+		this.handleEdit = this.handleEdit.bind(this);
 	}
 
 	handleDel(e) {
 		const time = e.target.parentNode.parentNode.parentNode.getAttribute('data-time');
 		const rowspan = e.target.parentNode.parentNode.getAttribute('rowspan');
 		this.props.onDelCourse(time, rowspan, this.props.dayOfWeek);
+	}
+
+	handleEdit(e) {
+		this.props.onEditCourse({
+			time: e.target.parentNode.parentNode.parentNode.parentNode.getAttribute('data-time'),
+			dayOfWeek: this.props.dayOfWeek,
+			title: this.props.title,
+			desc: this.props.desc,
+			bg: this.props.bg,
+		});
 	}
 
 	render() {
@@ -28,7 +39,7 @@ class CourseGrid extends React.Component {
 				{ this.props.title &&
 					<span className="float-right mr-2">
 						<span className="CustomTable__grid__btnDel text-danger" onClick={this.handleDel}>&times;</span><br />
-						<span style={{top: '-8px', position: 'relative'}}><i className="fa fa-pencil CustomTable__grid__btnEdit" aria-hidden="true"></i></span>
+						<span style={{top: '-8px', position: 'relative'}}><i className="fa fa-pencil CustomTable__grid__btnEdit" aria-hidden="true" onClick={this.handleEdit}></i></span>
 					</span>
 				}
 
@@ -102,7 +113,15 @@ export default class CourseTable extends React.Component {
 													return null;
 												}
 
-												return <CourseGrid key={i} dayOfWeek={key} {...courseData} onDelCourse={this.props.onDelCourse}/>
+												return (
+													<CourseGrid
+														{...courseData}
+														key={i}
+														dayOfWeek={key}
+														onDelCourse={this.props.onDelCourse}
+														onEditCourse={this.props.onEditCourse}
+													/>
+												)
 											})
 										}
 									</tr>

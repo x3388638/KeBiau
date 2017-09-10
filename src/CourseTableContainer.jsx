@@ -2,6 +2,15 @@ import React from 'react';
 import {
 	Row,
 	Col,
+	Modal,
+	ModalHeader,
+	ModalBody,
+	ModalFooter,
+	Button,
+	Form,
+	FormGroup,
+	Label,
+	Input
 } from 'reactstrap';
 import PropTypes from 'prop-types';
 import cloneDeep from 'lodash.clonedeep';
@@ -37,6 +46,13 @@ export default class CourseTableContainer extends React.Component {
 				sat: false,
 				sun: false,
 				sharedHash: '',
+			},
+			modalEditCourse: {
+				open: false,
+				modalTitle: '編輯課程',
+				title: '',
+				desc: '',
+				bg: ''
 			}
 		};
 		this.timeMap = {a: 'a/08', b: 'b/09', c: 'c/10', d: 'd/11', z: 'z/12', e: 'e/13', f: 'f/14',
@@ -50,6 +66,9 @@ export default class CourseTableContainer extends React.Component {
 		this.addCourse = this.addCourse.bind(this);
 		this.handleDelSatOrSun = this.handleDelSatOrSun.bind(this);
 		this.handleDelCourse = this.handleDelCourse.bind(this);
+		this.handleOpenEditModal = this.handleOpenEditModal.bind(this);
+		this.toggleModalEditCourse = this.toggleModalEditCourse.bind(this);
+		this.handleEditCourse = this.handleEditCourse.bind(this);
 	}
 
 	componentDidMount() {
@@ -192,7 +211,7 @@ export default class CourseTableContainer extends React.Component {
 			}
 		}
 
-		// TODO: 刪除, 編輯, 上色
+		// TODO: 編輯, 上色
 	}
 
 	validateTime(t) {
@@ -288,6 +307,48 @@ export default class CourseTableContainer extends React.Component {
 		});
 	}
 
+	handleOpenEditModal(courseData) {
+		const modalEditCourse = cloneDeep(this.state.modalEditCourse);
+		modalEditCourse.open = true;
+		modalEditCourse.modalTitle = `編輯 ${courseData.title}`;
+		modalEditCourse.title = courseData.title;
+		modalEditCourse.desc = courseData.desc;
+		modalEditCourse.bg = courseData.bg;
+		modalEditCourse.time = courseData.time;
+		modalEditCourse.dayOfWeek = courseData.dayOfWeek;
+		this.setState({
+			modalEditCourse: cloneDeep(modalEditCourse)
+		});
+	}
+
+	toggleModalEditCourse() {
+		const modalEditCourse = cloneDeep(this.state.modalEditCourse);
+		modalEditCourse.open = !modalEditCourse.open;
+		this.setState({
+			modalEditCourse: cloneDeep(modalEditCourse)
+		});
+	}
+
+	handleEditCourse(time, dayOfWeek) { // 'a/08', '0'
+		if (document.getElementById('ModalEditCourse__inputTitle').value === '') {
+			alert('標題不得為空');
+			return;
+		}
+		
+		const modalEditCourse = cloneDeep(this.state.modalEditCourse);
+		modalEditCourse.open = false;
+
+		const customTable = cloneDeep(this.state.customTable);
+		customTable.course[time][dayOfWeek].title = document.getElementById('ModalEditCourse__inputTitle').value;
+		customTable.course[time][dayOfWeek].desc = document.getElementById('ModalEditCourse__inputDesc').value;
+		customTable.course[time][dayOfWeek].bg = document.getElementById('ModalEditCourse__inputBg').value;
+
+		this.setState({
+			modalEditCourse: cloneDeep(modalEditCourse),
+			customTable: cloneDeep(customTable)
+		})
+	}
+
 	render() {
 		return (
 			<div style={{background: '#fff', padding: '20px 5px', boxShadow: '0 0 10px 0 #080808'}}>
@@ -304,6 +365,7 @@ export default class CourseTableContainer extends React.Component {
 							tableData={this.state.customTable}
 							onDelSatOrSun={this.handleDelSatOrSun}
 							onDelCourse={this.handleDelCourse}
+							onEditCourse={this.handleOpenEditModal}
 						/>
 						<hr />
 					</Col>
@@ -318,6 +380,34 @@ export default class CourseTableContainer extends React.Component {
 						/>
 					</Col>
 				</Row>
+				<Modal id="ModalEditCourse" isOpen={this.state.modalEditCourse.open} toggle={this.toggleModalEditCourse}>
+					<ModalHeader id="ModalEditCourse__title" toggle={this.toggleModalEditCourse}>{this.state.modalEditCourse.modalTitle}</ModalHeader>
+					<ModalBody>
+						<Form>
+							<FormGroup row>
+								<Label for="ModalEditCourse__inputTitle" sm={2}>標題</Label>
+								<Col sm={10}>
+									<Input type="text" id="ModalEditCourse__inputTitle" defaultValue={this.state.modalEditCourse.title} placeholder="課程名稱" />
+								</Col>
+							</FormGroup>
+							<FormGroup row>
+								<Label for="ModalEditCourse__inputDesc" sm={2}>內容</Label>
+								<Col sm={10}>
+									<Input type="text" id="ModalEditCourse__inputDesc" defaultValue={this.state.modalEditCourse.desc} placeholder="時間、地點" />
+								</Col>
+							</FormGroup>
+							<FormGroup row>
+								<Label for="ModalEditCourse__inputBg" sm={2}>顏色</Label>
+								<Col sm={10}>
+									<input id="ModalEditCourse__inputBg" type="color" defaultValue={this.state.modalEditCourse.bg || '#ffffff'} style={{verticalAlign: 'sub'}}/>
+								</Col>
+							</FormGroup>
+						</Form>
+					</ModalBody>
+					<ModalFooter>
+						<Button color="primary" onClick={() => {this.handleEditCourse(this.state.modalEditCourse.time, this.state.modalEditCourse.dayOfWeek)}}>確定</Button>
+					</ModalFooter>
+				</Modal>
 			</div>
 		);
 	}
