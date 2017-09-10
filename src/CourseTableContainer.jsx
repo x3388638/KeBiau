@@ -49,6 +49,7 @@ export default class CourseTableContainer extends React.Component {
 		this.getTableData = this.getTableData.bind(this);
 		this.addCourse = this.addCourse.bind(this);
 		this.handleDelSatOrSun = this.handleDelSatOrSun.bind(this);
+		this.handleDelCourse = this.handleDelCourse.bind(this);
 	}
 
 	componentDidMount() {
@@ -271,12 +272,30 @@ export default class CourseTableContainer extends React.Component {
 		});
 	}
 
+	handleDelCourse(time, rowspan, dayOfWeek) { // 'a/08', '2', '0'
+		const customTable = cloneDeep(this.state.customTable);
+		customTable.course[time][dayOfWeek] = {};
+		let nextTimeOrder = this.timeOrder.indexOf(time[0]) + 1;
+		let nextTime = this.timeMap[this.timeOrder[nextTimeOrder]];
+		for (let i = 0; i < rowspan - 1; i ++) {
+			customTable.course[nextTime][dayOfWeek] = {};
+			nextTimeOrder ++;
+			nextTime = this.timeMap[this.timeOrder[nextTimeOrder]];
+		}
+
+		this.setState({
+			customTable: cloneDeep(customTable)
+		});
+	}
+
 	render() {
 		return (
 			<div style={{background: '#fff', padding: '20px 5px', boxShadow: '0 0 10px 0 #080808'}}>
 				<Row className="mb-2">
 					<Col xs="12">
-						<ToolBar />
+						{ this.context.user && this.context.user.uid &&
+							<ToolBar />
+						}
 					</Col>
 				</Row>
 				<Row className="mb-2">
@@ -284,6 +303,7 @@ export default class CourseTableContainer extends React.Component {
 						<CourseTable
 							tableData={this.state.customTable}
 							onDelSatOrSun={this.handleDelSatOrSun}
+							onDelCourse={this.handleDelCourse}
 						/>
 						<hr />
 					</Col>

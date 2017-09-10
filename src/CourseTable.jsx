@@ -6,6 +6,17 @@ import {
 import './CourseTable.css';
 
 class CourseGrid extends React.Component {
+	constructor(props) {
+		super(props);
+		this.handleDel = this.handleDel.bind(this);
+	}
+
+	handleDel(e) {
+		const time = e.target.parentNode.parentNode.parentNode.getAttribute('data-time');
+		const rowspan = e.target.parentNode.parentNode.getAttribute('rowspan');
+		this.props.onDelCourse(time, rowspan, this.props.dayOfWeek);
+	}
+
 	render() {
 		let gridStyle = {
 			verticalAlign: 'middle'
@@ -16,7 +27,7 @@ class CourseGrid extends React.Component {
 			<td className="CustomTable__grid" style={gridStyle} rowSpan={this.props.rowspan || 1}>
 				{ this.props.title &&
 					<span className="float-right mr-2">
-						<span className="CustomTable__grid__btnDel text-danger">&times;</span><br />
+						<span className="CustomTable__grid__btnDel text-danger" onClick={this.handleDel}>&times;</span><br />
 						<span style={{top: '-8px', position: 'relative'}}><i className="fa fa-pencil CustomTable__grid__btnEdit" aria-hidden="true"></i></span>
 					</span>
 				}
@@ -91,7 +102,7 @@ export default class CourseTable extends React.Component {
 													return null;
 												}
 
-												return <CourseGrid key={i} {...courseData}/>
+												return <CourseGrid key={i} dayOfWeek={key} {...courseData} onDelCourse={this.props.onDelCourse}/>
 											})
 										}
 									</tr>
