@@ -8,6 +8,7 @@ import cloneDeep from 'lodash.clonedeep';
 
 import CourseList from './CourseList.jsx';
 import CourseTable from './CourseTable.jsx';
+import ToolBar from './ToolBar.jsx';
 
 export default class CourseTableContainer extends React.Component {
 	constructor(props) {
@@ -35,8 +36,7 @@ export default class CourseTableContainer extends React.Component {
 				},
 				sat: false,
 				sun: false,
-				shared: false,
-				shareLink: '',
+				sharedHash: '',
 			}
 		};
 		this.timeMap = {a: 'a/08', b: 'b/09', c: 'c/10', d: 'd/11', z: 'z/12', e: 'e/13', f: 'f/14',
@@ -274,6 +274,11 @@ export default class CourseTableContainer extends React.Component {
 	render() {
 		return (
 			<div style={{background: '#fff', padding: '20px 5px', boxShadow: '0 0 10px 0 #080808'}}>
+				<Row className="mb-2">
+					<Col xs="12">
+						<ToolBar />
+					</Col>
+				</Row>
 				<Row className="mb-2">
 					<Col xs="12">
 						<CourseTable
