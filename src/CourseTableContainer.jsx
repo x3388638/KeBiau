@@ -73,6 +73,7 @@ export default class CourseTableContainer extends React.Component {
 		this.toggleModalCustomCourse = this.toggleModalCustomCourse.bind(this);
 		this.handleAddCustomCourse = this.handleAddCustomCourse.bind(this);
 		this.handleSave = this.handleSave.bind(this);
+		this.handleShare = this.handleShare.bind(this);
 	}
 
 	componentDidMount() {
@@ -385,8 +386,16 @@ export default class CourseTableContainer extends React.Component {
 	}
 
 	handleSave() {
-		this.db.ref(`customTable/${this.context.user.uuid}`).set(JSON.stringify(this.state.customTable)).then((a, b) => {
+		this.db.ref(`customTable/${this.context.user.uuid}`).set(JSON.stringify(this.state.customTable)).then(() => {
 			alert('儲存成功!');
+		});
+	}
+
+	handleShare() {
+		const uuid = this.context.user.uuid;
+		const hash = (Date.now() * Math.random() * Math.random()).toString(16).replace('.', '').substring(2, 6);
+		this.db.ref(`sharedTable/${uuid}`).set(JSON.stringify({[hash]: this.state.customTable})).then(() => {
+			prompt('已將當前課表分享於以下連結', `${process.env.REACT_APP_BASE_URL}/#/share/${uuid}${hash}`);
 		});
 	}
 
@@ -398,6 +407,7 @@ export default class CourseTableContainer extends React.Component {
 						{ this.context.user && this.context.user.uid &&
 							<ToolBar
 								onSave={this.handleSave}
+								onShare={this.handleShare}
 								onReColor={this.handleReColor}
 								onClickCustom={this.toggleModalCustomCourse}
 							/>

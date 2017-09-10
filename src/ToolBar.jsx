@@ -17,7 +17,7 @@ export default class ToolBar extends React.Component {
 				<Button color="secondary" size="sm" className="mr-1" style={btnStyle}>
 					<i className="fa fa-file-image-o" aria-hidden="true"></i> <span className="hidden-xs-down">匯出為 .png</span>
 				</Button>
-				<Button color="secondary" size="sm" className="mr-1" style={btnStyle}>
+				<Button color="secondary" size="sm" className="mr-1" style={btnStyle} onClick={this.props.onShare}>
 					<i className="fa fa-share-square-o" aria-hidden="true"></i> <span className="hidden-xs-down">分享</span>
 				</Button>
 				<span className="ml-2 mr-2"></span>	
