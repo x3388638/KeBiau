@@ -191,7 +191,7 @@ export default class CourseTableContainer extends React.Component {
 			}
 		}
 
-		// TODO: 判斷是否衝堂, 刪除, 編輯, 上色, check sat&sun
+		// TODO: 刪除, 編輯, 上色
 	}
 
 	validateTime(t) {
@@ -260,14 +260,14 @@ export default class CourseTableContainer extends React.Component {
 
 	render() {
 		return (
-			<div>
-				<Row className="mb-2 mt-3">
+			<div style={{background: '#fff', padding: '20px 5px', boxShadow: '0 0 10px 0 #080808'}}>
+				<Row className="mb-2">
 					<Col xs="12">
 						<CourseTable tableData={this.state.customTable} />
 						<hr />
 					</Col>
 				</Row>
-				<Row className="mb-5">
+				<Row>
 					<Col xs="12">
 						<CourseList
 							deptList={this.state.deptList}
