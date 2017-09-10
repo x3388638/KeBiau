@@ -48,6 +48,7 @@ export default class CourseTableContainer extends React.Component {
 		this.changeDept = this.changeDept.bind(this);
 		this.getTableData = this.getTableData.bind(this);
 		this.addCourse = this.addCourse.bind(this);
+		this.handleDelSatOrSun = this.handleDelSatOrSun.bind(this);
 	}
 
 	componentDidMount() {
@@ -177,7 +178,6 @@ export default class CourseTableContainer extends React.Component {
 				}
 
 				if (dayOfWeek === '7' && !customTable.sun) {
-					customTable.sat = true;
 					customTable.sun = true;
 				}
 
@@ -258,12 +258,28 @@ export default class CourseTableContainer extends React.Component {
 		return t.match(/[1-7]{1}[A-MZa-mz]+/g);
 	}
 
+	handleDelSatOrSun(day) {
+		const customTable = cloneDeep(this.state.customTable);
+		customTable[day] = false;
+		const dayOrder = day === 'sat' ? 5 : 6;
+		Object.keys(customTable.course).forEach((key, i) => {
+			customTable.course[key][dayOrder] = {};
+		});
+
+		this.setState({
+			customTable: cloneDeep(customTable)
+		});
+	}
+
 	render() {
 		return (
 			<div style={{background: '#fff', padding: '20px 5px', boxShadow: '0 0 10px 0 #080808'}}>
 				<Row className="mb-2">
 					<Col xs="12">
-						<CourseTable tableData={this.state.customTable} />
+						<CourseTable
+							tableData={this.state.customTable}
+							onDelSatOrSun={this.handleDelSatOrSun}
+						/>
 						<hr />
 					</Col>
 				</Row>

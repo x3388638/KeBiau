@@ -3,6 +3,8 @@ import {
 	Table
 } from 'reactstrap';
 
+import './CourseTable.css';
+
 class CourseGrid extends React.Component {
 	render() {
 		let gridStyle = {
@@ -48,12 +50,16 @@ export default class CourseTable extends React.Component {
 							<th className="text-center">星期五</th>
 							{
 								this.props.tableData.sat &&
-								<th className="text-center" style={{width: 'auto'}}>星期六</th>
+								<th className="text-center" id="SatTitle" style={{width: 'auto'}}>
+									星期六 <i className="fa fa-times-circle text-danger" id="SatTitle__btnDel" aria-hidden="true" onClick={() => {this.props.onDelSatOrSun('sat')}}></i>
+								</th>
 							}
 
 							{
 								this.props.tableData.sun &&
-								<th className="text-center" style={{width: 'auto'}}>星期日</th>
+								<th className="text-center" id="SunTitle" style={{width: 'auto'}}>
+									星期日 <i className="fa fa-times-circle text-danger" id="SunTitle__btnDel" aria-hidden="true" onClick={() => {this.props.onDelSatOrSun('sun')}}></i>
+								</th>
 							}
 						</tr>
 					</thead>

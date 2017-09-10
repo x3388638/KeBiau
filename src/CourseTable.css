@@ -1,0 +1,15 @@
+#SatTitle #SatTitle__btnDel,
+#SunTitle #SunTitle__btnDel {
+	display: none;
+}
+
+#SatTitle:hover #SatTitle__btnDel,
+#SunTitle:hover #SunTitle__btnDel {
+	display: initial;
+}
+
+#SatTitle #SatTitle__btnDel:hover,
+#SunTitle #SunTitle__btnDel:hover {
+	cursor: pointer;
+	color: #c9302c !important;
+}
