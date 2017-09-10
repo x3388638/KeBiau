@@ -1,5 +1,5 @@
-#SatTitle #SatTitle__btnDel,
-#SunTitle #SunTitle__btnDel {
+#SatTitle__btnDel,
+#SunTitle__btnDel {
 	display: none;
 }
 
@@ -8,8 +8,23 @@
 	display: initial;
 }
 
-#SatTitle #SatTitle__btnDel:hover,
-#SunTitle #SunTitle__btnDel:hover {
+#SatTitle__btnDel:hover,
+#SunTitle__btnDel:hover {
 	cursor: pointer;
 	color: #c9302c !important;
+}
+
+.CustomTable__grid__btnDel {
+	display: none;
+	cursor: pointer;
+	color: #c9302c !important;
+	font-size: 20px;
+}
+
+.CustomTable__grid:hover {
+	background: #fafafa;
+}
+
+.CustomTable__grid:hover .CustomTable__grid__btnDel {
+	display: initial;
 }
