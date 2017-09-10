@@ -28,12 +28,29 @@ class CourseGrid extends React.Component {
 		});
 	}
 
+	hexToRgb(hex) {
+		const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+		return result ? {
+			r: parseInt(result[1], 16),
+			g: parseInt(result[2], 16),
+			b: parseInt(result[3], 16)
+		} : null;
+	}
+
 	render() {
 		let gridStyle = {
 			verticalAlign: 'middle'
 		};
 
-		this.props.bg && (gridStyle.background = this.props.bg);
+		if (this.props.bg) {
+			gridStyle.background = this.props.bg;
+			const {r, g, b} = this.hexToRgb(this.props.bg);
+			const bri = Math.sqrt(r * r * 0.241 + g * g * 0.691 + b * b * 0.068);
+			if (bri < 125){
+				gridStyle.color = '#fff';
+			}
+		}
+
 		return (
 			<td className="CustomTable__grid" style={gridStyle} rowSpan={this.props.rowspan || 1}>
 				{ this.props.title &&
