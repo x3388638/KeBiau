@@ -8,7 +8,7 @@ export default class ToolBar extends React.Component {
 		const btnStyle = {cursor: 'pointer', marginBottom: '5px'};
 		return (
 			<div>
-				<Button color="primary" size="sm" className="mr-1" style={btnStyle}>
+				<Button color="primary" size="sm" className="mr-1" style={btnStyle} onClick={this.props.onSave}>
 					<i className="fa fa-floppy-o" aria-hidden="true"></i> <span className="hidden-xs-down">儲存</span>
 				</Button> 
 				<Button color="secondary" size="sm" className="mr-1" style={btnStyle}>

@@ -44,8 +44,7 @@ export default class CourseTableContainer extends React.Component {
 					'm/21': {0: {}, 1: {}, 2: {}, 3: {}, 4: {}, 5: {}, 6: {}},
 				},
 				sat: false,
-				sun: false,
-				sharedHash: '',
+				sun: false
 			},
 			modalEditCourse: {
 				open: false,
@@ -73,6 +72,7 @@ export default class CourseTableContainer extends React.Component {
 		this.handleReColor = this.handleReColor.bind(this);
 		this.toggleModalCustomCourse = this.toggleModalCustomCourse.bind(this);
 		this.handleAddCustomCourse = this.handleAddCustomCourse.bind(this);
+		this.handleSave = this.handleSave.bind(this);
 	}
 
 	componentDidMount() {
@@ -136,7 +136,7 @@ export default class CourseTableContainer extends React.Component {
 			this.db.ref(`customTable/${user.uuid}`).once('value').then((snapshot) => {
 				const tableData = snapshot.val();
 				tableData && this.setState({
-					customTable: Object.assign({}, tableData)
+					customTable: Object.assign({}, JSON.parse(tableData))
 				});
 			});
 		}
@@ -384,6 +384,12 @@ export default class CourseTableContainer extends React.Component {
 		this.toggleModalCustomCourse();
 	}
 
+	handleSave() {
+		this.db.ref(`customTable/${this.context.user.uuid}`).set(JSON.stringify(this.state.customTable)).then((a, b) => {
+			alert('儲存成功!');
+		});
+	}
+
 	render() {
 		return (
 			<div style={{background: '#fff', padding: '20px 5px', boxShadow: '0 0 10px 0 #080808'}}>
@@ -391,6 +397,7 @@ export default class CourseTableContainer extends React.Component {
 					<Col xs="12">
 						{ this.context.user && this.context.user.uid &&
 							<ToolBar
+								onSave={this.handleSave}
 								onReColor={this.handleReColor}
 								onClickCustom={this.toggleModalCustomCourse}
 							/>
