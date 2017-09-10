@@ -4,6 +4,7 @@ import {
 	Col,
 } from 'reactstrap';
 import PropTypes from 'prop-types';
+import cloneDeep from 'lodash.clonedeep';
 
 import CourseList from './CourseList.jsx';
 import CourseTable from './CourseTable.jsx';
@@ -138,7 +139,7 @@ export default class CourseTableContainer extends React.Component {
 				const dayOfWeek = time[0]; // 2
 				const startTime = time[1]; // a
 				const rowspan = time.length - 1; // 2
-				const customTable = JSON.parse(JSON.stringify({...this.state.customTable})); // prevent call by reference
+				const customTable = cloneDeep(this.state.customTable); // prevent call by reference
 				customTable.course[this.timeMap[startTime]][dayOfWeek - 1] = { // customTable.course['a/08'][1]
 					rowspan: rowspan,
 					title: courseData.cname,

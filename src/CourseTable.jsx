@@ -35,7 +35,6 @@ export default class CourseTable extends React.Component {
 
 	render() {
 		const timeNo = ['a/08', 'b/09', 'c/10', 'd/11', 'z/12', 'e/13', 'f/14', 'g/15', 'h/16', 'i/17', 'j/18', 'k/19', 'l/20', 'm/21'];
-		console.log(this.props.tableData);
 		return (
 			<div>
 				<Table id="customTable" bordered responsive size="sm" style={{background: '#fff', tableLayout: 'fixed'}}>
