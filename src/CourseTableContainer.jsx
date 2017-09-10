@@ -160,7 +160,8 @@ export default class CourseTableContainer extends React.Component {
 
 		if (timeValid) {
 			let conflict = false;
-			sections.forEach((t) => {
+			const customTable = cloneDeep(this.state.customTable); // prevent call by reference
+			sections.forEach((t, index) => {
 				if (conflict) {
 					return;
 				}
@@ -169,7 +170,6 @@ export default class CourseTableContainer extends React.Component {
 				const dayOfWeek = time[0]; // 2
 				const startTime = time[1]; // a
 				const rowspan = time.length - 1; // 2
-				const customTable = cloneDeep(this.state.customTable); // prevent call by reference
 				if (customTable.course[this.timeMap[startTime]][dayOfWeek - 1] === null
 					|| customTable.course[this.timeMap[startTime]][dayOfWeek - 1].title) {
 					conflict = true;
@@ -204,15 +204,16 @@ export default class CourseTableContainer extends React.Component {
 				if (dayOfWeek === '7' && !customTable.sun) {
 					customTable.sun = true;
 				}
-
-				this.setState({
-					customTable: cloneDeep(customTable)
-				});
 			});
 
 			if (!!conflict) {
 				alert('!!! 衝堂 !!!');
+				return;
 			}
+
+			this.setState({
+				customTable: cloneDeep(customTable)
+			});
 		}
 
 		// TODO: 編輯, 上色
