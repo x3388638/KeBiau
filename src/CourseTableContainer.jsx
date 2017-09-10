@@ -134,12 +134,23 @@ export default class CourseTableContainer extends React.Component {
 		});
 
 		if (timeValid) {
+			let conflict = false;
 			sections.forEach((t) => {
+				if (conflict) {
+					return;
+				}
+
 				const time = t; // 2ab
 				const dayOfWeek = time[0]; // 2
 				const startTime = time[1]; // a
 				const rowspan = time.length - 1; // 2
 				const customTable = cloneDeep(this.state.customTable); // prevent call by reference
+				if (customTable.course[this.timeMap[startTime]][dayOfWeek - 1] === null
+					|| customTable.course[this.timeMap[startTime]][dayOfWeek - 1].title) {
+					conflict = true;
+					return;
+				}
+
 				customTable.course[this.timeMap[startTime]][dayOfWeek - 1] = { // customTable.course['a/08'][1]
 					rowspan: rowspan,
 					title: courseData.cname,
@@ -149,12 +160,11 @@ export default class CourseTableContainer extends React.Component {
 
 				let nextTimeOrder = this.timeOrder.indexOf(startTime) + 1;
 				let nextTime = this.timeMap[this.timeOrder[nextTimeOrder]];
-				let conflict = false;
 				for (let i = 0; i < rowspan - 1; i ++) {
 					const nextTimeCourse = customTable.course[nextTime][dayOfWeek - 1];
 					if (nextTimeCourse === null || nextTimeCourse.title) {
 						conflict = true;
-						break;
+						return;
 					}
 
 					customTable.course[nextTime][dayOfWeek - 1] = null;
@@ -162,15 +172,14 @@ export default class CourseTableContainer extends React.Component {
 					nextTime = this.timeMap[this.timeOrder[nextTimeOrder]];
 				}
 
-				if (!!conflict) {
-					alert(`!!! ${time} 衝堂 !!!`);
-					return;
-				}
-
 				this.setState({
 					customTable: Object.assign({}, customTable)
 				});
 			});
+
+			if (!!conflict) {
+				alert('!!! 衝堂 !!!');
+			}
 		}
 
 		// TODO: 判斷是否衝堂, 刪除, 編輯, 上色, check sat&sun
