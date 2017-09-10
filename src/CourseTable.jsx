@@ -15,7 +15,10 @@ class CourseGrid extends React.Component {
 		return (
 			<td className="CustomTable__grid" style={gridStyle} rowSpan={this.props.rowspan || 1}>
 				{ this.props.title &&
-					<span className="float-right mr-2 CustomTable__grid__btnDel text-danger">&times;</span>
+					<span className="float-right mr-2">
+						<span className="CustomTable__grid__btnDel text-danger">&times;</span><br />
+						<span style={{top: '-8px', position: 'relative'}}><i className="fa fa-pencil CustomTable__grid__btnEdit" aria-hidden="true"></i></span>
+					</span>
 				}
 
 				{ this.props.title && 
