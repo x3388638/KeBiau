@@ -87,6 +87,13 @@ export default class Navigation extends React.Component {
 									<i className="fa fa-exchange" aria-hidden="true"></i> 換課平台
 								</Link>
 							</NavItem>
+							<NavItem>
+								<NavLink href="https://github.com/x3388638/KeBiau/issues" target="_blank">
+									<span>
+										<i className="fa fa-exclamation-circle" aria-hidden="true"></i> 回報
+									</span>
+								</NavLink>
+							</NavItem>
 						</Nav>
 						<Nav className="ml-auto" navbar>
 							{
