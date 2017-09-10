@@ -8,8 +8,26 @@ import './CourseTable.css';
 class CourseGrid extends React.Component {
 	constructor(props) {
 		super(props);
+		this.state = {
+			mouseEnter: false
+		};
+
+		this.handleMouseEnter = this.handleMouseEnter.bind(this);
+		this.handleMouseLeave = this.handleMouseLeave.bind(this);
 		this.handleDel = this.handleDel.bind(this);
 		this.handleEdit = this.handleEdit.bind(this);
+	}
+
+	handleMouseEnter() {
+		this.setState({
+			mouseEnter: true
+		});
+	}
+
+	handleMouseLeave() {
+		this.setState({
+			mouseEnter: false
+		});
 	}
 
 	handleDel(e) {
@@ -52,21 +70,17 @@ class CourseGrid extends React.Component {
 		}
 
 		return (
-			<td className="CustomTable__grid" style={gridStyle} rowSpan={this.props.rowspan || 1}>
-				{ this.props.title &&
+			<td className="CustomTable__grid" style={gridStyle} rowSpan={this.props.rowspan || 1} onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave}>
+				{ this.props.title && this.state.mouseEnter &&
 					<span className="float-right mr-2">
 						<span className="CustomTable__grid__btnDel text-danger" onClick={this.handleDel}>&times;</span><br />
 						<span style={{top: '-8px', position: 'relative'}}><i className="fa fa-pencil CustomTable__grid__btnEdit" aria-hidden="true" onClick={this.handleEdit}></i></span>
 					</span>
 				}
 
-				{ this.props.title && 
-					<div className="title">{this.props.title}</div>
-				}
-
-				{ this.props.desc && 
-					<div className="desc">{this.props.desc}</div>
-				}
+				{ this.props.title && this.props.title }
+				<br className="uniBR" />
+				{ this.props.desc && this.props.desc }
 			</td>
 		)
 	}

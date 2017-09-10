@@ -4,6 +4,15 @@ import {
 } from 'reactstrap';
 
 export default class ToolBar extends React.Component {
+	handleExportExcel(e) {
+		document.querySelectorAll('.uniBR').forEach((val) => {
+			val.setAttribute('style', 'mso-data-placement:same-cell');
+		});
+		const html= '<html><head><meta charset="utf-8"></head><body>' + document.getElementById('CustomTable').parentNode.innerHTML + '</body></html>';
+		window.open('data:application/vnd.ms-excel,' + encodeURIComponent(html));
+		e.preventDefault();
+	}
+
 	render() {
 		const btnStyle = {cursor: 'pointer', marginBottom: '5px'};
 		return (
@@ -11,7 +20,7 @@ export default class ToolBar extends React.Component {
 				<Button color="primary" size="sm" className="mr-1" style={btnStyle} onClick={this.props.onSave}>
 					<i className="fa fa-floppy-o" aria-hidden="true"></i> <span className="hidden-xs-down">儲存</span>
 				</Button> 
-				<Button color="secondary" size="sm" className="mr-1" style={btnStyle}>
+				<Button color="secondary" size="sm" className="mr-1" style={btnStyle} onClick={this.handleExportExcel}>
 					<i className="fa fa-file-excel-o" aria-hidden="true"></i> <span className="hidden-xs-down">匯出為 .xls</span>
 				</Button> 
 				<Button color="secondary" size="sm" className="mr-1" style={btnStyle}>
