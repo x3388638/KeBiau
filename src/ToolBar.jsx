@@ -22,9 +22,9 @@ export default class ToolBar extends React.Component {
 				</Button>
 				<span className="ml-2 mr-2"></span>	
 				<Button color="secondary" size="sm" className="mr-1" style={btnStyle} onClick={this.props.onReColor}>
-					<i className="fa fa-repeat" aria-hidden="true"></i> <span className="hidden-xs-down">清除顏色</span>
+					<i className="fa fa-repeat" aria-hidden="true"></i> <span className="hidden-xs-down">清除標記</span>
 				</Button>
-				<Button color="secondary" size="sm" className="mr-1" style={btnStyle}>
+				<Button color="secondary" size="sm" className="mr-1" style={btnStyle} onClick={this.props.onClickCustom}>
 					<i className="fa fa-plus" aria-hidden="true"></i> <span className="hidden-xs-down">自訂時段</span>
 				</Button>
 			</div>

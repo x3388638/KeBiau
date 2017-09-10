@@ -53,7 +53,8 @@ export default class CourseTableContainer extends React.Component {
 				title: '',
 				desc: '',
 				bg: ''
-			}
+			},
+			modalCustomCourseOpen: false
 		};
 		this.timeMap = {a: 'a/08', b: 'b/09', c: 'c/10', d: 'd/11', z: 'z/12', e: 'e/13', f: 'f/14',
 			g: 'g/15', h: 'h/16', i: 'i/17', j: 'j/18', k: 'k/19', l: 'l/20', m: 'm/21'};
@@ -70,6 +71,8 @@ export default class CourseTableContainer extends React.Component {
 		this.toggleModalEditCourse = this.toggleModalEditCourse.bind(this);
 		this.handleEditCourse = this.handleEditCourse.bind(this);
 		this.handleReColor = this.handleReColor.bind(this);
+		this.toggleModalCustomCourse = this.toggleModalCustomCourse.bind(this);
+		this.handleAddCustomCourse = this.handleAddCustomCourse.bind(this);
 	}
 
 	componentDidMount() {
@@ -175,9 +178,9 @@ export default class CourseTableContainer extends React.Component {
 
 				customTable.course[this.timeMap[startTime]][dayOfWeek - 1] = { // customTable.course['a/08'][1]
 					rowspan: rowspan,
-					title: courseData.cname,
-					desc: `${courseData.location} ${courseData.teacher}`,
-					bg: ''
+					title: courseData.cname || courseData.title,
+					desc: courseData.desc || `${courseData.location} ${courseData.teacher}`,
+					bg: courseData.bg || ''
 				};
 
 				let nextTimeOrder = this.timeOrder.indexOf(startTime) + 1;
@@ -363,6 +366,23 @@ export default class CourseTableContainer extends React.Component {
 		});
 	}
 
+	toggleModalCustomCourse() {
+		this.setState({
+			modalCustomCourseOpen: !this.state.modalCustomCourseOpen
+		});
+	}
+
+	handleAddCustomCourse() {
+		this.addCourse({
+			time: document.getElementById('ModalCustomCourse__inputTime').value,
+			title: document.getElementById('ModalCustomCourse__inputTitle').value,
+			desc: document.getElementById('ModalCustomCourse__inputDesc').value,
+			bg: document.getElementById('ModalCustomCourse__inputBg').value
+		});
+
+		this.toggleModalCustomCourse();
+	}
+
 	render() {
 		return (
 			<div style={{background: '#fff', padding: '20px 5px', boxShadow: '0 0 10px 0 #080808'}}>
@@ -371,6 +391,7 @@ export default class CourseTableContainer extends React.Component {
 						{ this.context.user && this.context.user.uid &&
 							<ToolBar
 								onReColor={this.handleReColor}
+								onClickCustom={this.toggleModalCustomCourse}
 							/>
 						}
 					</Col>
@@ -409,19 +430,53 @@ export default class CourseTableContainer extends React.Component {
 							<FormGroup row>
 								<Label for="ModalEditCourse__inputDesc" sm={2}>內容</Label>
 								<Col sm={10}>
-									<Input type="text" id="ModalEditCourse__inputDesc" defaultValue={this.state.modalEditCourse.desc} placeholder="時間、地點" />
+									<Input type="text" id="ModalEditCourse__inputDesc" defaultValue={this.state.modalEditCourse.desc} placeholder="教師、地點" />
 								</Col>
 							</FormGroup>
 							<FormGroup row>
-								<Label for="ModalEditCourse__inputBg" sm={2}>顏色</Label>
+								<Label for="ModalEditCourse__inputBg" sm={2}>標記</Label>
 								<Col sm={10}>
-									<input id="ModalEditCourse__inputBg" type="color" defaultValue={this.state.modalEditCourse.bg || '#ffffff'} style={{verticalAlign: 'sub'}}/>
+									<input id="ModalEditCourse__inputBg" type="color" defaultValue={this.state.modalEditCourse.bg || '#ffffff'} style={{verticalAlign: 'sub', width: '100%'}}/>
 								</Col>
 							</FormGroup>
 						</Form>
 					</ModalBody>
 					<ModalFooter>
 						<Button color="primary" onClick={() => {this.handleEditCourse(this.state.modalEditCourse.time, this.state.modalEditCourse.dayOfWeek)}}>確定</Button>
+					</ModalFooter>
+				</Modal>
+				<Modal id="ModalCustomCourse" isOpen={this.state.modalCustomCourseOpen} toggle={this.toggleModalCustomCourse}>
+					<ModalHeader toggle={this.toggleModalCustomCourse}>自訂時段</ModalHeader>
+					<ModalBody>
+						<Form>
+							<FormGroup row>
+								<Label for="ModalCustomCourse__inputTime" sm={2}>時間</Label>
+								<Col sm={10}>
+									<Input type="text" id="ModalCustomCourse__inputTime" placeholder="2bcd4jk" />
+								</Col>
+							</FormGroup>
+							<FormGroup row>
+								<Label for="ModalCustomCourse__inputTitle" sm={2}>標題</Label>
+								<Col sm={10}>
+									<Input type="text" id="ModalCustomCourse__inputTitle" placeholder="meeting" />
+								</Col>
+							</FormGroup>
+							<FormGroup row>
+								<Label for="ModalCustomCourse__inputDesc" sm={2}>內容</Label>
+								<Col sm={10}>
+									<Input type="text" id="ModalCustomCourse__inputDesc" placeholder="R438 with YCC" />
+								</Col>
+							</FormGroup>
+							<FormGroup row>
+								<Label for="ModalCustomCourse__inputBg" sm={2}>標記</Label>
+								<Col sm={10}>
+									<input id="ModalCustomCourse__inputBg" type="color" defaultValue="#ffffff" style={{verticalAlign: 'sub', width: '100%'}}/>
+								</Col>
+							</FormGroup>
+						</Form>
+					</ModalBody>
+					<ModalFooter>
+						<Button color="primary" onClick={this.handleAddCustomCourse}>確定</Button>
 					</ModalFooter>
 				</Modal>
 			</div>
