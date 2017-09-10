@@ -64,8 +64,17 @@ export default class CourseTable extends React.Component {
 									<tr data-time={t} key={i}>
 										<th className="text-center">{t}</th>
 										{
-											Object.values(this.props.tableData.course[t]).map((courseData, i) => {
+											Object.keys(this.props.tableData.course[t]).map((key, i) => {
+												const courseData = this.props.tableData.course[t][key];
 												if (courseData === null) {
+													return null;
+												}
+
+												if (!this.props.tableData.sat && key === '5') {
+													return null;
+												}
+
+												if (!this.props.tableData.sun && key === '6') {
 													return null;
 												}
 
