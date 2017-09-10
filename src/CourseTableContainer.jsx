@@ -69,6 +69,7 @@ export default class CourseTableContainer extends React.Component {
 		this.handleOpenEditModal = this.handleOpenEditModal.bind(this);
 		this.toggleModalEditCourse = this.toggleModalEditCourse.bind(this);
 		this.handleEditCourse = this.handleEditCourse.bind(this);
+		this.handleReColor = this.handleReColor.bind(this);
 	}
 
 	componentDidMount() {
@@ -334,7 +335,7 @@ export default class CourseTableContainer extends React.Component {
 			alert('標題不得為空');
 			return;
 		}
-		
+
 		const modalEditCourse = cloneDeep(this.state.modalEditCourse);
 		modalEditCourse.open = false;
 
@@ -349,13 +350,28 @@ export default class CourseTableContainer extends React.Component {
 		})
 	}
 
+	handleReColor() {
+		const customTable = cloneDeep(this.state.customTable);
+		Object.keys(customTable.course).forEach((time) => {
+			Object.keys(customTable.course[time]).forEach((dayOrder) => {
+				customTable.course[time][dayOrder] && (customTable.course[time][dayOrder].bg = '');
+			});
+		});
+
+		this.setState({
+			customTable: cloneDeep(customTable)
+		});
+	}
+
 	render() {
 		return (
 			<div style={{background: '#fff', padding: '20px 5px', boxShadow: '0 0 10px 0 #080808'}}>
 				<Row className="mb-2">
 					<Col xs="12">
 						{ this.context.user && this.context.user.uid &&
-							<ToolBar />
+							<ToolBar
+								onReColor={this.handleReColor}
+							/>
 						}
 					</Col>
 				</Row>

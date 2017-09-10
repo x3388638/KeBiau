@@ -21,7 +21,7 @@ export default class ToolBar extends React.Component {
 					<i className="fa fa-share-square-o" aria-hidden="true"></i> <span className="hidden-xs-down">分享</span>
 				</Button>
 				<span className="ml-2 mr-2"></span>	
-				<Button color="secondary" size="sm" className="mr-1" style={btnStyle}>
+				<Button color="secondary" size="sm" className="mr-1" style={btnStyle} onClick={this.props.onReColor}>
 					<i className="fa fa-repeat" aria-hidden="true"></i> <span className="hidden-xs-down">清除顏色</span>
 				</Button>
 				<Button color="secondary" size="sm" className="mr-1" style={btnStyle}>
