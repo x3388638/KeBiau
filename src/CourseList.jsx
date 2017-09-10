@@ -1,7 +1,8 @@
 import React from 'react';
 import {
 	Table,
-	Button
+	Button,
+	Badge
 } from 'reactstrap';
 
 class DeptSelector extends React.Component {
@@ -40,6 +41,9 @@ class DeptSelector extends React.Component {
 						})
 					}
 				</select>
+				<a className="float-right mr-2 text-warning" href="http://ccweb.ncnu.edu.tw/student/DeptQuerylist.asp#tbl_DeptQuerylist" target="_blank">
+					<i className="fa fa-sitemap" aria-hidden="true"></i> 各系所課程地圖
+				</a>
 			</div>
 		)
 	}
