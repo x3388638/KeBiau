@@ -50,17 +50,19 @@ export default class Share extends React.Component {
 	render() {
 		return (
 			<App>
-				<Row className="mt-3">
-					<Col xs="12">
-						{ typeof this.state.customTable === 'string' &&
-							<Alert className="text-center" color="warning">{this.state.customTable}</Alert>
-						}
+				<div style={{background: '#fff', padding: '20px 5px', boxShadow: '0 0 10px 0 #080808', marginTop: '55px', marginBottom: '55px'}}>
+					<Row>
+						<Col xs="12">
+							{ typeof this.state.customTable === 'string' &&
+								<Alert className="text-center" color="warning">{this.state.customTable}</Alert>
+							}
 
-						{ typeof this.state.customTable !== 'string' &&
-							<CourseTable tableData={this.state.customTable} shared />
-						}
-					</Col>
-				</Row>
+							{ typeof this.state.customTable !== 'string' &&
+								<CourseTable tableData={this.state.customTable} shared />
+							}
+						</Col>
+					</Row>
+				</div>
 			</App>
 		)
 	}
