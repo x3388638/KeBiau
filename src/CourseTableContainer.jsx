@@ -375,10 +375,17 @@ export default class CourseTableContainer extends React.Component {
 	}
 
 	handleAddCustomCourse() {
+		const time = document.getElementById('ModalCustomCourse__inputTime').value;
+		const title = document.getElementById('ModalCustomCourse__inputTitle').value;
+		if (!time || !title) {
+			alert('時間、標題不得為空');
+			return;
+		}
+
 		this.addCourse({
-			time: document.getElementById('ModalCustomCourse__inputTime').value,
-			title: document.getElementById('ModalCustomCourse__inputTitle').value,
-			desc: document.getElementById('ModalCustomCourse__inputDesc').value,
+			time,
+			title,
+			desc: document.getElementById('ModalCustomCourse__inputDesc').value || ' ',
 			bg: document.getElementById('ModalCustomCourse__inputBg').value
 		});
 
