@@ -1,6 +1,7 @@
 import React from 'react';
 
 import App from './App.jsx';
+import ExchangeListContainer from './ExchangeListContainer.jsx';
 
 export default class Exchange extends React.Component {
 	constructor(props) {
@@ -10,7 +11,7 @@ export default class Exchange extends React.Component {
 	render() {
 		return (
 			<App {...this.props}>
-				this is &lt;Exchange /&gt;
+				<ExchangeListContainer />
 			</App>
 		);
 	}
