@@ -31,12 +31,14 @@ class CourseGrid extends React.Component {
 	}
 
 	handleDel(e) {
+		if (this.props.shared) return;
 		const time = e.target.parentNode.parentNode.parentNode.getAttribute('data-time');
 		const rowspan = e.target.parentNode.parentNode.getAttribute('rowspan');
 		this.props.onDelCourse(time, rowspan, this.props.dayOfWeek);
 	}
 
 	handleEdit(e) {
+		if (this.props.shared) return;
 		this.props.onEditCourse({
 			time: e.target.parentNode.parentNode.parentNode.parentNode.getAttribute('data-time'),
 			dayOfWeek: this.props.dayOfWeek,
@@ -111,14 +113,14 @@ export default class CourseTable extends React.Component {
 							{
 								this.props.tableData.sat &&
 								<th className="text-center" id="SatTitle" style={{width: 'auto'}}>
-									星期六 <i className="fa fa-times-circle text-danger" id="SatTitle__btnDel" aria-hidden="true" onClick={() => {this.props.onDelSatOrSun('sat')}}></i>
+									星期六 <i className="fa fa-times-circle text-danger" id="SatTitle__btnDel" aria-hidden="true" onClick={() => {!this.props.shared && this.props.onDelSatOrSun('sat')}}></i>
 								</th>
 							}
 
 							{
 								this.props.tableData.sun &&
 								<th className="text-center" id="SunTitle" style={{width: 'auto'}}>
-									星期日 <i className="fa fa-times-circle text-danger" id="SunTitle__btnDel" aria-hidden="true" onClick={() => {this.props.onDelSatOrSun('sun')}}></i>
+									星期日 <i className="fa fa-times-circle text-danger" id="SunTitle__btnDel" aria-hidden="true" onClick={() => {!this.props.shared &&this.props.onDelSatOrSun('sun')}}></i>
 								</th>
 							}
 						</tr>
@@ -149,6 +151,7 @@ export default class CourseTable extends React.Component {
 														{...courseData}
 														key={i}
 														dayOfWeek={key}
+														shared={this.props.shared}
 														onDelCourse={this.props.onDelCourse}
 														onEditCourse={this.props.onEditCourse}
 													/>

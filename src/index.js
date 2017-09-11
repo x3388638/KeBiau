@@ -10,6 +10,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Home from './Home.jsx';
 import Exchange from './Exchange.jsx';
+import Share from './Share.jsx';
 
 import registerServiceWorker from './registerServiceWorker';
 
@@ -29,6 +30,7 @@ ReactDOM.render(
 		<Switch>
 			<Route exact path="/" component={Home} />
 			<Route path="/exchange" component={Exchange} />
+			<Route exact path="/share/:hash" component={Share} />
 			<Redirect from="*" to="/" />
 		</Switch>
 	</Router>,
