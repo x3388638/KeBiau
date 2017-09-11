@@ -72,7 +72,7 @@ export default class Navigation extends React.Component {
 			<div>
 				<Navbar color="inverse" light inverse toggleable>
 					<NavbarToggler right onClick={this.toggleNavbar} />
-					<NavbarBrand href="/">
+					<NavbarBrand href={process.env.REACT_APP_BASE_URL}>
 						<img src={`${process.env.REACT_APP_BASE_URL}/logo.png`} alt="" height="31px"/> 自己的課表自己排 2.0
 					</NavbarBrand>
 					<Collapse isOpen={this.state.navbarIsOpen} navbar>
