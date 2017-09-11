@@ -13,6 +13,19 @@ export default class ToolBar extends React.Component {
 		e.preventDefault();
 	}
 
+	handleExportPNG() {
+		window.html2canvas(document.querySelectorAll('#CustomTable'), {
+			onrendered: function (canvas) {
+				//
+			}
+		});
+		window.html2canvas(document.querySelectorAll('#CustomTable'), {
+			onrendered: function (canvas) {
+				window.Canvas2Image.saveAsPNG(canvas);
+			}
+		});
+	}
+
 	render() {
 		const btnStyle = {cursor: 'pointer', marginBottom: '5px'};
 		return (
@@ -23,7 +36,7 @@ export default class ToolBar extends React.Component {
 				<Button color="secondary" size="sm" className="mr-1" style={btnStyle} onClick={this.handleExportExcel}>
 					<i className="fa fa-file-excel-o" aria-hidden="true"></i> <span className="hidden-xs-down">匯出為 .xls</span>
 				</Button> 
-				<Button color="secondary" size="sm" className="mr-1" style={btnStyle}>
+				<Button color="secondary" size="sm" className="mr-1" style={btnStyle} onClick={this.handleExportPNG}>
 					<i className="fa fa-file-image-o" aria-hidden="true"></i> <span className="hidden-xs-down">匯出為 .png</span>
 				</Button>
 				<Button color="secondary" size="sm" className="mr-1" style={btnStyle} onClick={this.props.onShare}>
