@@ -73,7 +73,7 @@ class CourseGrid extends React.Component {
 
 		return (
 			<td className="CustomTable__grid" style={gridStyle} rowSpan={this.props.rowspan || 1} onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave}>
-				{ this.props.title && this.state.mouseEnter &&
+				{ !this.props.shared && this.props.title && this.state.mouseEnter &&
 					<span className="float-right mr-2">
 						<span className="CustomTable__grid__btnDel text-danger" onClick={this.handleDel}>&times;</span><br />
 						<span style={{top: '-8px', position: 'relative'}}><i className="fa fa-pencil CustomTable__grid__btnEdit" aria-hidden="true" onClick={this.handleEdit}></i></span>
