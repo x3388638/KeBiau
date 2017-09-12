@@ -79,18 +79,18 @@ export default class Navigation extends React.Component {
 						<Nav navbar>
 							<NavItem>
 								<Link className={route.match.path === '/' ? 'active nav-link' : ' nav-link'} to="/">
-									<i className="fa fa-table" aria-hidden="true"></i> 我的課表
+									<i className="fa fa-table" aria-hidden="true"></i> <span className="hidden-sm-down">我的課表</span>
 								</Link>
 							</NavItem>
 							<NavItem>
 								<Link className={route.match.path === '/exchange' ? 'active nav-link' : ' nav-link'} to="/exchange">
-									<i className="fa fa-exchange" aria-hidden="true"></i> 換課平台
+									<i className="fa fa-exchange" aria-hidden="true"></i> <span className="hidden-sm-down">換課平台</span>
 								</Link>
 							</NavItem>
 							<NavItem>
 								<NavLink href="https://github.com/x3388638/KeBiau/issues" target="_blank">
 									<span>
-										<i className="fa fa-exclamation-circle" aria-hidden="true"></i> 回報
+										<i className="fa fa-exclamation-circle" aria-hidden="true"></i> <span className="hidden-sm-down">回報</span>
 									</span>
 								</NavLink>
 							</NavItem>
