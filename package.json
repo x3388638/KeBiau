@@ -6,6 +6,7 @@
   "dependencies": {
     "bootstrap": "4.0.0-alpha.6",
     "lodash.clonedeep": "^4.5.0",
+    "moment": "^2.18.1",
     "prop-types": "^15.5.10",
     "react": "^15.6.1",
     "react-addons-css-transition-group": "^15.6.0",

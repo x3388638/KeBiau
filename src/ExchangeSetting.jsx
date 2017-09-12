@@ -9,7 +9,8 @@ import {
 	Input,
 	Button
 } from 'reactstrap';
-import TagsInput from 'react-tagsinput'
+import TagsInput from 'react-tagsinput';
+import PropTypes from 'prop-types';
 
 import 'react-tagsinput/react-tagsinput.css';
 import './ExchangeSetting.css';
@@ -31,16 +32,24 @@ export default class ExchangeSetting extends React.Component {
 		this.handleChangeDesc = this.handleChangeDesc.bind(this);
 		this.handleChangeFilter = this.handleChangeFilter.bind(this);
 		this.handleToggleSetting = this.handleToggleSetting.bind(this);
+		this.handleSave = this.handleSave.bind(this);
 	}
 
-	componentDidMount() {
-		const exchangeSetting = this.props.exchangeSetting ? JSON.parse(this.props.exchangeSetting) : null;
+	componentWillReceiveProps(nextProps) {
+		const exchangeSetting = nextProps.exchangeList[this.context.user.uuid] ? JSON.parse(nextProps.exchangeList[this.context.user.uuid]) : null;
 		if (exchangeSetting) {
 			this.setState({
 				wantTags: exchangeSetting.want,
 				haveTags: exchangeSetting.have,
 				desc: exchangeSetting.desc,
 				published: true
+			})
+		} else {
+			this.setState({
+				wantTags: [],
+				haveTags: [],
+				desc: '',
+				published: false
 			})
 		}
 	}
@@ -73,6 +82,12 @@ export default class ExchangeSetting extends React.Component {
 		this.setState({
 			settingOpen: !this.state.settingOpen
 		});
+	}
+
+	handleSave() {
+		if (!!this.state.haveTags.length || !!this.state.wantTags.length) {
+			this.props.onSave(this.state.haveTags, this.state.wantTags, this.state.desc);
+		}
 	}
 
 	render() {
@@ -113,10 +128,10 @@ export default class ExchangeSetting extends React.Component {
 								<Row className="mt-2">
 									<Col xs="12">
 										{ this.state.published &&
-											<Button className="float-right" size="sm" color="danger">取消發佈</Button>
+											<Button className="float-right" size="sm" color="danger" onClick={() => {this.props.onUnpublish();}}>取消發佈</Button>
 										}
-										
-										<Button className="float-right mr-2" size="sm" color="primary">儲存並發佈</Button>
+
+										<Button className="float-right mr-2" size="sm" color="primary" onClick={this.handleSave}>儲存並發佈</Button>
 									</Col>
 								</Row>
 							</CardBlock>
@@ -148,3 +163,7 @@ export default class ExchangeSetting extends React.Component {
 		);
 	}
 }
+
+ExchangeSetting.contextTypes = {
+	user: PropTypes.object
+};

@@ -6,6 +6,7 @@ import {
 	Alert
 } from 'reactstrap';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 
 import ExchangeSetting from './ExchangeSetting.jsx'
 
@@ -17,6 +18,8 @@ export default class ExchangeListContainer extends React.Component {
 		};
 
 		this.db = window.firebase.database();
+		this.handleSaveExchangeSetting = this.handleSaveExchangeSetting.bind(this);
+		this.handleUnpublish = this.handleUnpublish.bind(this);
 	}
 
 	componentDidMount() {
@@ -25,12 +28,30 @@ export default class ExchangeListContainer extends React.Component {
 
 	getExchangeList() {
 		this.db.ref('exchangeList/').once('value').then((snapshot) => {
-			const data = snapshot.val();
-			if (data) {
-				this.setState({
-					exchangeList: data
-				});
-			}
+			const data = snapshot.val() || {};
+			this.setState({
+				exchangeList: data
+			});
+		});
+	}
+
+	handleSaveExchangeSetting(have, want, desc) {
+		const name = this.context.user.displayName;
+		const fbid = this.context.user.uid;
+		const uuid = this.context.user.uuid;
+		const time = moment().format();
+		this.db.ref(`exchangeList/${uuid}`).set(JSON.stringify({
+			fbid, name, want, have, desc, time
+		}))
+		.then(() => {
+			alert('已發佈');
+			this.getExchangeList();
+		});
+	}
+
+	handleUnpublish() {
+		this.db.ref(`exchangeList/${this.context.user.uuid}`).remove().then(() => {
+			this.getExchangeList();
 		});
 	}
 
@@ -54,7 +75,9 @@ export default class ExchangeListContainer extends React.Component {
 				{ this.context.user && this.context.user.uid &&
 					<div>
 						<ExchangeSetting
-							exchangeSetting={this.state.exchangeList[this.context.user.uuid]} // JSON string || undefined
+							exchangeList={this.state.exchangeList}
+							onSave={this.handleSaveExchangeSetting}
+							onUnpublish={this.handleUnpublish}
 						/>
 						<Container style={containerStyle}>
 							<Row>
