@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 
 import ExchangeSetting from './ExchangeSetting.jsx'
+import ExchangeList from './ExchangeList.jsx'
 
 export default class ExchangeListContainer extends React.Component {
 	constructor(props) {
@@ -78,6 +79,8 @@ export default class ExchangeListContainer extends React.Component {
 			background: '#fff'
 		};
 
+		const exchangeList = this.state.exchangeList;
+
 		return (
 			<div>
 				{ this.context.user && !this.context.user.uid &&
@@ -101,7 +104,7 @@ export default class ExchangeListContainer extends React.Component {
 						<Container style={containerStyle}>
 							<Row>
 								<Col xs="12">
-									123
+									<ExchangeList settingOpen={this.state.settingOpen} exchangeList={exchangeList}/>
 								</Col>
 							</Row>
 						</Container>
