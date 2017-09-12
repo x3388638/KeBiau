@@ -80,12 +80,18 @@ export default class ExchangeSetting extends React.Component {
 	handleSave() {
 		if (!!this.state.haveTags.length || !!this.state.wantTags.length) {
 			this.props.onSave(this.state.haveTags, this.state.wantTags, this.state.desc);
+		} else {
+			alert('請確保 Tag 有變成綠綠的 (於輸入框按下 Enter)');
 		}
 	}
 
 	handleFilter(clear) {
 		const keywords = this.state.filterTags;
 		if (clear || !keywords.length) {
+			if (!clear && !keywords.length) {
+				alert('請確保 Tag 有變成綠綠的 (於輸入框按下 Enter)');
+			}
+
 			this.setState({
 				filterTags: []
 			});
@@ -144,7 +150,7 @@ export default class ExchangeSetting extends React.Component {
 							</CardBlock>
 						</Card>
 						<hr />
-						<h5>過濾課程名稱</h5>
+						<h5>過濾換課資訊</h5>
 						<Row>
 							<Col xs="9">
 								<TagsInput className="form-control" id="Filter__input" value={this.state.filterTags} onChange={this.handleChangeFilter} />
