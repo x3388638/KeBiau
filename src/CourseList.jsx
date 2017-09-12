@@ -54,7 +54,7 @@ export default class CourseList extends React.Component {
 		return (
 			<div>
 				<DeptSelector { ...this.props } />
-				<div style={{overflow: 'auto', maxHeight: '487px', background: '#fff'}}>
+				<div style={{overflow: 'auto', maxHeight: '487px', background: '#fff', width: '100%'}}>
 					<Table hover responsive striped>
 						<thead>
 							<tr>
