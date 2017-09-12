@@ -23,7 +23,6 @@ export default class ExchangeSetting extends React.Component {
 			haveTags: [],
 			desc: '',
 			filterTags: [],
-			settingOpen: true,
 			published: false
 		};
 
@@ -31,7 +30,6 @@ export default class ExchangeSetting extends React.Component {
 		this.handleChangeHave = this.handleChangeHave.bind(this);
 		this.handleChangeDesc = this.handleChangeDesc.bind(this);
 		this.handleChangeFilter = this.handleChangeFilter.bind(this);
-		this.handleToggleSetting = this.handleToggleSetting.bind(this);
 		this.handleSave = this.handleSave.bind(this);
 	}
 
@@ -78,12 +76,6 @@ export default class ExchangeSetting extends React.Component {
 		});
 	}
 
-	handleToggleSetting() {
-		this.setState({
-			settingOpen: !this.state.settingOpen
-		});
-	}
-
 	handleSave() {
 		if (!!this.state.haveTags.length || !!this.state.wantTags.length) {
 			this.props.onSave(this.state.haveTags, this.state.wantTags, this.state.desc);
@@ -102,7 +94,7 @@ export default class ExchangeSetting extends React.Component {
 			transition: 'all .5s'
 		};
 
-		!this.state.settingOpen && (containerStyle.top = '-210px');
+		!this.props.settingOpen && (containerStyle.top = '-210px');
 
 		return (
 			<Container className="pt-3" style={containerStyle}>
@@ -152,7 +144,7 @@ export default class ExchangeSetting extends React.Component {
 						</Row>
 						<Row className="mt-2">
 							<Col className="text-center" xs="12">
-								<div id="btn-toggleSetting" onClick={this.handleToggleSetting}>
+								<div id="btn-toggleSetting" onClick={this.props.onToggleSetting}>
 									<i className="fa fa-bars" aria-hidden="true"></i>
 								</div>
 							</Col>

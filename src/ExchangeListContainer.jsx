@@ -14,12 +14,14 @@ export default class ExchangeListContainer extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			exchangeList: {}
+			exchangeList: {},
+			settingOpen: true
 		};
 
 		this.db = window.firebase.database();
 		this.handleSaveExchangeSetting = this.handleSaveExchangeSetting.bind(this);
 		this.handleUnpublish = this.handleUnpublish.bind(this);
+		this.handleToggleSetting = this.handleToggleSetting.bind(this);
 	}
 
 	componentDidMount() {
@@ -55,6 +57,12 @@ export default class ExchangeListContainer extends React.Component {
 		});
 	}
 
+	handleToggleSetting() {
+		this.setState({
+			settingOpen: !this.state.settingOpen
+		});
+	}
+
 	render() {
 		const containerStyle = {
 			height: 'calc(100vh - 56px)',
@@ -76,8 +84,10 @@ export default class ExchangeListContainer extends React.Component {
 					<div>
 						<ExchangeSetting
 							exchangeList={this.state.exchangeList}
+							settingOpen={this.state.settingOpen}
 							onSave={this.handleSaveExchangeSetting}
 							onUnpublish={this.handleUnpublish}
+							onToggleSetting={this.handleToggleSetting}
 						/>
 						<Container style={containerStyle}>
 							<Row>
