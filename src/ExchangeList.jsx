@@ -15,13 +15,13 @@ export default class ExchangeList extends React.Component {
 		}
 
 		return (
-			<Container style={containerStyle}>
+			<Container className="mb-5" style={containerStyle}>
 				<Row>
 					<Col xs="12">
 						<Card>
 							<div style={{padding: "5px 5px 5px 30px"}}>
 								<Row>
-									<Col className="mt-1" sm="5" xs="12">
+									<Col className="mt-1" lg="5" sm="12" xs="12">
 										<div>
 											<table>
 											<tbody>
@@ -47,13 +47,13 @@ export default class ExchangeList extends React.Component {
 											補充說明補
 										</div>
 									</Col>
-									<Col sm="4" xs="12">
+									<Col lg="4" sm="12" xs="12">
 										<h6 className="pl-3" style={{borderBottom: '1px solid #787878'}}>想要的課</h6>
 										<div style={{fontSize: '14px'}}><Badge color="default" pill>1</Badge> 5efgh 船艇</div>
 										<div style={{fontSize: '14px'}}><Badge color="default" pill>2</Badge> 5efgh 船艇</div>
 										<div style={{fontSize: '14px'}}><Badge color="default" pill>3</Badge> 5efgh 船艇</div>
 									</Col>
-									<Col sm="3" xs="12">
+									<Col lg="3" sm="12" xs="12">
 										<h6 className="pl-3" style={{borderBottom: '1px solid #787878'}}>不需要的課</h6>
 										<div style={{fontSize: '14px'}}><Badge color="default" pill>1</Badge> 5efgh 船艇</div>
 										<div style={{fontSize: '14px'}}><Badge color="default" pill>2</Badge> 5efgh 船艇</div>

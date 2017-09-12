@@ -7,6 +7,7 @@ import {
 } from 'reactstrap';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import cloenDeep from 'lodash.clonedeep';
 
 import ExchangeSetting from './ExchangeSetting.jsx'
 import ExchangeList from './ExchangeList.jsx'
@@ -25,6 +26,7 @@ export default class ExchangeListContainer extends React.Component {
 		this.handleUnpublish = this.handleUnpublish.bind(this);
 		this.handleToggleSetting = this.handleToggleSetting.bind(this);
 		this.handleFilter = this.handleFilter.bind(this);
+		this.parseList = this.parseList.bind(this);
 	}
 
 	componentDidMount() {
@@ -72,6 +74,51 @@ export default class ExchangeListContainer extends React.Component {
 		});
 	}
 
+	parseList() {
+		const exchangeList = cloenDeep(this.state.exchangeList);
+		const filterArr = this.state.filter ? cloenDeep(this.state.filter) : null;
+
+		let result = Object.values(exchangeList).map((val) => {
+			return JSON.parse(val);
+		});
+
+		result = this.shuffle(result);
+		if (filterArr) {
+			result = result.filter((val) => {
+				let valid = false;
+				let testString = val.have.join('') + val.want.join('');
+				filterArr.forEach((keyword) => {
+					if (testString.includes(keyword)) {
+						valid = true;
+					}
+				});
+
+				return valid;
+			});
+		}
+
+		return result;
+	}
+
+	shuffle(array) {
+		var currentIndex = array.length, temporaryValue, randomIndex;
+
+		// While there remain elements to shuffle...
+		while (0 !== currentIndex) {
+
+			// Pick a remaining element...
+			randomIndex = Math.floor(Math.random() * currentIndex);
+			currentIndex -= 1;
+
+			// And swap it with the current element.
+			temporaryValue = array[currentIndex];
+			array[currentIndex] = array[randomIndex];
+			array[randomIndex] = temporaryValue;
+		}
+
+		return array;
+	}
+
 	render() {
 		const containerStyle = {
 			height: 'calc(100vh - 56px)',
@@ -79,7 +126,7 @@ export default class ExchangeListContainer extends React.Component {
 			background: '#fff'
 		};
 
-		const exchangeList = this.state.exchangeList;
+		const exchangeList = this.parseList();
 
 		return (
 			<div>
