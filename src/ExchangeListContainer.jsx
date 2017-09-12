@@ -15,13 +15,15 @@ export default class ExchangeListContainer extends React.Component {
 		super(props);
 		this.state = {
 			exchangeList: {},
-			settingOpen: true
+			settingOpen: true,
+			filter: null
 		};
 
 		this.db = window.firebase.database();
 		this.handleSaveExchangeSetting = this.handleSaveExchangeSetting.bind(this);
 		this.handleUnpublish = this.handleUnpublish.bind(this);
 		this.handleToggleSetting = this.handleToggleSetting.bind(this);
+		this.handleFilter = this.handleFilter.bind(this);
 	}
 
 	componentDidMount() {
@@ -63,6 +65,12 @@ export default class ExchangeListContainer extends React.Component {
 		});
 	}
 
+	handleFilter(keywords) {
+		this.setState({
+			filter: keywords
+		});
+	}
+
 	render() {
 		const containerStyle = {
 			height: 'calc(100vh - 56px)',
@@ -88,6 +96,7 @@ export default class ExchangeListContainer extends React.Component {
 							onSave={this.handleSaveExchangeSetting}
 							onUnpublish={this.handleUnpublish}
 							onToggleSetting={this.handleToggleSetting}
+							onFilter={this.handleFilter}
 						/>
 						<Container style={containerStyle}>
 							<Row>

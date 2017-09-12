@@ -31,6 +31,7 @@ export default class ExchangeSetting extends React.Component {
 		this.handleChangeDesc = this.handleChangeDesc.bind(this);
 		this.handleChangeFilter = this.handleChangeFilter.bind(this);
 		this.handleSave = this.handleSave.bind(this);
+		this.handleFilter = this.handleFilter.bind(this);
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -80,6 +81,20 @@ export default class ExchangeSetting extends React.Component {
 		if (!!this.state.haveTags.length || !!this.state.wantTags.length) {
 			this.props.onSave(this.state.haveTags, this.state.wantTags, this.state.desc);
 		}
+	}
+
+	handleFilter(clear) {
+		const keywords = this.state.filterTags;
+		if (clear || !keywords.length) {
+			this.setState({
+				filterTags: []
+			});
+
+			this.props.onFilter(null);
+			return;
+		}
+
+		this.props.onFilter(keywords);
 	}
 
 	render() {
@@ -135,10 +150,10 @@ export default class ExchangeSetting extends React.Component {
 								<TagsInput className="form-control" id="Filter__input" value={this.state.filterTags} onChange={this.handleChangeFilter} />
 							</Col>
 							<Col className="text-center" xs="3">
-								<Button size="sm" outline color="primary" style={{verticalAlign: 'sub'}}>
+								<Button size="sm" outline color="primary" style={{verticalAlign: 'sub'}} onClick={() => this.handleFilter(false)}>
 									<i className="fa fa-filter" aria-hidden="true"></i> <span className="hidden-sm-down">過濾</span>
 								</Button>{' '}
-								<Button size="sm" outline color="secondary" style={{verticalAlign: 'sub'}}>
+								<Button size="sm" outline color="secondary" style={{verticalAlign: 'sub'}} onClick={() => this.handleFilter(true)}>
 								<i className="fa fa-refresh" aria-hidden="true"></i> <span className="hidden-sm-down">清除</span></Button>
 							</Col>
 						</Row>
