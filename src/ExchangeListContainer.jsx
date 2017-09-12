@@ -12,6 +12,26 @@ import ExchangeSetting from './ExchangeSetting.jsx'
 export default class ExchangeListContainer extends React.Component {
 	constructor(props) {
 		super(props);
+		this.state = {
+			exchangeList: {}
+		};
+
+		this.db = window.firebase.database();
+	}
+
+	componentDidMount() {
+		this.getExchangeList();
+	}
+
+	getExchangeList() {
+		this.db.ref('exchangeList/').once('value').then((snapshot) => {
+			const data = snapshot.val();
+			if (data) {
+				this.setState({
+					exchangeList: data
+				});
+			}
+		});
 	}
 
 	render() {
@@ -33,7 +53,9 @@ export default class ExchangeListContainer extends React.Component {
 
 				{ this.context.user && this.context.user.uid &&
 					<div>
-						<ExchangeSetting />
+						<ExchangeSetting
+							exchangeSetting={this.state.exchangeList[this.context.user.uuid]} // JSON string || undefined
+						/>
 						<Container style={containerStyle}>
 							<Row>
 								<Col xs="12">

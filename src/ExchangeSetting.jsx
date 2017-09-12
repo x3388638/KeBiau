@@ -20,14 +20,29 @@ export default class ExchangeSetting extends React.Component {
 		this.state = {
 			wantTags: [],
 			haveTags: [],
+			desc: '',
 			filterTags: [],
-			settingOpen: true
+			settingOpen: true,
+			published: false
 		};
 
 		this.handleChangeWant = this.handleChangeWant.bind(this);
 		this.handleChangeHave = this.handleChangeHave.bind(this);
+		this.handleChangeDesc = this.handleChangeDesc.bind(this);
 		this.handleChangeFilter = this.handleChangeFilter.bind(this);
 		this.handleToggleSetting = this.handleToggleSetting.bind(this);
+	}
+
+	componentDidMount() {
+		const exchangeSetting = this.props.exchangeSetting ? JSON.parse(this.props.exchangeSetting) : null;
+		if (exchangeSetting) {
+			this.setState({
+				wantTags: exchangeSetting.want,
+				haveTags: exchangeSetting.have,
+				desc: exchangeSetting.desc,
+				published: true
+			})
+		}
 	}
 
 	handleChangeWant(wantTags) {
@@ -39,6 +54,12 @@ export default class ExchangeSetting extends React.Component {
 	handleChangeHave(haveTags) {
 		this.setState({
 			haveTags
+		});
+	}
+
+	handleChangeDesc(e) {
+		this.setState({
+			desc: e.target.value
 		});
 	}
 
@@ -86,12 +107,15 @@ export default class ExchangeSetting extends React.Component {
 									</Col>
 									<Col className="d-inline-block" xs="4">
 										<Label for="ExchangeSetting__inputDesc">補充說明</Label>
-										<Input type="textarea" id="ExchangeSetting__inputDesc" rows="1" />
+										<Input type="textarea" id="ExchangeSetting__inputDesc" rows="1" value={this.state.desc} onChange={this.handleChangeDesc} />
 									</Col>
 								</Row>
 								<Row className="mt-2">
 									<Col xs="12">
-										<Button className="float-right" size="sm" color="danger">取消發佈</Button>
+										{ this.state.published &&
+											<Button className="float-right" size="sm" color="danger">取消發佈</Button>
+										}
+										
 										<Button className="float-right mr-2" size="sm" color="primary">儲存並發佈</Button>
 									</Col>
 								</Row>
