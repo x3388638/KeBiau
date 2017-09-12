@@ -57,7 +57,7 @@ export default class ExchangeSetting extends React.Component {
 		};
 
 		return (
-			<Container className="pt-3 pb-2" style={containerStyle}>
+			<Container className="pt-3" style={containerStyle}>
 				<Row>
 					<Col xs="12">
 						<h5>設定個人換課資訊</h5>
@@ -97,6 +97,13 @@ export default class ExchangeSetting extends React.Component {
 								</Button>{' '}
 								<Button size="sm" outline color="secondary" style={{verticalAlign: 'sub'}}>
 								<i className="fa fa-refresh" aria-hidden="true"></i> <span className="hidden-sm-down">清除</span></Button>
+							</Col>
+						</Row>
+						<Row className="mt-2">
+							<Col className="text-center" xs="12">
+								<div id="btn-toggleSetting">
+									<i className="fa fa-bars" aria-hidden="true"></i>
+								</div>
 							</Col>
 						</Row>
 					</Col>
