@@ -70,7 +70,7 @@ export default class Navigation extends React.Component {
 		const isLogin = loginStatusInit && !!user.uid;
 		return (
 			<div>
-				<Navbar color="inverse" light inverse toggleable>
+				<Navbar color="inverse" light inverse toggleable style={{zIndex: 5}}>
 					<NavbarToggler right onClick={this.toggleNavbar} />
 					<NavbarBrand href={process.env.REACT_APP_BASE_URL}>
 						<img src={`${process.env.REACT_APP_BASE_URL}/logo.png`} alt="" height="31px"/> 自己的課表自己排 2.0

@@ -20,12 +20,14 @@ export default class ExchangeSetting extends React.Component {
 		this.state = {
 			wantTags: [],
 			haveTags: [],
-			filterTags: []
+			filterTags: [],
+			settingOpen: true
 		};
 
 		this.handleChangeWant = this.handleChangeWant.bind(this);
 		this.handleChangeHave = this.handleChangeHave.bind(this);
 		this.handleChangeFilter = this.handleChangeFilter.bind(this);
+		this.handleToggleSetting = this.handleToggleSetting.bind(this);
 	}
 
 	handleChangeWant(wantTags) {
@@ -46,6 +48,12 @@ export default class ExchangeSetting extends React.Component {
 		});
 	}
 
+	handleToggleSetting() {
+		this.setState({
+			settingOpen: !this.state.settingOpen
+		});
+	}
+
 	render() {
 		const containerStyle = {
 			background: '#fff',
@@ -53,8 +61,12 @@ export default class ExchangeSetting extends React.Component {
 			position: 'absolute',
 			width: '100%',
 			zIndex: 1,
-			left: 0
+			left: 0,
+			top: 0,
+			transition: 'all .5s'
 		};
+
+		!this.state.settingOpen && (containerStyle.top = '-210px');
 
 		return (
 			<Container className="pt-3" style={containerStyle}>
@@ -101,7 +113,7 @@ export default class ExchangeSetting extends React.Component {
 						</Row>
 						<Row className="mt-2">
 							<Col className="text-center" xs="12">
-								<div id="btn-toggleSetting">
+								<div id="btn-toggleSetting" onClick={this.handleToggleSetting}>
 									<i className="fa fa-bars" aria-hidden="true"></i>
 								</div>
 							</Col>
