@@ -51,7 +51,6 @@ export default class ExchangeListContainer extends React.Component {
 			fbid, name, want, have, desc, time
 		}))
 		.then(() => {
-			alert('已發佈');
 			this.getExchangeList();
 		});
 	}
