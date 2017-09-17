@@ -11,7 +11,7 @@ import moment from 'moment';
 export default class ExchangeList extends React.Component {
 	render() {
 		const containerStyle = {
-			marginTop: this.props.settingOpen ? '400px' : '190px',
+			marginTop: '190px',
 			transition: 'all .5s'
 		}
 

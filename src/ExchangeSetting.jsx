@@ -23,7 +23,8 @@ export default class ExchangeSetting extends React.Component {
 			haveTags: [],
 			desc: '',
 			filterTags: [],
-			published: false
+			published: false,
+			settingOpen: true
 		};
 
 		this.handleChangeWant = this.handleChangeWant.bind(this);
@@ -32,6 +33,7 @@ export default class ExchangeSetting extends React.Component {
 		this.handleChangeFilter = this.handleChangeFilter.bind(this);
 		this.handleSave = this.handleSave.bind(this);
 		this.handleFilter = this.handleFilter.bind(this);
+		this.handleToggleSetting = this.handleToggleSetting.bind(this);
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -102,6 +104,11 @@ export default class ExchangeSetting extends React.Component {
 
 		this.props.onFilter(keywords);
 	}
+	handleToggleSetting() {
+		this.setState({
+			settingOpen: !this.state.settingOpen
+		});
+	}
 
 	render() {
 		const containerStyle = {
@@ -115,40 +122,42 @@ export default class ExchangeSetting extends React.Component {
 			transition: 'all .5s'
 		};
 
-		!this.props.settingOpen && (containerStyle.top = '-210px');
+		!this.state.settingOpen && (containerStyle.top = `-${document.getElementById('ExchangeSetting').offsetHeight + 32}px`);
 
 		return (
 			<Container className="pt-3" style={containerStyle}>
 				<Row>
 					<Col xs="12">
-						<h5>設定個人換課資訊</h5>
-						<Card>
-							<CardBlock>
-								<Row id="ExchangeSetting">
-									<Col className="d-inline-block" xs="4">
-										<Label for="ExchangeSetting__inputWant">想要的課</Label>
-										<TagsInput className="form-control" id="ExchangeSetting__inputWant" value={this.state.wantTags} onChange={this.handleChangeWant} />
-									</Col>
-									<Col className="d-inline-block" xs="4">
-										<Label for="ExchangeSetting__inputHave">不需要的課</Label>
-										<TagsInput className="form-control" id="ExchangeSetting__inputHave" value={this.state.haveTags} onChange={this.handleChangeHave} />
-									</Col>
-									<Col className="d-inline-block" xs="4">
-										<Label for="ExchangeSetting__inputDesc">補充說明</Label>
-										<Input type="textarea" id="ExchangeSetting__inputDesc" rows="1" value={this.state.desc} onChange={this.handleChangeDesc} />
-									</Col>
-								</Row>
-								<Row className="mt-2">
-									<Col xs="12">
-										{ this.state.published &&
-											<Button className="float-right" size="sm" color="danger" onClick={() => {this.props.onUnpublish();}}>取消發佈</Button>
-										}
+						<div id="ExchangeSetting">
+							<h5>設定個人換課資訊</h5>
+							<Card>
+								<CardBlock>
+									<Row>
+										<Col className="d-inline-block" xs="4">
+											<Label for="ExchangeSetting__inputWant">想要的課</Label>
+											<TagsInput className="form-control" id="ExchangeSetting__inputWant" value={this.state.wantTags} onChange={this.handleChangeWant} />
+										</Col>
+										<Col className="d-inline-block" xs="4">
+											<Label for="ExchangeSetting__inputHave">不需要的課</Label>
+											<TagsInput className="form-control" id="ExchangeSetting__inputHave" value={this.state.haveTags} onChange={this.handleChangeHave} />
+										</Col>
+										<Col className="d-inline-block" xs="4">
+											<Label for="ExchangeSetting__inputDesc">補充說明</Label>
+											<Input type="textarea" id="ExchangeSetting__inputDesc" rows="1" value={this.state.desc} onChange={this.handleChangeDesc} />
+										</Col>
+									</Row>
+									<Row className="mt-2">
+										<Col xs="12">
+											{ this.state.published &&
+												<Button className="float-right" size="sm" color="danger" onClick={() => {this.props.onUnpublish();}}>取消發佈</Button>
+											}
 
-										<Button className="float-right mr-2" size="sm" color="primary" onClick={this.handleSave}>儲存並發佈</Button>
-									</Col>
-								</Row>
-							</CardBlock>
-						</Card>
+											<Button className="float-right mr-2" size="sm" color="primary" onClick={this.handleSave}>儲存並發佈</Button>
+										</Col>
+									</Row>
+								</CardBlock>
+							</Card>
+						</div>
 						<hr />
 						<h5>過濾換課資訊</h5>
 						<Row>
@@ -165,7 +174,7 @@ export default class ExchangeSetting extends React.Component {
 						</Row>
 						<Row className="mt-2">
 							<Col className="text-center" xs="12">
-								<div id="btn-toggleSetting" onClick={this.props.onToggleSetting}>
+								<div id="btn-toggleSetting" onClick={this.handleToggleSetting}>
 									<i className="fa fa-bars" aria-hidden="true"></i>
 								</div>
 							</Col>
