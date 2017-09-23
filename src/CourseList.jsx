@@ -85,7 +85,7 @@ export default class CourseList extends React.Component {
 												<a href={`https://ccweb.ncnu.edu.tw/student/aspmaker_course_opened_detail_viewview.asp?zyear=${list[val].year}&courseid=${list[val].cid}&zclass=${list[val].classes}`} target="_blank">課綱 <i className="fa fa-external-link" aria-hidden="true"></i></a>
 											</td>
 											<td>
-												<Button color="success" size="sm" disabled={list[val].isConflict ? true : false} onClick={() => {this.props.onAddCourse(list[val])}}>{list[val].isConflict ? '衝堂' : '加入'}</Button>
+												<Button color="success" size="sm" disabled={list[val].isConflict ? true : false} onClick={() => {this.props.onAddCourse(list[val], true)}}>{list[val].isConflict ? '衝堂' : '加入'}</Button>
 											</td>
 										</tr>
 									);

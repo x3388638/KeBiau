@@ -63,7 +63,7 @@ export default class CourseTableContainer extends React.Component {
 		this.getCourseData = this.getCourseData.bind(this);
 		this.changeDept = this.changeDept.bind(this);
 		this.getTableData = this.getTableData.bind(this);
-		this.addCourse = this.addCourse.bind(this);
+		this.checkConflict = this.checkConflict.bind(this);
 		this.handleDelSatOrSun = this.handleDelSatOrSun.bind(this);
 		this.handleDelCourse = this.handleDelCourse.bind(this);
 		this.handleOpenEditModal = this.handleOpenEditModal.bind(this);
@@ -74,7 +74,6 @@ export default class CourseTableContainer extends React.Component {
 		this.handleAddCustomCourse = this.handleAddCustomCourse.bind(this);
 		this.handleSave = this.handleSave.bind(this);
 		this.handleShare = this.handleShare.bind(this);
-		this.isConflict = this.isConflict.bind(this);
 	}
 
 	componentDidMount() {
@@ -144,7 +143,8 @@ export default class CourseTableContainer extends React.Component {
 		}
 	}
 
-	addCourse(courseData) {
+	checkConflict(courseData, shouldAddCourse) {
+		// if !shouldAddCourse => only check course conflict
 		// validate time
 		const time = courseData.time.toLowerCase(); // '2bc3g'
 		const sections = this.apartCourseTime(time); // ['abc', '3g']
@@ -152,7 +152,7 @@ export default class CourseTableContainer extends React.Component {
 		sections.some((t) => {
 			const valid = this.validateTime(t)
 			if (!valid.valid) {
-				alert (valid.msg);
+				shouldAddCourse && alert(valid.msg);
 				timeValid = false;
 				return true;
 			}
@@ -178,12 +178,14 @@ export default class CourseTableContainer extends React.Component {
 					return;
 				}
 
-				customTable.course[this.timeMap[startTime]][dayOfWeek - 1] = { // customTable.course['a/08'][1]
-					rowspan: rowspan,
-					title: courseData.cname || courseData.title,
-					desc: courseData.desc || `${courseData.location} ${courseData.teacher}`,
-					bg: courseData.bg || ''
-				};
+				if (shouldAddCourse) {
+					customTable.course[this.timeMap[startTime]][dayOfWeek - 1] = { // customTable.course['a/08'][1]
+						rowspan: rowspan,
+						title: courseData.cname || courseData.title,
+						desc: courseData.desc || `${courseData.location} ${courseData.teacher}`,
+						bg: courseData.bg || ''
+					};
+				}
 
 				let nextTimeOrder = this.timeOrder.indexOf(startTime) + 1;
 				let nextTime = this.timeMap[this.timeOrder[nextTimeOrder]];
@@ -194,10 +196,12 @@ export default class CourseTableContainer extends React.Component {
 						return;
 					}
 
-					customTable.course[nextTime][dayOfWeek - 1] = null;
+					shouldAddCourse && (customTable.course[nextTime][dayOfWeek - 1] = null);
 					nextTimeOrder ++;
 					nextTime = this.timeMap[this.timeOrder[nextTimeOrder]];
 				}
+				
+				if (!shouldAddCourse) return;
 
 				if (dayOfWeek === '6' && !customTable.sat) {
 					customTable.sat = true;
@@ -208,15 +212,19 @@ export default class CourseTableContainer extends React.Component {
 				}
 			});
 
-			if (!!conflict) {
+			if (!!conflict && shouldAddCourse) {
 				alert('!!! 衝堂 !!!');
 				return;
 			}
 
-			this.setState({
+			shouldAddCourse && this.setState({
 				customTable: cloneDeep(customTable)
 			});
+
+			return conflict;
 		}
+
+		return false;
 	}
 
 	validateTime(t) {
@@ -281,58 +289,6 @@ export default class CourseTableContainer extends React.Component {
 		}
 
 		return t.match(/[1-7]{1}[A-MZa-mz]+/g);
-	}
-
-	isConflict(time) {
-		// validate time
-		const sections = this.apartCourseTime(time); // ['abc', '3g']
-		let timeValid = true;
-		sections.some((t) => {
-			const valid = this.validateTime(t)
-			if (!valid.valid) {
-				timeValid = false;
-				return true;
-			}
-
-			return false;
-		});
-
-		if (timeValid) {
-			let conflict = false;
-			const customTable = cloneDeep(this.state.customTable); // prevent call by reference
-			sections.forEach((t, index) => {
-				if (conflict) {
-					return;
-				}
-
-				const time = t; // 2ab
-				const dayOfWeek = time[0]; // 2
-				const startTime = time[1]; // a
-				const rowspan = time.length - 1; // 2
-				if (customTable.course[this.timeMap[startTime]][dayOfWeek - 1] === null
-					|| customTable.course[this.timeMap[startTime]][dayOfWeek - 1].title) {
-					conflict = true;
-					return;
-				}
-
-				let nextTimeOrder = this.timeOrder.indexOf(startTime) + 1;
-				let nextTime = this.timeMap[this.timeOrder[nextTimeOrder]];
-				for (let i = 0; i < rowspan - 1; i ++) {
-					const nextTimeCourse = customTable.course[nextTime][dayOfWeek - 1];
-					if (nextTimeCourse === null || nextTimeCourse.title) {
-						conflict = true;
-						return;
-					}
-
-					nextTimeOrder ++;
-					nextTime = this.timeMap[this.timeOrder[nextTimeOrder]];
-				}
-			});
-			
-			return conflict;
-		}
-
-		return false;
 	}
 
 	handleDelSatOrSun(day) {
@@ -433,12 +389,12 @@ export default class CourseTableContainer extends React.Component {
 			return;
 		}
 
-		this.addCourse({
+		this.checkConflict({
 			time,
 			title,
 			desc: document.getElementById('ModalCustomCourse__inputDesc').value || ' ',
 			bg: document.getElementById('ModalCustomCourse__inputBg').value
-		});
+		}, true);
 
 		this.toggleModalCustomCourse();
 	}
@@ -460,7 +416,7 @@ export default class CourseTableContainer extends React.Component {
 	render() {
 		let courseList = cloneDeep(this.state.courseList);
 		Object.keys(courseList).forEach((courseKey, index) => {
-			courseList[courseKey].isConflict = this.isConflict(courseList[courseKey].time);
+			courseList[courseKey].isConflict = this.checkConflict(courseList[courseKey], false);
 		});
 
 		return (
@@ -494,7 +450,7 @@ export default class CourseTableContainer extends React.Component {
 							deptList={this.state.deptList}
 							courseList={courseList}
 							onChangeDept={this.changeDept}
-							onAddCourse={this.addCourse}
+							onAddCourse={this.checkConflict}
 						/>
 					</Col>
 				</Row>
