@@ -74,6 +74,7 @@ export default class CourseTableContainer extends React.Component {
 		this.handleAddCustomCourse = this.handleAddCustomCourse.bind(this);
 		this.handleSave = this.handleSave.bind(this);
 		this.handleShare = this.handleShare.bind(this);
+		this.isConflict = this.isConflict.bind(this);
 	}
 
 	componentDidMount() {
@@ -216,8 +217,6 @@ export default class CourseTableContainer extends React.Component {
 				customTable: cloneDeep(customTable)
 			});
 		}
-
-		// TODO: 編輯, 上色
 	}
 
 	validateTime(t) {
@@ -282,6 +281,58 @@ export default class CourseTableContainer extends React.Component {
 		}
 
 		return t.match(/[1-7]{1}[A-MZa-mz]+/g);
+	}
+
+	isConflict(time) {
+		// validate time
+		const sections = this.apartCourseTime(time); // ['abc', '3g']
+		let timeValid = true;
+		sections.some((t) => {
+			const valid = this.validateTime(t)
+			if (!valid.valid) {
+				timeValid = false;
+				return true;
+			}
+
+			return false;
+		});
+
+		if (timeValid) {
+			let conflict = false;
+			const customTable = cloneDeep(this.state.customTable); // prevent call by reference
+			sections.forEach((t, index) => {
+				if (conflict) {
+					return;
+				}
+
+				const time = t; // 2ab
+				const dayOfWeek = time[0]; // 2
+				const startTime = time[1]; // a
+				const rowspan = time.length - 1; // 2
+				if (customTable.course[this.timeMap[startTime]][dayOfWeek - 1] === null
+					|| customTable.course[this.timeMap[startTime]][dayOfWeek - 1].title) {
+					conflict = true;
+					return;
+				}
+
+				let nextTimeOrder = this.timeOrder.indexOf(startTime) + 1;
+				let nextTime = this.timeMap[this.timeOrder[nextTimeOrder]];
+				for (let i = 0; i < rowspan - 1; i ++) {
+					const nextTimeCourse = customTable.course[nextTime][dayOfWeek - 1];
+					if (nextTimeCourse === null || nextTimeCourse.title) {
+						conflict = true;
+						return;
+					}
+
+					nextTimeOrder ++;
+					nextTime = this.timeMap[this.timeOrder[nextTimeOrder]];
+				}
+			});
+			
+			return conflict;
+		}
+
+		return false;
 	}
 
 	handleDelSatOrSun(day) {
@@ -407,6 +458,11 @@ export default class CourseTableContainer extends React.Component {
 	}
 
 	render() {
+		let courseList = cloneDeep(this.state.courseList);
+		Object.keys(courseList).forEach((courseKey, index) => {
+			courseList[courseKey].isConflict = this.isConflict(courseList[courseKey].time);
+		});
+
 		return (
 			<div style={{background: '#fff', padding: '20px 5px', boxShadow: '0 0 10px 0 #080808'}}>
 				<Row className="mb-2">
@@ -436,7 +492,7 @@ export default class CourseTableContainer extends React.Component {
 					<Col xs="12">
 						<CourseList
 							deptList={this.state.deptList}
-							courseList={this.state.courseList}
+							courseList={courseList}
 							onChangeDept={this.changeDept}
 							onAddCourse={this.addCourse}
 						/>
