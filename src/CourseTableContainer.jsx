@@ -145,7 +145,7 @@ export default class CourseTableContainer extends React.Component {
 
 	addCourse(courseData) {
 		// validate time
-		const time = courseData.time; // '2bc3g'
+		const time = courseData.time.toLowerCase(); // '2bc3g'
 		const sections = this.apartCourseTime(time); // ['abc', '3g']
 		let timeValid = true;
 		sections.some((t) => {
