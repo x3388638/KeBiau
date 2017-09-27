@@ -53,7 +53,8 @@ export default class CourseTableContainer extends React.Component {
 				desc: '',
 				bg: ''
 			},
-			modalCustomCourseOpen: false
+			modalCustomCourseOpen: false,
+			filterConflict: false
 		};
 		this.timeMap = {a: 'a/08', b: 'b/09', c: 'c/10', d: 'd/11', z: 'z/12', e: 'e/13', f: 'f/14',
 			g: 'g/15', h: 'h/16', i: 'i/17', j: 'j/18', k: 'k/19', l: 'l/20', m: 'm/21'};
@@ -74,6 +75,7 @@ export default class CourseTableContainer extends React.Component {
 		this.handleAddCustomCourse = this.handleAddCustomCourse.bind(this);
 		this.handleSave = this.handleSave.bind(this);
 		this.handleShare = this.handleShare.bind(this);
+		this.filterConflict = this.filterConflict.bind(this);
 	}
 
 	componentDidMount() {
@@ -283,6 +285,10 @@ export default class CourseTableContainer extends React.Component {
 
 	apartCourseTime(t) {
 		let result = [];
+		if (t === '') {
+			return ['zzzzz'];
+		}
+
 		if (t.replace(/[1-7]{1}[A-MZa-mz]+/g, '').length > 0) {
 			result.push(t);
 			return result;
@@ -413,6 +419,12 @@ export default class CourseTableContainer extends React.Component {
 		});
 	}
 
+	filterConflict() {
+		this.setState({
+			filterConflict: !this.state.filterConflict
+		});
+	}
+
 	render() {
 		let courseList = cloneDeep(this.state.courseList);
 		Object.keys(courseList).forEach((courseKey, index) => {
@@ -451,6 +463,8 @@ export default class CourseTableContainer extends React.Component {
 							courseList={courseList}
 							onChangeDept={this.changeDept}
 							onAddCourse={this.checkConflict}
+							filterConflict={this.state.filterConflict}
+							onFilterConflict={this.filterConflict}
 						/>
 					</Col>
 				</Row>

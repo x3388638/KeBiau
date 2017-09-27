@@ -39,7 +39,15 @@ class DeptSelector extends React.Component {
 							return (<option key={ i } value={ val }>{ val }</option>);
 						})
 					}
-				</select>
+				</select> {' '}
+				<Button
+					className={this.props.filterConflict ? 'active' : ''}
+					color={this.props.filterConflict ? 'danger' : 'secondary'}
+					size="sm"
+					onClick={this.props.onFilterConflict}
+				>
+					{ this.props.filterConflict ? '取消過濾' : '過濾衝堂' }
+				</Button>
 				<a className="float-right mr-2 text-warning" href="http://ccweb.ncnu.edu.tw/student/DeptQuerylist.asp#tbl_DeptQuerylist" target="_blank" rel="noopener noreferrer">
 					<i className="fa fa-sitemap" aria-hidden="true"></i> 各系所課程地圖
 				</a>
@@ -72,6 +80,10 @@ export default class CourseList extends React.Component {
 						<tbody>
 							{
 								Object.keys(list).map((val) => {
+									if (this.props.filterConflict && list[val].isConflict) {
+										return null;
+									}
+
 									return (
 										<tr key={val} data-uuid={val}>
 											<td>{list[val].cid}</td>
