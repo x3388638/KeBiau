@@ -11,6 +11,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from './Home.jsx';
 import Exchange from './Exchange.jsx';
 import Share from './Share.jsx';
+import CourseReview from './CourseReview.jsx';
 
 import registerServiceWorker from './registerServiceWorker';
 
@@ -31,6 +32,7 @@ ReactDOM.render(
 			<Route exact path="/" component={Home} />
 			<Route path="/exchange" component={Exchange} />
 			<Route exact path="/share/:hash" component={Share} />
+			<Route path="/review" component={CourseReview} />
 			<Redirect from="*" to="/" />
 		</Switch>
 	</Router>,
