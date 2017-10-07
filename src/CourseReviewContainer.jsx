@@ -1,10 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
+	Container,
 	Row,
 	Col,
 	Alert
 } from 'reactstrap';
+
+import CourseReviewFilter from './CourseReviewFilter.jsx';
 
 export default class CourseReviewContainer extends React.Component {
 	render() {
@@ -18,9 +21,19 @@ export default class CourseReviewContainer extends React.Component {
 					</Row>
 				}
 				{ this.context.user && this.context.user.uid &&
-					<div>
-						loggggg
-					</div>
+					<Container style={{background: '#fff'}}>
+						<Row>
+							<Col xs="12">
+								<CourseReviewFilter />
+							</Col>
+						</Row>
+						<hr />
+						<Row>
+							<Col xs="12">
+								review list
+							</Col>
+						</Row>
+					</Container>
 				}
 			</div>
 		);
