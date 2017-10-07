@@ -135,11 +135,11 @@ export default class ExchangeSetting extends React.Component {
 									<Row>
 										<Col className="d-inline-block" xs="4">
 											<Label for="ExchangeSetting__inputWant">想要的課</Label>
-											<TagsInput className="form-control" id="ExchangeSetting__inputWant" value={this.state.wantTags} onChange={this.handleChangeWant} />
+											<TagsInput className="form-control" id="ExchangeSetting__inputWant" onlyUnique value={this.state.wantTags} onChange={this.handleChangeWant} />
 										</Col>
 										<Col className="d-inline-block" xs="4">
 											<Label for="ExchangeSetting__inputHave">不需要的課</Label>
-											<TagsInput className="form-control" id="ExchangeSetting__inputHave" value={this.state.haveTags} onChange={this.handleChangeHave} />
+											<TagsInput className="form-control" id="ExchangeSetting__inputHave" onlyUnique value={this.state.haveTags} onChange={this.handleChangeHave} />
 										</Col>
 										<Col className="d-inline-block" xs="4">
 											<Label for="ExchangeSetting__inputDesc">補充說明</Label>
@@ -162,7 +162,7 @@ export default class ExchangeSetting extends React.Component {
 						<h5>過濾換課資訊</h5>
 						<Row>
 							<Col xs="9">
-								<TagsInput className="form-control" id="Filter__input" value={this.state.filterTags} onChange={this.handleChangeFilter} />
+								<TagsInput className="form-control" id="Filter__input" onlyUnique value={this.state.filterTags} onChange={this.handleChangeFilter} />
 							</Col>
 							<Col className="text-center" xs="3">
 								<Button size="sm" outline color="primary" style={{verticalAlign: 'sub'}} onClick={() => this.handleFilter(false)}>

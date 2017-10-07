@@ -8,6 +8,7 @@ import {
 } from 'reactstrap';
 
 import CourseReviewFilter from './CourseReviewFilter.jsx';
+import CourseReviewList from './CourseReviewList.jsx';
 
 export default class CourseReviewContainer extends React.Component {
 	render() {
@@ -22,15 +23,15 @@ export default class CourseReviewContainer extends React.Component {
 				}
 				{ this.context.user && this.context.user.uid &&
 					<Container style={{background: '#fff'}}>
-						<Row>
+						<Row id="CourseReviewFilter__wrapper">
 							<Col xs="12">
 								<CourseReviewFilter />
 							</Col>
 						</Row>
 						<hr />
-						<Row>
+						<Row id="CourseReviewList__wrapper" style={{overflow: 'auto', height: 'calc(100vh - 200px)'}}>
 							<Col xs="12">
-								review list
+								<CourseReviewList />
 							</Col>
 						</Row>
 					</Container>
