@@ -63,6 +63,7 @@ export default class CourseReviewContainer extends React.Component {
 	parseReviewList() {
 		const reviewData = cloneDeep(this.state.reviewData);
 		const likeData = cloneDeep(this.state.likeData);
+		const uid = this.context.user && this.context.user.uid;
 		let result = [];
 		let likedCount = {};
 		Object.values(likeData).forEach((likeObj, i) => {
@@ -93,6 +94,13 @@ export default class CourseReviewContainer extends React.Component {
 					});
 				} else {
 					match = true;
+				}
+
+				// like or dislike
+				if (uid &&
+					likeData[uid] &&
+					likeData[uid][reviewKey] !== undefined) {
+					reviewObj.currentUserLike = likeData[uid][reviewKey]
 				}
 
 				!!match && result.push({
@@ -172,7 +180,6 @@ export default class CourseReviewContainer extends React.Component {
 
 	render() {
 		const reviewList = this.parseReviewList();
-		console.log(reviewList);
 		return (
 			<div>
 				{ this.context.user && !this.context.user.uid &&
@@ -198,7 +205,9 @@ export default class CourseReviewContainer extends React.Component {
 						<hr />
 						<Row className="CourseReviewList__wrapper">
 							<Col xs="12">
-								<CourseReviewList />
+								<CourseReviewList
+									reviewList={reviewList}
+								/>
 							</Col>
 						</Row>
 						<div className="CourseReview__btnOpenModal" onClick={this.toggleAddReviewModal}>
