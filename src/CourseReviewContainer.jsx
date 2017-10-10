@@ -195,16 +195,15 @@ export default class CourseReviewContainer extends React.Component {
 	}
 
 	handleLike(btnType, currentUserLike, key) {
-		let likeType;
 		if (btnType === currentUserLike) {
-			likeType = 0;
+			this.db.ref(`likedReview/${this.context.user.uuid}/${key}`).remove().then(() => {
+				this.getReviewList();
+			});
 		} else {
-			likeType = btnType;
+			this.db.ref(`likedReview/${this.context.user.uuid}/${key}`).set(btnType).then(() => {
+				this.getReviewList();
+			});
 		}
-
-		this.db.ref(`likedReview/${this.context.user.uuid}/${key}`).set(likeType).then(() => {
-			this.getReviewList();
-		});
 	}
 
 	render() {
@@ -268,7 +267,7 @@ export default class CourseReviewContainer extends React.Component {
 								<FormGroup row>
 									<Label className="text-danger" for="ModalAddReview__inputContent" sm={2}>評論*</Label>
 									<Col sm={10}>
-										<Input type="textarea" name="text" id="ModalAddReview__inputContent" />
+										<Input type="textarea" name="text" rows="5" id="ModalAddReview__inputContent" />
 									</Col>
 								</FormGroup>
 							</ModalBody>
