@@ -8,21 +8,6 @@ import {
 import './CourseReviewFilter.css';
 
 export default class CourseReviewFilter extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			filterTags: []
-		};
-
-		this.handleFilter = this.handleFilter.bind(this);
-	}
-
-	handleFilter(filterTags) {
-		this.setState({
-			filterTags
-		});
-	}
-
 	render() {
 		return (
 			<div className="mt-2">
@@ -30,8 +15,8 @@ export default class CourseReviewFilter extends React.Component {
 				<TagsInput 
 					className="form-control"
 					id="ExchangeSetting__inputWant"
-					value={this.state.filterTags}
-					onChange={this.handleFilter}
+					value={this.props.filterTags}
+					onChange={this.props.onFilter}
 					onlyUnique
 				/>
 				<div className="mt-2">

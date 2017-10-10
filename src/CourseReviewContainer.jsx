@@ -24,12 +24,83 @@ export default class CourseReviewContainer extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			addReviewModalOpen: false
+			addReviewModalOpen: false,
+			reviewList: [],
+			sortType: 1,
+			filterTags: []
 		}
 
 		this.db = window.firebase.database();
 		this.toggleAddReviewModal = this.toggleAddReviewModal.bind(this);
 		this.handleAddReview = this.handleAddReview.bind(this);
+		this.getReviewList = this.getReviewList.bind(this);
+		this.parseReviewList = this.parseReviewList.bind(this);
+		this.handleFilter = this.handleFilter.bind(this);
+
+		this.getReviewList();
+	}
+
+	getReviewList() {
+		let reviewData;
+		let likeData;
+		this.db.ref('review').once('value').then((snapshot) => {
+			reviewData = snapshot.val() || {};
+		})
+		.then(() => {
+			this.db.ref('likedReview').once('value').then((snapshot) => {
+				likeData = snapshot.val() || {};
+				this.parseReviewList(reviewData, likeData);
+			});
+		});
+	}
+
+	parseReviewList(reviewData, likeData) {
+		// TODO: sort by time or like
+		let result = [];
+		let likedCount = {};
+		Object.values(likeData).forEach((likeObj, i) => {
+			Object.keys(likeObj).forEach((reviewKey, j) => {
+				if (!likedCount[reviewKey]) likedCount[reviewKey] = {};
+				if (!likedCount[reviewKey][likeObj[reviewKey]]) likedCount[reviewKey][likeObj[reviewKey]] = 0
+				likedCount[reviewKey][likeObj[reviewKey]] ++;
+			});
+		});
+
+		for (let uid in reviewData) {
+			for (let reviewKey in reviewData[uid]) {
+				result.push({
+					...JSON.parse(reviewData[uid][reviewKey]),
+					key: reviewKey,
+					like: likedCount[reviewKey] || {}
+				});
+			}
+		}
+
+		if (this.state.sortType === 1) {
+			result.sort(this.compareByTime);
+		} else {
+			result.sort(this.compareByLike);
+		}
+
+		this.setState({
+			reviewList: result
+		});
+	}
+
+	compareByTime(a, b) {
+		if (moment(a.time).isBefore(moment(b.time)))
+			return 1;
+		if (moment(a.time).isBefore(moment(b.time)))
+			return -1;
+		return 0;
+	}
+
+	compareByLike(a, b) {
+		if ((a.like['1'] || 0) < (b.like['1'] || 0))
+			return 1;
+		if ((a.like['1'] || 0) > (b.like['1'] || 0))
+			return -1;
+		return 0;
 	}
 
 	toggleAddReviewModal() {
@@ -62,6 +133,12 @@ export default class CourseReviewContainer extends React.Component {
 		});
 	}
 
+	handleFilter(filterTags) {
+		this.setState({
+			filterTags
+		});
+	}
+
 	render() {
 		return (
 			<div>
@@ -77,7 +154,10 @@ export default class CourseReviewContainer extends React.Component {
 					<Container style={{background: '#fff'}}>
 						<Row id="CourseReviewFilter__wrapper">
 							<Col xs="12">
-								<CourseReviewFilter />
+								<CourseReviewFilter
+									filterTags={this.state.filterTags}
+									onFilter={this.handleFilter}
+								/>
 							</Col>
 						</Row>
 						<hr />
