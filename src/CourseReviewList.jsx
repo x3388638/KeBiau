@@ -1,8 +1,5 @@
 import React from 'react';
 import {
-	Container,
-	Row,
-	Col,
 	Card,
 	CardColumns,
 	CardBlock
@@ -20,12 +17,12 @@ class ReviewItem extends React.Component {
 							<tbody>
 								<tr>
 									<td className="pr-2" rowSpan="2">
-										<a href="#">
+										<a href="https://fb.com">
 											<img className="ReviewItem__userImg" src="https://graph.facebook.com/1513796702039003/picture" alt=""/>
 										</a>
 									</td>
 									<td>
-										<a href="#">
+										<a href="https://fb.com">
 											<span className="ReviewItem__username">Y.Y. ChaNg</span>
 										</a>
 									</td>
@@ -60,7 +57,7 @@ class ReviewItem extends React.Component {
 export default class CourseReviewList extends React.Component {
 	render() {
 		return (
-			<CardColumns>
+			<CardColumns className="mb-3">
 				<ReviewItem />
 			</CardColumns>
 		)

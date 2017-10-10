@@ -9,6 +9,7 @@ import {
 
 import CourseReviewFilter from './CourseReviewFilter.jsx';
 import CourseReviewList from './CourseReviewList.jsx';
+import './CourseReviewContainer.css';
 
 export default class CourseReviewContainer extends React.Component {
 	render() {
@@ -29,11 +30,14 @@ export default class CourseReviewContainer extends React.Component {
 							</Col>
 						</Row>
 						<hr />
-						<Row id="CourseReviewList__wrapper" style={{overflow: 'auto', height: 'calc(100vh - 200px)'}}>
+						<Row className="CourseReviewList__wrapper">
 							<Col xs="12">
 								<CourseReviewList />
 							</Col>
 						</Row>
+						<div className="CourseReview__btnOpenModal">
+							<i className="fa fa-pencil" aria-hidden="true"></i>留下一則評論...
+						</div>
 					</Container>
 				}
 			</div>
