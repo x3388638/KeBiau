@@ -14,6 +14,7 @@ import {
 	Input,
 	Button
 } from 'reactstrap';
+import moment from 'moment';
 
 import CourseReviewFilter from './CourseReviewFilter.jsx';
 import CourseReviewList from './CourseReviewList.jsx';
@@ -26,12 +27,38 @@ export default class CourseReviewContainer extends React.Component {
 			addReviewModalOpen: false
 		}
 
+		this.db = window.firebase.database();
 		this.toggleAddReviewModal = this.toggleAddReviewModal.bind(this);
+		this.handleAddReview = this.handleAddReview.bind(this);
 	}
 
 	toggleAddReviewModal() {
 		this.setState({
 			addReviewModalOpen: !this.state.addReviewModalOpen
+		});
+	}
+
+	handleAddReview() {
+		const cname = document.getElementById('ModalAddReview__inputCname').value;
+		const cid = document.getElementById('ModalAddReview__inputCid').value;
+		const teacher = document.getElementById('ModalAddReview__inputTeacher').value;
+		const content = document.getElementById('ModalAddReview__inputContent').value;
+		if (cname === '' || content === '') {
+			alert('課程名稱、評論不得為空');
+			return;
+		}
+
+		const uid = this.context.user.uuid;
+		const fbid = this.context.user.uid;
+		const username = this.context.user.displayName;
+		const time = moment().format();
+		const randomKey = (Date.now().toString(32) + Math.random().toString(32)).replace('.', '');
+		this.db.ref(`review/${uid}/${randomKey}`).set(JSON.stringify({
+			cname, cid, teacher, content, fbid, username, time
+		}))
+		.then(() => {
+			this.toggleAddReviewModal();
+			// TODO: get revirw list
 		});
 	}
 
@@ -91,7 +118,7 @@ export default class CourseReviewContainer extends React.Component {
 								</FormGroup>
 							</ModalBody>
 							<ModalFooter>
-								<Button color="primary" block>送出</Button>
+								<Button color="primary" block onClick={this.handleAddReview}>送出</Button>
 							</ModalFooter>
 						</Modal>
 					</Container>
