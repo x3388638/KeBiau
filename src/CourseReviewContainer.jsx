@@ -39,6 +39,7 @@ export default class CourseReviewContainer extends React.Component {
 		this.parseReviewList = this.parseReviewList.bind(this);
 		this.handleFilter = this.handleFilter.bind(this);
 		this.handleChangeSortType = this.handleChangeSortType.bind(this);
+		this.handleDelReview = this.handleDelReview.bind(this);
 
 		this.getReviewList();
 	}
@@ -63,7 +64,7 @@ export default class CourseReviewContainer extends React.Component {
 	parseReviewList() {
 		const reviewData = cloneDeep(this.state.reviewData);
 		const likeData = cloneDeep(this.state.likeData);
-		const uid = this.context.user && this.context.user.uid;
+		const uuid = this.context.user && this.context.user.uuid;
 		let result = [];
 		let likedCount = {};
 		Object.values(likeData).forEach((likeObj, i) => {
@@ -97,10 +98,16 @@ export default class CourseReviewContainer extends React.Component {
 				}
 
 				// like or dislike
-				if (uid &&
-					likeData[uid] &&
-					likeData[uid][reviewKey] !== undefined) {
-					reviewObj.currentUserLike = likeData[uid][reviewKey]
+				if (uuid &&
+					likeData[uuid] &&
+					likeData[uuid][reviewKey] !== undefined) {
+					reviewObj.currentUserLike = likeData[uuid][reviewKey]
+				}
+
+				// current user's post
+				if (uuid &&
+					uid === uuid) {
+					reviewObj.currentUserPost = true;
 				}
 
 				!!match && result.push({
@@ -178,6 +185,14 @@ export default class CourseReviewContainer extends React.Component {
 		});
 	}
 
+	handleDelReview(key) {
+		if (window.confirm('確定刪除此篇評論？')) {
+			this.db.ref(`review/${this.context.user.uuid}/${key}`).remove().then(() => {
+				this.getReviewList();
+			});
+		}
+	}
+
 	render() {
 		const reviewList = this.parseReviewList();
 		return (
@@ -207,6 +222,7 @@ export default class CourseReviewContainer extends React.Component {
 							<Col xs="12">
 								<CourseReviewList
 									reviewList={reviewList}
+									onDel={this.handleDelReview}
 								/>
 							</Col>
 						</Row>

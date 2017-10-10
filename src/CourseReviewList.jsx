@@ -27,6 +27,7 @@ class ReviewItem extends React.Component {
 										<a href={`https://fb.com/${data.fbid}`}>
 											<span className="ReviewItem__username">{data.username}</span>
 										</a>
+										<span className="ReviewItem__btnDel" onClick={() => {this.props.onDel(data.key)}}>&times;</span>
 									</td>
 								</tr>
 								<tr>
@@ -39,7 +40,7 @@ class ReviewItem extends React.Component {
 					</div>
 					<div>
 						<div className="ReviewItem__title">
-							{ data.cid || '' }
+							{ data.cid ? `${data.cid} ` : '' }
 							{ data.cname }
 							{ data.teacher ? ` | ${data.teacher}` : ''}
 						</div>
@@ -71,7 +72,7 @@ export default class CourseReviewList extends React.Component {
 		return (
 			<CardColumns className="mb-3 bricklayer">
 				{ this.props.reviewList.map((data, i) => {
-					return <ReviewItem key={i} data={data} />	
+					return <ReviewItem key={i} data={data} {...this.props} />	
 				})}
 			</CardColumns>
 		)
