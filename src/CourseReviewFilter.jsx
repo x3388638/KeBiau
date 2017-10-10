@@ -1,8 +1,6 @@
 import React from 'react';
 import TagsInput from 'react-tagsinput';
 import {
-	InputGroup,
-	InputGroupButton,
 	ButtonGroup,
 	Button
 } from 'reactstrap';
