@@ -34,6 +34,10 @@
 	font-weight: bold;
 }
 
+.ReviewItem__content {
+	white-space: pre-line;
+}
+
 .ReviewItem__btnLike,
 .ReviewItem__btnDislike {
 	flex: 1;

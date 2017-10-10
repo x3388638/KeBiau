@@ -43,7 +43,7 @@ class ReviewItem extends React.Component {
 							{ data.cname }
 							{ data.teacher ? ` | ${data.teacher}` : ''}
 						</div>
-						<div>
+						<div className="ReviewItem__content">
 							{ data.content }
 						</div>
 					</div>
