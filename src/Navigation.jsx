@@ -87,11 +87,11 @@ export default class Navigation extends React.Component {
 									<i className="fa fa-exchange" aria-hidden="true"></i> <span className="hidden-sm-down">換課平台</span>
 								</Link>
 							</NavItem>
-							<NavItem>
+							{/*<NavItem>
 								<Link className={route.match.path === '/review' ? 'active nav-link' : ' nav-link'} to="/review">
 									<i className="fa fa-thumbs-up" aria-hidden="true"></i> <span className="hidden-sm-down">課程評價</span>
 								</Link>
-							</NavItem>
+							</NavItem>*/}
 							<NavItem>
 								<NavLink href="https://github.com/x3388638/KeBiau/issues" target="_blank">
 									<span>
