@@ -1,0 +1,53 @@
+@media (min-width: 768px) {
+	.card-columns {
+		-webkit-column-count: 2;
+		column-count: 2;
+	}
+}
+
+@media (max-width: 767px) {
+	.card-columns {
+		-webkit-column-count: 1;
+		column-count: 1;
+	}
+}
+
+.ReviewItem__userImg {
+	border-radius: 30px;
+}
+
+.ReviewItem__username {
+	color: #365899;
+	font-size: 14px;
+	font-weight: bold;
+}
+
+.ReviewItem__date {
+	font-size: 12px;
+	color: #90949c
+}
+
+.ReviewItem__title {
+	font-weight: bold;
+}
+
+.ReviewItem__btnLike,
+.ReviewItem__btnDislike {
+	flex: 1;
+	padding: 7px;
+	transition: all .3s;
+}
+
+.ReviewItem__btnLike:hover {
+	background: #0275d8;
+	color: #fff;
+	cursor: pointer;
+	box-shadow: 0px 2px 5px 0px #a5a5a5;
+}
+
+.ReviewItem__btnDislike:hover {
+	background: #d9534f;
+	color: #fff;
+	cursor: pointer;
+	box-shadow: 0px 2px 5px 0px #a5a5a5;
+}
