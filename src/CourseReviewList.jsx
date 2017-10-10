@@ -11,6 +11,8 @@ import './CourseReviewList.css';
 class ReviewItem extends React.Component {
 	render() {
 		const data = this.props.data;
+		const like = +data.currentUserLike === 1;
+		const dislike = +data.currentUserLike === -1; 
 		return (
 			<Card className="mb-2 ReviewItem">
 				<CardBlock className="pb-2">
@@ -27,7 +29,9 @@ class ReviewItem extends React.Component {
 										<a href={`https://fb.com/${data.fbid}`}>
 											<span className="ReviewItem__username">{data.username}</span>
 										</a>
-										<span className="ReviewItem__btnDel" onClick={() => {this.props.onDel(data.key)}}>&times;</span>
+										{ !!data.currentUserPost &&
+											<span className="ReviewItem__btnDel" onClick={() => {this.props.onDel(data.key)}}>&times;</span>
+										}
 									</td>
 								</tr>
 								<tr>
@@ -50,8 +54,12 @@ class ReviewItem extends React.Component {
 					</div>
 					<hr style={{marginBottom: '5px'}} />
 					<div style={{display: 'flex'}}>
-						<span className="text-center ReviewItem__btnLike"><i className="fa fa-thumbs-o-up" aria-hidden="true"></i> {data.like['1'] || 0 }</span>
-						<span className="text-center ReviewItem__btnDislike"><i className="fa fa-thumbs-o-down" aria-hidden="true"></i> {data.like['-1'] || 0 }</span>
+						<span className={`text-center ReviewItem__btnLike ${!!like ? 'active' : ''}`} onClick={() => {this.props.onLike(1, data.currentUserLike, data.key)}}>
+							<i className={`fa ${!!like ? 'fa-thumbs-up' : 'fa-thumbs-o-up'}`} aria-hidden="true"></i> {data.like['1'] || 0 }
+						</span>
+						<span className={`text-center ReviewItem__btnDislike ${!!dislike ? 'active' : ''}`} onClick={() => {this.props.onLike(-1, data.currentUserLike, data.key)}}>
+							<i className={`fa ${!!dislike ? 'fa-thumbs-down' : 'fa-thumbs-o-down'}`} aria-hidden="true"></i> {data.like['-1'] || 0 }
+						</span>
 					</div>
 				</CardBlock>
 			</Card>

@@ -60,6 +60,16 @@
 	transition: all .3s;
 }
 
+.ReviewItem__btnLike.active {
+	color: #0275d8;
+	font-weight: bold;
+}
+
+.ReviewItem__btnDislike.active {
+	color: #d9534f;
+	font-weight: bold;
+}
+
 .ReviewItem__btnLike:hover {
 	background: #0275d8;
 	color: #fff;

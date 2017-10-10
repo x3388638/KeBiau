@@ -40,6 +40,7 @@ export default class CourseReviewContainer extends React.Component {
 		this.handleFilter = this.handleFilter.bind(this);
 		this.handleChangeSortType = this.handleChangeSortType.bind(this);
 		this.handleDelReview = this.handleDelReview.bind(this);
+		this.handleLike = this.handleLike.bind(this);
 
 		this.getReviewList();
 	}
@@ -193,6 +194,19 @@ export default class CourseReviewContainer extends React.Component {
 		}
 	}
 
+	handleLike(btnType, currentUserLike, key) {
+		let likeType;
+		if (btnType === currentUserLike) {
+			likeType = 0;
+		} else {
+			likeType = btnType;
+		}
+
+		this.db.ref(`likedReview/${this.context.user.uuid}/${key}`).set(likeType).then(() => {
+			this.getReviewList();
+		});
+	}
+
 	render() {
 		const reviewList = this.parseReviewList();
 		return (
@@ -223,6 +237,7 @@ export default class CourseReviewContainer extends React.Component {
 								<CourseReviewList
 									reviewList={reviewList}
 									onDel={this.handleDelReview}
+									onLike={this.handleLike}
 								/>
 							</Col>
 						</Row>
