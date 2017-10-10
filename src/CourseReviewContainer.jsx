@@ -15,6 +15,7 @@ import {
 	Button
 } from 'reactstrap';
 import moment from 'moment';
+import cloneDeep from 'lodash.clonedeep';
 
 import CourseReviewFilter from './CourseReviewFilter.jsx';
 import CourseReviewList from './CourseReviewList.jsx';
@@ -25,7 +26,8 @@ export default class CourseReviewContainer extends React.Component {
 		super(props);
 		this.state = {
 			addReviewModalOpen: false,
-			reviewList: [],
+			reviewData: {},
+			likeData: {},
 			sortType: 1,
 			filterTags: []
 		}
@@ -49,13 +51,17 @@ export default class CourseReviewContainer extends React.Component {
 		.then(() => {
 			this.db.ref('likedReview').once('value').then((snapshot) => {
 				likeData = snapshot.val() || {};
-				this.parseReviewList(reviewData, likeData);
+				this.setState({
+					reviewData,
+					likeData
+				})
 			});
 		});
 	}
 
-	parseReviewList(reviewData, likeData) {
-		// TODO: sort by time or like
+	parseReviewList() {
+		const reviewData = cloneDeep(this.state.reviewData);
+		const likeData = cloneDeep(this.state.likeData);
 		let result = [];
 		let likedCount = {};
 		Object.values(likeData).forEach((likeObj, i) => {
@@ -68,8 +74,28 @@ export default class CourseReviewContainer extends React.Component {
 
 		for (let uid in reviewData) {
 			for (let reviewKey in reviewData[uid]) {
-				result.push({
-					...JSON.parse(reviewData[uid][reviewKey]),
+				let reviewObj = JSON.parse(reviewData[uid][reviewKey]);
+				// filter
+				let match = false;
+				if (this.state.filterTags.length > 0) {
+					this.state.filterTags.some((keyword, i) => {
+						keyword = keyword.toLowerCase();
+						if (reviewObj.cid.toLowerCase().includes(keyword) ||
+							reviewObj.cname.toLowerCase().includes(keyword) ||
+							reviewObj.teacher.toLowerCase().includes(keyword) ||
+							reviewObj.content.toLowerCase().includes(keyword)) {
+							match = true;
+							return true;
+						} else {
+							return false;
+						}
+					});
+				} else {
+					match = true;
+				}
+
+				!!match && result.push({
+					...reviewObj,
 					key: reviewKey,
 					like: likedCount[reviewKey] || {}
 				});
@@ -82,9 +108,7 @@ export default class CourseReviewContainer extends React.Component {
 			result.sort(this.compareByLike);
 		}
 
-		this.setState({
-			reviewList: result
-		});
+		return result;
 	}
 
 	compareByTime(a, b) {
@@ -129,7 +153,7 @@ export default class CourseReviewContainer extends React.Component {
 		}))
 		.then(() => {
 			this.toggleAddReviewModal();
-			// TODO: get revirw list
+			// TODO: get review list
 		});
 	}
 
@@ -140,6 +164,8 @@ export default class CourseReviewContainer extends React.Component {
 	}
 
 	render() {
+		const reviewList = this.parseReviewList();
+		console.log(reviewList);
 		return (
 			<div>
 				{ this.context.user && !this.context.user.uid &&
