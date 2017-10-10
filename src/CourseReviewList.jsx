@@ -59,9 +59,17 @@ class ReviewItem extends React.Component {
 }
 
 export default class CourseReviewList extends React.Component {
+	componentWillReceiveProps() {
+		!!window.reviewListBricks && window.reviewListBricks.destroy();
+	}
+
+	componentDidUpdate() {
+		window.reviewListBricks = new window.Bricklayer(document.querySelector('.bricklayer'));
+	}
+
 	render() {
 		return (
-			<CardColumns className="mb-3">
+			<CardColumns className="mb-3 bricklayer">
 				{ this.props.reviewList.map((data, i) => {
 					return <ReviewItem key={i} data={data} />	
 				})}

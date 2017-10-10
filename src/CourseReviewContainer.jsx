@@ -162,7 +162,7 @@ export default class CourseReviewContainer extends React.Component {
 		}))
 		.then(() => {
 			this.toggleAddReviewModal();
-			// TODO: get review list
+			this.getReviewList();
 		});
 	}
 

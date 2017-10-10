@@ -1,14 +1,12 @@
 @media (min-width: 768px) {
-	.card-columns {
-		-webkit-column-count: 2;
-		column-count: 2;
+	.bricklayer-column-sizer {
+		width: 50%;
 	}
 }
 
 @media (max-width: 767px) {
-	.card-columns {
-		-webkit-column-count: 1;
-		column-count: 1;
+	.bricklayer-column-sizer {
+		width: 100%;
 	}
 }
 
