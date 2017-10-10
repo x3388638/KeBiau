@@ -21,8 +21,8 @@ export default class CourseReviewFilter extends React.Component {
 				/>
 				<div className="mt-2">
 					<ButtonGroup size="sm">
-						<Button active>時間優先</Button>{' '}
-						<Button>評價優先</Button>
+						<Button className={this.props.sortType === 1 ? 'active' : ''} onClick={() => this.props.onChangeSortType(1)}>時間優先</Button>{' '}
+						<Button className={this.props.sortType === 2 ? 'active' : ''} onClick={() => this.props.onChangeSortType(2)}>評價優先</Button>
 					</ButtonGroup>
 				</div>
 			</div>

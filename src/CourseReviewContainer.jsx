@@ -38,6 +38,7 @@ export default class CourseReviewContainer extends React.Component {
 		this.getReviewList = this.getReviewList.bind(this);
 		this.parseReviewList = this.parseReviewList.bind(this);
 		this.handleFilter = this.handleFilter.bind(this);
+		this.handleChangeSortType = this.handleChangeSortType.bind(this);
 
 		this.getReviewList();
 	}
@@ -163,6 +164,12 @@ export default class CourseReviewContainer extends React.Component {
 		});
 	}
 
+	handleChangeSortType(sortType) {
+		this.setState({
+			sortType
+		});
+	}
+
 	render() {
 		const reviewList = this.parseReviewList();
 		console.log(reviewList);
@@ -183,6 +190,8 @@ export default class CourseReviewContainer extends React.Component {
 								<CourseReviewFilter
 									filterTags={this.state.filterTags}
 									onFilter={this.handleFilter}
+									sortType={this.state.sortType}
+									onChangeSortType={this.handleChangeSortType}
 								/>
 							</Col>
 						</Row>
