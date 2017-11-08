@@ -1,5 +1,5 @@
 # ![](https://x3388638.github.io/KeBiau/logo.png) 自己的課表自己排 2.0
-[暨大](http://www.gazette.ncnu.edu.tw/)專屬排課表、換課、課程評價平台 . 
+[暨大](http://www.gazette.ncnu.edu.tw/)專屬排課表、換課、課程評價平台  
 Live Demo: https://x3388638.github.io/KeBiau/
 
 曾經，你是否也跟我一樣，  
@@ -22,7 +22,7 @@ Live Demo: https://x3388638.github.io/KeBiau/
   
 ## 排課表
 #### 輕鬆、快速、直覺、簡易產生個人化的精緻課表。
-![](https://lh5.googleusercontent.com/RiGIcRlGOtzZfUiA4vbhuvOs4KA6yv-2WQDUPXlZ349pNF9ZbEHzPNGCNi_CVHrmGHykNyvLpHwzPg=w3360-h1952-rw)
+![](https://i.imgur.com/PEqptrr.png)
 
 ### 重點功能
 - 原汁原味的教務系統課程資訊
@@ -37,17 +37,17 @@ Live Demo: https://x3388638.github.io/KeBiau/
 
 ## 換課
 #### 換課資訊不再散落四處，隨機排序人人平等，輕鬆過濾，換課萬無一失。
-![](https://lh3.googleusercontent.com/xiLUEsEFvOWysA2sesxEY-7GyD5t3Zwxkp9PS_OxwQZOHKgMKAr0bIpk1WD0FXNu82_tN3l3yC7vgA=w3360-h1952-rw)
+![](https://i.imgur.com/qRtTRkk.png)
 
 ## 課程評價
 #### 課程資訊透明化，讓選課不再猶豫，修課不再後悔。
-![](https://lh6.googleusercontent.com/GIYydYj0EeozDMbfBKCj2iaFqpDNlXnbDWME_SsflKLkt7gddrNbm4_zUFex6GfT2MJP7Fhat61ANg=w3360-h1952-rw)
+![](https://i.imgur.com/avRZP1h.png)
 
 - 具名評論，流言不再
 - 一鍵排序、一鍵過濾
 - 評論回饋，客觀加倍
 
 ## 技術使用
-client: [create-react-app](https://github.com/facebookincubator/create-react-app) for view、[react-router](https://github.com/ReactTraining/react-router) for route、[reactstrap](https://github.com/reactstrap/reactstrap) for layout
-server: none
+client: [create-react-app](https://github.com/facebookincubator/create-react-app) for view、[react-router](https://github.com/ReactTraining/react-router) for route、[reactstrap](https://github.com/reactstrap/reactstrap) for layout  
+server: none  
 database: [firebase](https://firebase.google.com/)
