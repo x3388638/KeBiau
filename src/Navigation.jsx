@@ -27,21 +27,21 @@ export default class Navigation extends React.Component {
 	}
 
 	toggleNavbar() {
-		this.setState({
-			navbarIsOpen: !this.state.navbarIsOpen
-		});
+		this.setState((prevState) => ({
+			navbarIsOpen: !prevState.navbarIsOpen
+		}));
 	}
 
 	toggleLoginTooltip() {
-		this.setState({
-			loginTooltip: !this.state.loginTooltip
-		});
+		this.setState((prevState) => ({
+			loginTooltip: !prevState.loginTooltip
+		}));
 	}
 
 	toggleLogoutTooltip() {
-		this.setState({
-			logoutTooltip: !this.state.logoutTooltip
-		});
+		this.setState((prevState) => ({
+			logoutTooltip: !prevState.logoutTooltip
+		}));
 	}
 
 	handleLogin() {

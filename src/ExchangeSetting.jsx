@@ -105,9 +105,9 @@ export default class ExchangeSetting extends React.Component {
 		this.props.onFilter(keywords);
 	}
 	handleToggleSetting() {
-		this.setState({
-			settingOpen: !this.state.settingOpen
-		});
+		this.setState((prevState) => ({
+			settingOpen: !prevState.settingOpen
+		}));
 	}
 
 	render() {

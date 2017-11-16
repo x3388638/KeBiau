@@ -145,9 +145,9 @@ export default class CourseReviewContainer extends React.Component {
 	}
 
 	toggleAddReviewModal() {
-		this.setState({
-			addReviewModalOpen: !this.state.addReviewModalOpen
-		});
+		this.setState((prevState) => ({
+			addReviewModalOpen: !prevState.addReviewModalOpen
+		}));
 	}
 
 	handleAddReview() {

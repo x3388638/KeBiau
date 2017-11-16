@@ -382,9 +382,9 @@ export default class CourseTableContainer extends React.Component {
 	}
 
 	toggleModalCustomCourse() {
-		this.setState({
-			modalCustomCourseOpen: !this.state.modalCustomCourseOpen
-		});
+		this.setState((prevState) => ({
+			modalCustomCourseOpen: !prevState.modalCustomCourseOpen
+		}));
 	}
 
 	handleAddCustomCourse() {
@@ -420,9 +420,9 @@ export default class CourseTableContainer extends React.Component {
 	}
 
 	filterConflict() {
-		this.setState({
-			filterConflict: !this.state.filterConflict
-		});
+		this.setState((prevState) => ({
+			filterConflict: !prevState.filterConflict
+		}));
 	}
 
 	render() {
