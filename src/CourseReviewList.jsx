@@ -22,7 +22,7 @@ class ReviewItem extends React.Component {
 								<tr>
 									<td className="pr-2" rowSpan="2">
 										<a href={`https://fb.com/${data.fbid}`}>
-											<img className="ReviewItem__userImg" src={`https://graph.facebook.com/${data.fbid}/picture`} alt=""/>
+											<img className="ReviewItem__userImg" src={`https://graph.facebook.com/${data.fbid}/picture`} height="55" alt=""/>
 										</a>
 									</td>
 									<td>
