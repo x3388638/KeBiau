@@ -48,6 +48,6 @@ Live Demo: https://x3388638.github.io/KeBiau/
 - 評論回饋，客觀加倍
 
 ## 技術使用
-client: [create-react-app](https://github.com/facebookincubator/create-react-app) for view、[react-router](https://github.com/ReactTraining/react-router) for route、[reactstrap](https://github.com/reactstrap/reactstrap) for layout  
+client: [create-react-app](https://github.com/facebookincubator/create-react-app) for view、[react-router](https://github.com/ReactTraining/react-router) for route、[reactstrap](https://github.com/reactstrap/reactstrap) & [bricklayer](https://github.com/ademilter/bricklayer) for layout  
 server: none  
 database: [firebase](https://firebase.google.com/)
