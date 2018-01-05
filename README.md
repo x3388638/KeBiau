@@ -1,6 +1,6 @@
 # ![](https://x3388638.github.io/KeBiau/logo.png) 自己的課表自己排 2.0
 [暨大](http://www.gazette.ncnu.edu.tw/)專屬排課表、換課、課程評價平台  
-Live Demo: https://x3388638.github.io/KeBiau/
+Website: https://x3388638.github.io/KeBiau/
 
 曾經，你是否也跟我一樣，  
 選課前，浪費了一堆時間、一堆紙與墨水在思考要修什麼課，  
