@@ -85,6 +85,7 @@ export default class CourseTableContainer extends React.Component {
 
 	getCourseList(dept = '通識') {
 		const sessionCourseList = window.sessionStorage.courseList ? JSON.parse(window.sessionStorage.courseList) : "{}";
+		/*
 		if (sessionCourseList[dept]) {
 			// console.log(`course in ${dept} exist in sessionStorage`);
 			this.setState({
@@ -92,19 +93,20 @@ export default class CourseTableContainer extends React.Component {
 			});
 			return;
 		}
+		*/
 		
 		// console.log(`Getting course in ${dept}`);
 		this.db.ref(`course/${dept}`).once('value').then((snapshot) => {
 			this.setState({
 				courseList: snapshot.val() || {}
 			});
-			sessionStorage.courseList = JSON.stringify(Object.assign({}, sessionCourseList, {[dept]: snapshot.val()}));
+			window.sessionStorage.courseList = JSON.stringify(Object.assign({}, sessionCourseList, {[dept]: snapshot.val()}));
 		});
 	}
 
 	getCourseData() {
 		// console.log('Getting course data...');
-		if (!window.sessionStorage.deptList) {
+		if (/* !window.sessionStorage.deptList */ true) {
 			// console.log('Getting deptList from db...')
 			this.db.ref('deptList/').once('value').then((snapshot) => {
 				window.sessionStorage.deptList = JSON.stringify(snapshot.val() || {});
