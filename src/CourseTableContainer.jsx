@@ -54,6 +54,7 @@ export default class CourseTableContainer extends React.Component {
 				bg: ''
 			},
 			modalCustomCourseOpen: false,
+			modalFilterCourseOpen: false,
 			filterConflict: false
 		};
 		this.timeMap = {a: 'a/08', b: 'b/09', c: 'c/10', d: 'd/11', z: 'z/12', e: 'e/13', f: 'f/14',
@@ -76,6 +77,9 @@ export default class CourseTableContainer extends React.Component {
 		this.handleSave = this.handleSave.bind(this);
 		this.handleShare = this.handleShare.bind(this);
 		this.filterConflict = this.filterConflict.bind(this);
+		this.toggleModalFilterCourse = this.toggleModalFilterCourse.bind(this);
+		this.handleFilterCourse = this.handleFilterCourse.bind(this);
+		this.handleClearFilterCourse = this.handleClearFilterCourse.bind(this);
 	}
 
 	componentDidMount() {
@@ -427,6 +431,16 @@ export default class CourseTableContainer extends React.Component {
 		}));
 	}
 
+	toggleModalFilterCourse() {
+		this.setState((prevState) => ({
+			modalFilterCourseOpen: !prevState.modalFilterCourseOpen
+		}));
+	}
+
+	handleFilterCourse() {}
+
+	handleClearFilterCourse() {}
+
 	render() {
 		let courseList = cloneDeep(this.state.courseList);
 		Object.keys(courseList).forEach((courseKey, index) => {
@@ -467,6 +481,7 @@ export default class CourseTableContainer extends React.Component {
 							onAddCourse={this.checkConflict}
 							filterConflict={this.state.filterConflict}
 							onFilterConflict={this.filterConflict}
+							onFilterCourse={this.toggleModalFilterCourse}
 						/>
 					</Col>
 				</Row>
@@ -530,6 +545,41 @@ export default class CourseTableContainer extends React.Component {
 					</ModalBody>
 					<ModalFooter>
 						<Button color="primary" onClick={this.handleAddCustomCourse}>確定</Button>
+					</ModalFooter>
+				</Modal>
+				<Modal id="ModalFilterCourse" isOpen={this.state.modalFilterCourseOpen} toggle={this.toggleModalFilterCourse}>
+					<ModalHeader id="ModalFilterCourse__title" toggle={this.toggleModalFilterCourse}>篩選課程</ModalHeader>
+					<ModalBody>
+						<Form>
+							<FormGroup row>
+								<Label for="ModalFilterCourse__inputCname" sm={2}>課名</Label>
+								<Col sm={10}>
+									<Input type="text" id="ModalFilterCourse__inputCname" placeholder="課程名稱" />
+								</Col>
+							</FormGroup>
+							<FormGroup row>
+								<Label for="ModalFilterCourse__inputTeacher" sm={2}>教師</Label>
+								<Col sm={10}>
+									<Input type="text" id="ModalFilterCourse__inputTeacher" placeholder="授課教師" />
+								</Col>
+							</FormGroup>
+							<FormGroup row>
+								<Label for="ModalFilterCourse__inputTime" sm={2}>時間</Label>
+								<Col sm={10}>
+									<Input type="text" id="ModalFilterCourse__inputTime" placeholder="1bcd" />
+								</Col>
+							</FormGroup>
+							<FormGroup row>
+								<Label for="ModalFilterCourse__inputLocation" sm={2}>教室</Label>
+								<Col sm={10}>
+									<Input type="text" id="ModalFilterCourse__inputLocation" placeholder="管268" />
+								</Col>
+							</FormGroup>
+						</Form>
+					</ModalBody>
+					<ModalFooter>
+						<Button color="primary" onClick={() => { this.handleFilterCourse }}>篩選</Button>
+						<Button color="danger" onClick={() => { this.handleClearFilterCourse }}>取消篩選</Button>
 					</ModalFooter>
 				</Modal>
 			</div>

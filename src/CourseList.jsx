@@ -41,6 +41,13 @@ class DeptSelector extends React.Component {
 					}
 				</select> {' '}
 				<Button
+					color="secondary"
+					size="sm"
+					onClick={this.props.onFilterCourse}
+				>
+					篩選課程
+				</Button> {' '}
+				<Button
 					className={this.props.filterConflict ? 'active' : ''}
 					color={this.props.filterConflict ? 'danger' : 'secondary'}
 					size="sm"
