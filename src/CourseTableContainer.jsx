@@ -54,8 +54,14 @@ export default class CourseTableContainer extends React.Component {
 				bg: ''
 			},
 			modalCustomCourseOpen: false,
+			filterConflict: false,
 			modalFilterCourseOpen: false,
-			filterConflict: false
+			filterCourseForm: {
+				title: '',
+				teacher: '',
+				time: '',
+				location: ''
+			}
 		};
 		this.timeMap = {a: 'a/08', b: 'b/09', c: 'c/10', d: 'd/11', z: 'z/12', e: 'e/13', f: 'f/14',
 			g: 'g/15', h: 'h/16', i: 'i/17', j: 'j/18', k: 'k/19', l: 'l/20', m: 'm/21'};
@@ -80,6 +86,7 @@ export default class CourseTableContainer extends React.Component {
 		this.toggleModalFilterCourse = this.toggleModalFilterCourse.bind(this);
 		this.handleFilterCourse = this.handleFilterCourse.bind(this);
 		this.handleClearFilterCourse = this.handleClearFilterCourse.bind(this);
+		this.handleFilterCourseChange = this.handleFilterCourseChange.bind(this);
 	}
 
 	componentDidMount() {
@@ -437,6 +444,13 @@ export default class CourseTableContainer extends React.Component {
 		}));
 	}
 
+	handleFilterCourseChange(event, field) {
+		const value = event.target.value;
+		this.setState((prevState) => ({
+			filterCourseForm: Object.assign({}, prevState.filterCourseForm, { [field]: value })
+		}));
+	}
+
 	handleFilterCourse() {}
 
 	handleClearFilterCourse() {}
@@ -554,25 +568,49 @@ export default class CourseTableContainer extends React.Component {
 							<FormGroup row>
 								<Label for="ModalFilterCourse__inputCname" sm={2}>課名</Label>
 								<Col sm={10}>
-									<Input type="text" id="ModalFilterCourse__inputCname" placeholder="課程名稱" />
+									<Input
+										type="text"
+										id="ModalFilterCourse__inputCname"
+										value={this.state.filterCourseForm.title}
+										onChange={(e) => { this.handleFilterCourseChange(e, 'title') }}
+										placeholder="課程名稱"
+									/>
 								</Col>
 							</FormGroup>
 							<FormGroup row>
 								<Label for="ModalFilterCourse__inputTeacher" sm={2}>教師</Label>
 								<Col sm={10}>
-									<Input type="text" id="ModalFilterCourse__inputTeacher" placeholder="授課教師" />
+									<Input
+										type="text"
+										id="ModalFilterCourse__inputTeacher"
+										value={this.state.filterCourseForm.teacher}
+										onChange={(e) => { this.handleFilterCourseChange(e, 'teacher') }}
+										placeholder="授課教師"
+									/>
 								</Col>
 							</FormGroup>
 							<FormGroup row>
 								<Label for="ModalFilterCourse__inputTime" sm={2}>時間</Label>
 								<Col sm={10}>
-									<Input type="text" id="ModalFilterCourse__inputTime" placeholder="1bcd" />
+									<Input
+										type="text"
+										id="ModalFilterCourse__inputTime"
+										value={this.state.filterCourseForm.time}
+										onChange={(e) => { this.handleFilterCourseChange(e, 'time') }}
+										placeholder="1bcd"
+									/>
 								</Col>
 							</FormGroup>
 							<FormGroup row>
 								<Label for="ModalFilterCourse__inputLocation" sm={2}>教室</Label>
 								<Col sm={10}>
-									<Input type="text" id="ModalFilterCourse__inputLocation" placeholder="管268" />
+									<Input
+										type="text"
+										id="ModalFilterCourse__inputLocation"
+										value={this.state.filterCourseForm.location}
+										onChange={(e) => { this.handleFilterCourseChange(e, 'location') }}
+										placeholder="管268"
+									/>
 								</Col>
 							</FormGroup>
 						</Form>
