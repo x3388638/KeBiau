@@ -57,7 +57,7 @@ export default class CourseTableContainer extends React.Component {
 			filterConflict: false,
 			modalFilterCourseOpen: false,
 			filterCourseForm: {
-				title: '',
+				cname: '',
 				teacher: '',
 				time: '',
 				location: ''
@@ -451,15 +451,52 @@ export default class CourseTableContainer extends React.Component {
 		}));
 	}
 
-	handleFilterCourse() {}
+	handleFilterCourse() {
+		this.setState(() => ({
+			modalFilterCourseOpen: false
+		}));
+	}
 
-	handleClearFilterCourse() {}
+	handleClearFilterCourse() {
+		this.setState(() => ({
+			filterCourseForm: {
+				cname: '',
+				teacher: '',
+				time: '',
+				location: ''
+			},
+			modalFilterCourseOpen: false
+		}));
+	}
 
 	render() {
 		let courseList = cloneDeep(this.state.courseList);
-		Object.keys(courseList).forEach((courseKey, index) => {
+		let isFilterCourse = false;
+		const parsedCourseList = [];
+		const filterCourseForm = this.state.filterCourseForm;
+
+		Object.keys(courseList).reduce((result, courseKey) => {
 			courseList[courseKey].isConflict = this.checkConflict(courseList[courseKey], false);
-		});
+
+			const match = Object.keys(filterCourseForm).every((field) => {
+				if (filterCourseForm[field] === '') {
+					return true;
+				}
+
+				isFilterCourse = true;
+				if (courseList[courseKey][field].toUpperCase().includes(filterCourseForm[field].toUpperCase())) {
+					return true;
+				}
+
+				return false;
+			});
+
+			if (match) {
+				parsedCourseList.push(courseList[courseKey]);
+			}
+
+			return parsedCourseList;
+		}, []);
 
 		return (
 			<div style={{background: '#fff', padding: '20px 5px', boxShadow: '0 0 10px 0 #080808'}}>
@@ -490,11 +527,12 @@ export default class CourseTableContainer extends React.Component {
 					<Col xs="12">
 						<CourseList
 							deptList={this.state.deptList}
-							courseList={courseList}
+							courseList={parsedCourseList}
 							onChangeDept={this.changeDept}
 							onAddCourse={this.checkConflict}
 							filterConflict={this.state.filterConflict}
 							onFilterConflict={this.filterConflict}
+							filterCourse={isFilterCourse}
 							onFilterCourse={this.toggleModalFilterCourse}
 						/>
 					</Col>
@@ -571,8 +609,8 @@ export default class CourseTableContainer extends React.Component {
 									<Input
 										type="text"
 										id="ModalFilterCourse__inputCname"
-										value={this.state.filterCourseForm.title}
-										onChange={(e) => { this.handleFilterCourseChange(e, 'title') }}
+										value={this.state.filterCourseForm.cname}
+										onChange={(e) => { this.handleFilterCourseChange(e, 'cname') }}
 										placeholder="課程名稱"
 									/>
 								</Col>
@@ -616,8 +654,8 @@ export default class CourseTableContainer extends React.Component {
 						</Form>
 					</ModalBody>
 					<ModalFooter>
-						<Button color="primary" onClick={() => { this.handleFilterCourse }}>篩選</Button>
-						<Button color="danger" onClick={() => { this.handleClearFilterCourse }}>取消篩選</Button>
+						<Button color="primary" onClick={this.handleFilterCourse}>篩選</Button>
+						<Button color="danger" onClick={this.handleClearFilterCourse}>取消篩選</Button>
 					</ModalFooter>
 				</Modal>
 			</div>
