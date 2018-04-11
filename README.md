@@ -22,10 +22,11 @@ Website: https://x3388638.github.io/KeBiau/
   
 ## 排課表
 #### 輕鬆、快速、直覺、簡易產生個人化的精緻課表。
-![](https://i.imgur.com/PEqptrr.png)
+![](https://i.imgur.com/uc51bX0.png)
 
 ### 重點功能
 - 原汁原味的教務系統課程資訊
+- 多元欄位篩選課程
 - 一鍵加入表格
 - 一鍵過濾衝堂
 - 一鍵分享
