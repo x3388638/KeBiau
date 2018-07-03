@@ -4,8 +4,8 @@ import styled from 'styled-components';
 
 const LoadingWrapper = styled.div`
 	display: flex;
-    justify-content: center;
-    margin-top: 20px;
+	justify-content: center;
+	margin-top: 20px;
 `;
 
 export default class Loading extends React.PureComponent {
