@@ -11,6 +11,7 @@ import cloenDeep from 'lodash.clonedeep';
 
 import ExchangeSetting from './ExchangeSetting.jsx'
 import ExchangeList from './ExchangeList.jsx'
+import Loading from './Loading';
 
 export default class ExchangeListContainer extends React.Component {
 	constructor(props) {
@@ -139,6 +140,9 @@ export default class ExchangeListContainer extends React.Component {
 							onFilter={this.handleFilter}
 						/>
 						<Container style={containerStyle}>
+							{ !exchangeList.length &&
+								<Loading marginTop={ 450 } />
+							}
 							<Row>
 								<Col xs="12">
 									<ExchangeList exchangeList={exchangeList}/>

@@ -1,17 +1,17 @@
 import React from 'react';
 import { BarLoader } from 'react-spinners';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 const LoadingWrapper = styled.div`
 	display: flex;
 	justify-content: center;
-	margin-top: 20px;
+	margin-top: ${ props => `${ props.marginTop || 20 }px` };
 `;
 
 export default class Loading extends React.PureComponent {
 	render() {
 		return (
-			<LoadingWrapper>
+			<LoadingWrapper {...this.props}>
 				<BarLoader
 					color="#666"
 					loading
