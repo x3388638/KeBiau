@@ -1,9 +1,36 @@
 import React from 'react';
 import {
-	Button
+	Button,
+	ButtonDropdown,
+	DropdownToggle,
+	DropdownMenu,
+	DropdownItem
 } from 'reactstrap';
 
 export default class ToolBar extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			exportDropdownOpen: false,
+			clearDropdownOpen: false
+		};
+
+		this.toggleExportDropdown = this.toggleExportDropdown.bind(this);
+		this.toggleClearDropdown = this.toggleClearDropdown.bind(this);
+	}
+
+	toggleExportDropdown() {
+		this.setState((prevState) => ({
+			exportDropdownOpen: !prevState.exportDropdownOpen
+		}));
+	}
+
+	toggleClearDropdown() {
+		this.setState((prevState) => ({
+			clearDropdownOpen: !prevState.clearDropdownOpen
+		}));
+	}
+
 	handleExportExcel(e) {
 		document.querySelectorAll('.uniBR').forEach((val) => {
 			val.setAttribute('style', 'mso-data-placement:same-cell');
@@ -33,19 +60,36 @@ export default class ToolBar extends React.Component {
 				<Button color="primary" size="sm" className="mr-1" style={btnStyle} onClick={this.props.onSave}>
 					<i className="fa fa-floppy-o" aria-hidden="true"></i> <span className="hidden-xs-down">儲存</span>
 				</Button> 
-				<Button color="secondary" size="sm" className="mr-1" style={btnStyle} onClick={this.handleExportExcel}>
-					<i className="fa fa-file-excel-o" aria-hidden="true"></i> <span className="hidden-xs-down">匯出為 .xls</span>
-				</Button> 
-				<Button color="secondary" size="sm" className="mr-1" style={btnStyle} onClick={this.handleExportPNG}>
-					<i className="fa fa-file-image-o" aria-hidden="true"></i> <span className="hidden-xs-down">匯出為 .png</span>
-				</Button>
 				<Button color="secondary" size="sm" className="mr-1" style={btnStyle} onClick={this.props.onShare}>
 					<i className="fa fa-share-square-o" aria-hidden="true"></i> <span className="hidden-xs-down">分享</span>
 				</Button>
-				<span className="ml-2 mr-2"></span>	
-				<Button color="secondary" size="sm" className="mr-1" style={btnStyle} onClick={this.props.onReColor}>
-					<i className="fa fa-repeat" aria-hidden="true"></i> <span className="hidden-xs-down">清除標記</span>
-				</Button>
+				<ButtonDropdown className="mr-1" isOpen={ this.state.exportDropdownOpen } style={ btnStyle } size="sm" toggle={ this.toggleExportDropdown }>
+					<DropdownToggle caret color="secondary">
+						<i className="fa fa-download" aria-hidden="true"></i> <span className="hidden-xs-down">匯出</span>
+					</DropdownToggle>
+					<DropdownMenu>
+						<DropdownItem onClick={ this.handleExportExcel }>
+							<i className="fa fa-file-excel-o" aria-hidden="true"></i> .xls
+						</DropdownItem>
+						<DropdownItem onClick={ this.handleExportPNG }>
+							<i className="fa fa-file-image-o" aria-hidden="true"></i> .png
+						</DropdownItem>
+					</DropdownMenu>
+				</ButtonDropdown>
+				<span className="ml-2 mr-2"></span>
+				<ButtonDropdown className="mr-1" isOpen={ this.state.clearDropdownOpen } style={ btnStyle } size="sm" toggle={ this.toggleClearDropdown }>
+					<DropdownToggle caret color="secondary">
+						<i className="fa fa-repeat" aria-hidden="true"></i> <span className="hidden-xs-down">清除</span>
+					</DropdownToggle>
+					<DropdownMenu>
+						<DropdownItem onClick={ this.props.onReColor }>
+							<i className="fa fa-magic" aria-hidden="true"></i> 標記
+						</DropdownItem>
+						<DropdownItem onClick={ this.props.onReTable }>
+							<i className="fa fa-table" aria-hidden="true"></i> 課表
+						</DropdownItem>
+					</DropdownMenu>
+				</ButtonDropdown>
 				<Button color="secondary" size="sm" className="mr-1" style={btnStyle} onClick={this.props.onClickCustom}>
 					<i className="fa fa-plus" aria-hidden="true"></i> <span className="hidden-xs-down">自訂時段</span>
 				</Button>
