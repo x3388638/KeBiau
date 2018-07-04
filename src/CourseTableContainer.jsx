@@ -78,6 +78,7 @@ export default class CourseTableContainer extends React.Component {
 		this.toggleModalEditCourse = this.toggleModalEditCourse.bind(this);
 		this.handleEditCourse = this.handleEditCourse.bind(this);
 		this.handleReColor = this.handleReColor.bind(this);
+		this.handleReTable = this.handleReTable.bind(this);
 		this.toggleModalCustomCourse = this.toggleModalCustomCourse.bind(this);
 		this.handleAddCustomCourse = this.handleAddCustomCourse.bind(this);
 		this.handleSave = this.handleSave.bind(this);
@@ -394,6 +395,21 @@ export default class CourseTableContainer extends React.Component {
 		});
 	}
 
+	handleReTable() {
+		const customTable = cloneDeep(this.state.customTable);
+		Object.keys(customTable.course).forEach((time) => {
+			Object.keys(customTable.course[time]).forEach((dayOrder) => {
+				customTable.course[time][dayOrder] = {};
+			});
+		});
+
+		customTable.sat = false;
+		customTable.sun = false;
+		this.setState({
+			customTable: cloneDeep(customTable)
+		});
+	}
+
 	toggleModalCustomCourse() {
 		this.setState((prevState) => ({
 			modalCustomCourseOpen: !prevState.modalCustomCourseOpen
@@ -507,6 +523,7 @@ export default class CourseTableContainer extends React.Component {
 								onSave={this.handleSave}
 								onShare={this.handleShare}
 								onReColor={this.handleReColor}
+								onReTable={this.handleReTable}
 								onClickCustom={this.toggleModalCustomCourse}
 							/>
 						}
