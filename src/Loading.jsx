@@ -1,6 +1,6 @@
 import React from 'react';
 import { BarLoader } from 'react-spinners';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 const LoadingWrapper = styled.div`
 	display: flex;
