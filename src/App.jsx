@@ -1,10 +1,15 @@
 import React from 'react';
 import { Container } from 'reactstrap';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
 import Navigation from './Navigation.jsx';
 
 import './App.css';
+
+const RelativeContainer = styled(Container)`
+	position: relative;
+`;
 
 export default class App extends React.Component {
 	constructor(props) {
@@ -38,9 +43,9 @@ export default class App extends React.Component {
 		return (
 			<div>
 				<Navigation />
-				<Container>
+				<RelativeContainer>
 					{this.props.children}
-				</Container>
+				</RelativeContainer>
 			</div>
 		);
 	}

@@ -1,18 +1,4 @@
-button {
-	cursor: pointer;
-}
-
 .react-tagsinput-input {
 	margin-bottom: 0;
 	padding: 0;
-}
-
-#btn-toggleSetting {
-	borderTop: 1px solid rgba(0,0,0,.125);
-	background: #fafafa;
-}
-
-#btn-toggleSetting:hover {
-	background: #f0f0f0;
-	cursor: pointer;
 }
