@@ -55,13 +55,13 @@ export default class ExchangeList extends React.Component {
 											<Col lg="4" sm="12" xs="12">
 												<h6 className="pl-3" style={{borderBottom: '1px solid #787878'}}>想要的課</h6>
 												{ item.want.map((wnatCourse, i) => {
-													return (<div key={i} style={{fontSize: '14px'}}><Badge color="default" pill>{i + 1}</Badge> {wnatCourse}</div>)
+													return (<div key={i} style={{fontSize: '14px'}}><Badge color="secondary" pill>{i + 1}</Badge> {wnatCourse}</div>)
 												})}
 											</Col>
 											<Col lg="3" sm="12" xs="12">
 												<h6 className="pl-3" style={{borderBottom: '1px solid #787878'}}>不需要的課</h6>
 												{ item.have.map((haveCourse, i) => {
-													return (<div key={i} style={{fontSize: '14px'}}><Badge color="default" pill>{i + 1}</Badge> {haveCourse}</div>)
+													return (<div key={i} style={{ fontSize: '14px' }}><Badge color="secondary" pill>{i + 1}</Badge> {haveCourse}</div>)
 												})}
 											</Col>
 										</Row>
