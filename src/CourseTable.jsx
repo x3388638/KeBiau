@@ -3,90 +3,9 @@ import {
 	Table
 } from 'reactstrap';
 
+import CourseGrid from './CourseGrid';
+
 import './CourseTable.css';
-
-class CourseGrid extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			mouseEnter: false
-		};
-
-		this.handleMouseEnter = this.handleMouseEnter.bind(this);
-		this.handleMouseLeave = this.handleMouseLeave.bind(this);
-		this.handleDel = this.handleDel.bind(this);
-		this.handleEdit = this.handleEdit.bind(this);
-	}
-
-	handleMouseEnter() {
-		this.setState({
-			mouseEnter: true
-		});
-	}
-
-	handleMouseLeave() {
-		this.setState({
-			mouseEnter: false
-		});
-	}
-
-	handleDel(e) {
-		if (this.props.shared) return;
-		const time = e.target.parentNode.parentNode.parentNode.getAttribute('data-time');
-		const rowspan = e.target.parentNode.parentNode.getAttribute('rowspan');
-		this.props.onDelCourse(time, rowspan, this.props.dayOfWeek);
-	}
-
-	handleEdit(e) {
-		if (this.props.shared) return;
-		this.props.onEditCourse({
-			time: e.target.parentNode.parentNode.parentNode.parentNode.getAttribute('data-time'),
-			dayOfWeek: this.props.dayOfWeek,
-			title: this.props.title,
-			desc: this.props.desc,
-			bg: this.props.bg,
-		});
-	}
-
-	hexToRgb(hex) {
-		const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-		return result ? {
-			r: parseInt(result[1], 16),
-			g: parseInt(result[2], 16),
-			b: parseInt(result[3], 16)
-		} : null;
-	}
-
-	render() {
-		let gridStyle = {
-			verticalAlign: 'middle'
-		};
-
-		if (this.props.bg) {
-			gridStyle.background = this.props.bg;
-			const {r, g, b} = this.hexToRgb(this.props.bg);
-			const bri = Math.sqrt(r * r * 0.241 + g * g * 0.691 + b * b * 0.068);
-			if (bri < 125){
-				gridStyle.color = '#fff';
-			}
-		}
-
-		return (
-			<td className="CustomTable__grid" style={gridStyle} rowSpan={this.props.rowspan || 1} onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave}>
-				{ !this.props.shared && this.props.title && this.state.mouseEnter &&
-					<span className="float-right mr-2">
-						<span className="CustomTable__grid__btnDel text-danger" onClick={this.handleDel}>&times;</span><br />
-						<span style={{top: '-8px', position: 'relative'}}><i className="fa fa-pencil CustomTable__grid__btnEdit" aria-hidden="true" onClick={this.handleEdit}></i></span>
-					</span>
-				}
-
-				{ this.props.title && this.props.title }
-				<br className="uniBR" />
-				{ this.props.desc && this.props.desc }
-			</td>
-		)
-	}
-}
 
 export default class CourseTable extends React.Component {
 	componentDidUpdate(prevProps, prevState) {

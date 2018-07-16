@@ -13,29 +13,3 @@
 	cursor: pointer;
 	color: #c9302c !important;
 }
-
-.CustomTable__grid__btnDel {
-	display: none;
-	cursor: pointer;
-	color: #c9302c !important;
-	font-size: 20px;
-}
-
-.CustomTable__grid__btnEdit {
-	display: none;
-	cursor: pointer;
-	font-size: 14px;
-}
-
-.CustomTable__grid__btnEdit:hover {
-	color: #0275d8;
-}
-
-.CustomTable__grid:hover {
-	background: #fafafa;
-}
-
-.CustomTable__grid:hover .CustomTable__grid__btnDel,
-.CustomTable__grid:hover .CustomTable__grid__btnEdit {
-	display: initial;
-}
