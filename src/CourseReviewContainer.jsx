@@ -16,10 +16,16 @@ import {
 } from 'reactstrap';
 import moment from 'moment';
 import cloneDeep from 'lodash.clonedeep';
+import styled from 'styled-components';
 
 import CourseReviewFilter from './CourseReviewFilter.jsx';
 import CourseReviewList from './CourseReviewList.jsx';
 import './CourseReviewContainer.css';
+
+const RelativeContainer = styled(Container)`
+	background: #fff;
+	position: relative;
+`;
 
 export default class CourseReviewContainer extends React.Component {
 	constructor(props) {
@@ -219,7 +225,7 @@ export default class CourseReviewContainer extends React.Component {
 				}
 
 				{ this.context.user && this.context.user.uid &&
-					<Container style={{background: '#fff'}}>
+					<RelativeContainer>
 						<Row id="CourseReviewFilter__wrapper">
 							<Col xs="12">
 								<CourseReviewFilter
@@ -275,7 +281,7 @@ export default class CourseReviewContainer extends React.Component {
 								<Button color="primary" block onClick={this.handleAddReview}>送出</Button>
 							</ModalFooter>
 						</Modal>
-					</Container>
+					</RelativeContainer>
 				}
 			</div>
 		);

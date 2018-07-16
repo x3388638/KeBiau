@@ -113,7 +113,7 @@ export default class ExchangeListContainer extends React.Component {
 
 	render() {
 		const containerStyle = {
-			height: 'calc(100vh - 56px)',
+			height: 'calc(100vh - 52px)',
 			overflow: 'auto',
 			background: '#fff'
 		};

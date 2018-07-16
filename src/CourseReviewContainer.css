@@ -27,5 +27,5 @@
 
 .CourseReviewList__wrapper {
 	overflow: auto;
-	height: calc(100vh - 200px);
+	height: calc(100vh - 202px);
 }
