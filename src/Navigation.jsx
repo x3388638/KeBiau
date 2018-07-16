@@ -89,7 +89,7 @@ export default class Navigation extends React.Component {
 				<NavbarBrand href={process.env.REACT_APP_BASE_URL}>
 					<img src={`${process.env.REACT_APP_BASE_URL}/logo.png`} alt="" height="31px"/> 自己的課表自己排 2.0
 				</NavbarBrand>
-				<NavbarToggler right onClick={this.toggleNavbar} />
+				<NavbarToggler onClick={this.toggleNavbar} />
 				<Collapse isOpen={this.state.navbarIsOpen} navbar>
 					<Nav navbar>
 						<NavItem>
