@@ -57,7 +57,7 @@ class DeptSelector extends React.Component {
 				>
 					{ this.props.filterConflict ? '取消過濾' : '過濾衝堂' }
 				</Button>
-				<a className="float-right mr-2 text-warning" href="http://ccweb.ncnu.edu.tw/student/DeptQuerylist.asp#tbl_DeptQuerylist" target="_blank" rel="noopener noreferrer">
+				<a className="float-right mr-2 text-warning" href="https://ccweb.ncnu.edu.tw/student/DeptQuerylist.php" target="_blank" rel="noopener noreferrer">
 					<i className="fa fa-sitemap" aria-hidden="true"></i> 各系所課程地圖
 				</a>
 			</div>
