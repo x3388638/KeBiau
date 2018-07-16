@@ -2,13 +2,29 @@ import React from 'react';
 import {
 	Table
 } from 'reactstrap';
+import styled from 'styled-components';
 
 import CourseGrid from './CourseGrid';
 
-import './CourseTable.css';
+const DelBtn = styled.i`
+	display: none;
+	&:hover {
+		cursor: pointer;
+		color: #c9302c !important;
+	}
+`;
+
+const WeekendTitle = styled.th`
+	width: auto;
+	&:hover {
+		${ DelBtn } {
+			display: initial
+		}
+	}
+`;
 
 export default class CourseTable extends React.Component {
-	componentDidUpdate(prevProps, prevState) {
+	componentDidUpdate() {
 		const classArr = document.getElementById('CustomTable').className.replace('table-bordered', '').trim().split(' ');
 		document.getElementById('CustomTable').className = classArr.join(' ');
 		setTimeout(() => {
@@ -31,16 +47,26 @@ export default class CourseTable extends React.Component {
 							<th className="text-center">星期五</th>
 							{
 								this.props.tableData.sat &&
-								<th className="text-center" id="SatTitle" style={{width: 'auto'}}>
-									星期六 <i className="fa fa-times-circle text-danger" id="SatTitle__btnDel" aria-hidden="true" onClick={() => {!this.props.shared && this.props.onDelSatOrSun('sat')}}></i>
-								</th>
+								<WeekendTitle className="text-center">
+									星期六{' '}
+									<DelBtn
+										className="fa fa-times-circle text-danger"
+										aria-hidden="true"
+										onClick={() => {!this.props.shared && this.props.onDelSatOrSun('sat')}}
+									></DelBtn>
+								</WeekendTitle>
 							}
 
 							{
 								this.props.tableData.sun &&
-								<th className="text-center" id="SunTitle" style={{width: 'auto'}}>
-									星期日 <i className="fa fa-times-circle text-danger" id="SunTitle__btnDel" aria-hidden="true" onClick={() => {!this.props.shared &&this.props.onDelSatOrSun('sun')}}></i>
-								</th>
+								<WeekendTitle className="text-center">
+									星期日{' '}
+									<DelBtn
+										className="fa fa-times-circle text-danger"
+										aria-hidden="true"
+										onClick={() => {!this.props.shared &&this.props.onDelSatOrSun('sun')}}
+									></DelBtn>
+								</WeekendTitle>
 							}
 						</tr>
 					</thead>
