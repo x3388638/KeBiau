@@ -58,14 +58,14 @@ export default class ToolBar extends React.Component {
 		return (
 			<div>
 				<Button color="primary" size="sm" className="mr-1" style={btnStyle} onClick={this.props.onSave}>
-					<i className="fa fa-floppy-o" aria-hidden="true"></i> <span className="hidden-xs-down">儲存</span>
+					<i className="fa fa-floppy-o" aria-hidden="true"></i> <span className="d-none d-sm-inline">儲存</span>
 				</Button> 
-				<Button color="secondary" size="sm" className="mr-1" style={btnStyle} onClick={this.props.onShare}>
-					<i className="fa fa-share-square-o" aria-hidden="true"></i> <span className="hidden-xs-down">分享</span>
+				<Button color="light" size="sm" className="mr-1" style={btnStyle} onClick={this.props.onShare}>
+					<i className="fa fa-share-square-o" aria-hidden="true"></i> <span className="d-none d-sm-inline">分享</span>
 				</Button>
 				<ButtonDropdown className="mr-1" isOpen={ this.state.exportDropdownOpen } style={ btnStyle } size="sm" toggle={ this.toggleExportDropdown }>
-					<DropdownToggle caret color="secondary">
-						<i className="fa fa-download" aria-hidden="true"></i> <span className="hidden-xs-down">匯出</span>
+					<DropdownToggle caret color="light">
+						<i className="fa fa-download" aria-hidden="true"></i> <span className="d-none d-sm-inline">匯出</span>
 					</DropdownToggle>
 					<DropdownMenu>
 						<DropdownItem onClick={ this.handleExportExcel }>
@@ -78,8 +78,8 @@ export default class ToolBar extends React.Component {
 				</ButtonDropdown>
 				<span className="ml-2 mr-2"></span>
 				<ButtonDropdown className="mr-1" isOpen={ this.state.clearDropdownOpen } style={ btnStyle } size="sm" toggle={ this.toggleClearDropdown }>
-					<DropdownToggle caret color="secondary">
-						<i className="fa fa-repeat" aria-hidden="true"></i> <span className="hidden-xs-down">清除</span>
+					<DropdownToggle caret color="light">
+						<i className="fa fa-repeat" aria-hidden="true"></i> <span className="d-none d-sm-inline">清除</span>
 					</DropdownToggle>
 					<DropdownMenu>
 						<DropdownItem onClick={ this.props.onReColor }>
@@ -90,8 +90,8 @@ export default class ToolBar extends React.Component {
 						</DropdownItem>
 					</DropdownMenu>
 				</ButtonDropdown>
-				<Button color="secondary" size="sm" className="mr-1" style={btnStyle} onClick={this.props.onClickCustom}>
-					<i className="fa fa-plus" aria-hidden="true"></i> <span className="hidden-xs-down">自訂時段</span>
+				<Button color="light" size="sm" className="mr-1" style={btnStyle} onClick={this.props.onClickCustom}>
+					<i className="fa fa-plus" aria-hidden="true"></i> <span className="d-none d-sm-inline">自訂時段</span>
 				</Button>
 			</div>
 		);
