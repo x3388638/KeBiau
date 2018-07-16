@@ -4,7 +4,7 @@
   "private": true,
   "homepage": "https://x3388638.github.io/KeBiau",
   "dependencies": {
-    "bootstrap": "4.0.0-alpha.6",
+    "bootstrap": "^4.1.2",
     "lodash.clonedeep": "^4.5.0",
     "moment": "^2.18.1",
     "prop-types": "^15.5.10",
@@ -16,7 +16,7 @@
     "react-scripts": "1.0.13",
     "react-spinners": "^0.3.2",
     "react-tagsinput": "^3.17.0",
-    "reactstrap": "4.8.0",
+    "reactstrap": "^6.3.0",
     "styled-components": "^3.3.3"
   },
   "scripts": {

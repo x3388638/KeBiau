@@ -70,32 +70,32 @@ export default class Navigation extends React.Component {
 		const isLogin = loginStatusInit && !!user.uid;
 		return (
 			<div>
-				<Navbar color="inverse" light inverse toggleable style={{zIndex: 5}}>
-					<NavbarToggler right onClick={this.toggleNavbar} />
+				<Navbar color="dark" dark expand="sm" style={{zIndex: 5, padding: '0.3rem 1rem'}}>
 					<NavbarBrand href={process.env.REACT_APP_BASE_URL}>
 						<img src={`${process.env.REACT_APP_BASE_URL}/logo.png`} alt="" height="31px"/> 自己的課表自己排 2.0
 					</NavbarBrand>
+					<NavbarToggler right onClick={this.toggleNavbar} />
 					<Collapse isOpen={this.state.navbarIsOpen} navbar>
 						<Nav navbar>
 							<NavItem>
 								<Link className={route.match.path === '/' ? 'active nav-link' : ' nav-link'} to="/">
-									<i className="fa fa-table" aria-hidden="true"></i> <span className="hidden-sm-down">我的課表</span>
+									<i className="fa fa-table" aria-hidden="true"></i> <span className="d-sm-none d-md-inline">我的課表</span>
 								</Link>
 							</NavItem>
 							<NavItem>
 								<Link className={route.match.path === '/exchange' ? 'active nav-link' : ' nav-link'} to="/exchange">
-									<i className="fa fa-exchange" aria-hidden="true"></i> <span className="hidden-sm-down">換課平台</span>
+									<i className="fa fa-exchange" aria-hidden="true"></i> <span className="d-sm-none d-md-inline">換課平台</span>
 								</Link>
 							</NavItem>
 							<NavItem>
 								<Link className={route.match.path === '/review' ? 'active nav-link' : ' nav-link'} to="/review">
-									<i className="fa fa-thumbs-up" aria-hidden="true"></i> <span className="hidden-sm-down">課程評價</span>
+									<i className="fa fa-thumbs-up" aria-hidden="true"></i> <span className="d-sm-none d-md-inline">課程評價</span>
 								</Link>
 							</NavItem>
 							<NavItem>
 								<NavLink href="https://github.com/x3388638/KeBiau/issues" target="_blank">
 									<span>
-										<i className="fa fa-exclamation-circle" aria-hidden="true"></i> <span className="hidden-sm-down">回報</span>
+										<i className="fa fa-exclamation-circle" aria-hidden="true"></i> <span className="d-sm-none d-md-inline">回報</span>
 									</span>
 								</NavLink>
 							</NavItem>
@@ -106,7 +106,7 @@ export default class Navigation extends React.Component {
 								<NavItem>
 									<NavLink href={`https://fb.com/${user.uid}`} target="_blank">
 										<img src={`https://graph.facebook.com/${user.uid}/picture`} alt="" height="21" style={{borderRadius: '50px'}} />
-										<span className="ml-2">{user.displayName}</span>
+										<span className="ml-2 d-sm-none d-md-inline">{user.displayName}</span>
 									</NavLink>
 								</NavItem>
 							}
@@ -116,7 +116,7 @@ export default class Navigation extends React.Component {
 									{
 										isLogin &&
 										<NavLink id="LogoutBtn" href="#" onClick={this.handleLogout}>
-											<i className="fa fa-sign-out" aria-hidden="true"></i>
+											<i className="fa fa-sign-out" aria-hidden="true"></i> <span className="d-inline d-sm-none">登出</span>
 											<Tooltip delay={{ show: 0, hide: 0 }} placement="left" isOpen={this.state.logoutTooltip} target="LogoutBtn" toggle={this.toggleLogoutTooltip}>
 												登出
 											</Tooltip>
