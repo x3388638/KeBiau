@@ -15,7 +15,7 @@ import styled from 'styled-components';
 
 const NavigationBar = styled(Navbar)`
 	z-index: 5;
-	padding: '0.3rem 1rem';
+	padding: 0.3rem 1rem;
 `;
 
 const UserImg = styled.img`

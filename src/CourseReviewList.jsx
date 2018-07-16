@@ -1,8 +1,8 @@
 import React from 'react';
 import {
 	Card,
-	CardColumns,
-	CardBlock
+	CardBody,
+	CardColumns
 } from 'reactstrap';
 import moment from 'moment';
 
@@ -15,7 +15,7 @@ class ReviewItem extends React.Component {
 		const dislike = +data.currentUserLike === -1; 
 		return (
 			<Card className="mb-2 ReviewItem">
-				<CardBlock className="pb-2">
+				<CardBody className="pb-2">
 					<div className="mb-2">
 						<table>
 							<tbody>
@@ -61,7 +61,7 @@ class ReviewItem extends React.Component {
 							<i className={`fa ${!!dislike ? 'fa-thumbs-down' : 'fa-thumbs-o-down'}`} aria-hidden="true"></i> {data.like['-1'] || 0 }
 						</span>
 					</div>
-				</CardBlock>
+				</CardBody>
 			</Card>
 		);
 	}
