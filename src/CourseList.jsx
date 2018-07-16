@@ -43,7 +43,7 @@ class DeptSelector extends React.Component {
 				</select> {' '}
 				<Button
 					className={this.props.filterCourse ? 'active' : ''}
-					color={this.props.filterCourse ? 'danger' : 'secondary'}
+					color={this.props.filterCourse ? 'danger' : 'light'}
 					size="sm"
 					onClick={this.props.onFilterCourse}
 				>
@@ -51,7 +51,7 @@ class DeptSelector extends React.Component {
 				</Button> {' '}
 				<Button
 					className={this.props.filterConflict ? 'active' : ''}
-					color={this.props.filterConflict ? 'danger' : 'secondary'}
+					color={this.props.filterConflict ? 'danger' : 'light'}
 					size="sm"
 					onClick={this.props.onFilterConflict}
 				>
@@ -93,12 +93,8 @@ export default class CourseList extends React.Component {
 							</thead>
 							<tbody>
 								{
-									Object.keys(list).map((val) => {
-										if (this.props.filterConflict && list[val].isConflict) {
-											return null;
-										}
-
-										return (
+									Object.keys(list).map((val) =>
+										this.props.filterConflict && list[val].isConflict ? null : (
 											<tr key={val} data-uuid={val}>
 												<td>{list[val].cid}</td>
 												<td>{list[val].cname}</td>
@@ -114,8 +110,8 @@ export default class CourseList extends React.Component {
 													<Button color="success" size="sm" disabled={list[val].isConflict ? true : false} onClick={() => {this.props.onAddCourse(list[val], true)}}>{list[val].isConflict ? '衝堂' : '加入'}</Button>
 												</td>
 											</tr>
-										);
-									})
+										)
+									)
 								}
 							</tbody>
 						</Table>
