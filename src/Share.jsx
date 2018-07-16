@@ -5,9 +5,18 @@ import {
 	Col,
 	Alert
 } from 'reactstrap';
+import styled from 'styled-components';
 
 import App from './App.jsx';
 import CourseTable from './CourseTable.jsx';
+
+const ShareContainer = styled.div`
+	background: #fff;
+	padding: 20px 5px;
+	box-shadow: 0 0 10px 0 #080808;
+	margin-top: 55px;
+	margin-bottom: 55px;
+`;
 
 export default class Share extends React.Component {
 	constructor(props) {
@@ -50,7 +59,7 @@ export default class Share extends React.Component {
 	render() {
 		return (
 			<App>
-				<div style={{background: '#fff', padding: '20px 5px', boxShadow: '0 0 10px 0 #080808', marginTop: '55px', marginBottom: '55px'}}>
+				<ShareContainer>
 					<Row>
 						<Col xs="12">
 							{ typeof this.state.customTable === 'string' &&
@@ -62,7 +71,7 @@ export default class Share extends React.Component {
 							}
 						</Col>
 					</Row>
-				</div>
+				</ShareContainer>
 			</App>
 		)
 	}
