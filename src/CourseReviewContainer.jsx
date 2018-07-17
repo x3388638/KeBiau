@@ -20,11 +20,41 @@ import styled from 'styled-components';
 
 import CourseReviewFilter from './CourseReviewFilter.jsx';
 import CourseReviewList from './CourseReviewList.jsx';
-import './CourseReviewContainer.css';
 
 const RelativeContainer = styled(Container)`
 	background: #fff;
 	position: relative;
+`;
+
+const ThePen = styled.div`
+	background: #db4437;
+	color: #fff;
+	padding: 10px 15px 0px 15px;
+	position: absolute;
+	right: 10px;
+	bottom: 10px;
+	width: 52px;
+	height: 52px;
+	border-radius: 30px;
+	overflow: hidden;
+	cursor: pointer;
+	box-shadow: 1px 1px 5px 1px #bbbbbb;
+	transition: all .3s;
+	&:hover {
+		width: 180px;
+		box-shadow: 1px 1px 5px 1px #787878;
+	}
+
+	i.fa {
+		padding-bottom: 15px;
+		font-size: 30px;
+		margin-right: 10px;
+	}
+`;
+
+const ReviewListContainer = styled(Row)`
+	overflow: auto;
+	height: calc(100vh - 202px);
 `;
 
 export default class CourseReviewContainer extends React.Component {
@@ -237,7 +267,7 @@ export default class CourseReviewContainer extends React.Component {
 							</Col>
 						</Row>
 						<hr />
-						<Row className="CourseReviewList__wrapper">
+						<ReviewListContainer>
 							<Col xs="12">
 								<CourseReviewList
 									reviewList={reviewList}
@@ -245,10 +275,10 @@ export default class CourseReviewContainer extends React.Component {
 									onLike={this.handleLike}
 								/>
 							</Col>
-						</Row>
-						<div className="CourseReview__btnOpenModal" onClick={this.toggleAddReviewModal}>
+						</ReviewListContainer>
+						<ThePen onClick={this.toggleAddReviewModal}>
 							<i className="fa fa-pencil" aria-hidden="true"></i>留下一則評論...
-						</div>
+						</ThePen>
 						<Modal size="lg" isOpen={this.state.addReviewModalOpen} toggle={this.toggleAddReviewModal}>
 							<ModalHeader toggle={this.toggleAddReviewModal}>留下一則評論</ModalHeader>
 							<ModalBody>
