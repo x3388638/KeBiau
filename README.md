@@ -1,6 +1,6 @@
 # ![](https://x3388638.github.io/KeBiau/logo.png) 自己的課表自己排 2.0
 [暨大](http://www.gazette.ncnu.edu.tw/)專屬排課表、換課、課程評價平台  
-Website: https://x3388638.github.io/KeBiau/
+Website: https://2yc.tw/KeBiau/#/
 
 曾經，你是否也跟我一樣，  
 選課前，浪費了一堆時間、一堆紙與墨水在思考要修什麼課，  
@@ -22,9 +22,10 @@ Website: https://x3388638.github.io/KeBiau/
   
 ## 排課表
 #### 輕鬆、快速、直覺、簡易產生個人化的精緻課表。
-![](https://i.imgur.com/uc51bX0.png)
+![](https://i.imgur.com/1totRc4.png)
 
 ### 重點功能
+- 以 FB 登入做帳號管理
 - 原汁原味的教務系統課程資訊
 - 多元欄位篩選課程
 - 一鍵加入課程
