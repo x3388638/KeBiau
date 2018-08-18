@@ -18,12 +18,18 @@ const NavigationBar = styled(Navbar)`
 	padding: 0.3rem 1rem;
 `;
 
+const Hide850 = styled.span`
+	@media (max-width: 850px) and (min-width: 576px) {
+		display: none;
+	}
+`;
+
 const UserImg = styled.img`
 	border-radius: 50px;
 `;
 
 const UserName = styled.span`
-	@media (max-width: 900px) and (min-width: 576px) {
+	@media (max-width: 1000px) and (min-width: 576px) {
 		display: none;
 	}
 `;
@@ -94,18 +100,25 @@ export default class Navigation extends React.Component {
 					<Nav navbar>
 						<NavItem>
 							<Link className={route.match.path === '/' ? 'active nav-link' : ' nav-link'} to="/">
-								<i className="fa fa-table" aria-hidden="true"></i> <span className="d-sm-none d-md-inline">我的課表</span>
+								<i className="fa fa-table" aria-hidden="true"></i> <span className="d-sm-none d-md-inline"><Hide850>我的</Hide850>課表</span>
 							</Link>
 						</NavItem>
 						<NavItem>
 							<Link className={route.match.path === '/exchange' ? 'active nav-link' : ' nav-link'} to="/exchange">
-								<i className="fa fa-exchange" aria-hidden="true"></i> <span className="d-sm-none d-md-inline">換課平台</span>
+								<i className="fa fa-exchange" aria-hidden="true"></i> <span className="d-sm-none d-md-inline">換課<Hide850>平台</Hide850></span>
 							</Link>
 						</NavItem>
 						<NavItem>
 							<Link className={route.match.path === '/review' ? 'active nav-link' : ' nav-link'} to="/review">
-								<i className="fa fa-thumbs-up" aria-hidden="true"></i> <span className="d-sm-none d-md-inline">課程評價</span>
+								<i className="fa fa-thumbs-up" aria-hidden="true"></i> <span className="d-sm-none d-md-inline"><Hide850>課程</Hide850>評價</span>
 							</Link>
+						</NavItem>
+						<NavItem>
+							<NavLink href="https://fb.com/MOLi.rocks/posts/2104134533131853" target="_blank">
+								<span>
+									<i className="fa fa-question-circle" aria-hidden="true"></i> <span className="d-sm-none d-md-inline">選課教學</span>
+								</span>
+							</NavLink>
 						</NavItem>
 						<NavItem>
 							<NavLink href="https://github.com/x3388638/KeBiau/issues" target="_blank">
