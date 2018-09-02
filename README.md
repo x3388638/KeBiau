@@ -42,11 +42,11 @@ Website: https://2yc.tw/KeBiau/#/
 
 ## 換課
 #### 換課資訊不再散落四處，隨機排序人人平等，輕鬆過濾，換課萬無一失。
-![](https://i.imgur.com/qRtTRkk.png)
+![](https://i.imgur.com/prIfnF8.png)
 
 ## 課程評價
 #### 課程資訊透明化，讓選課不再猶豫，修課不再後悔。
-![](https://i.imgur.com/avRZP1h.png)
+![](https://i.imgur.com/Ncb5onD.png)
 
 - 具名評論，流言不再
 - 一鍵排序、一鍵過濾
