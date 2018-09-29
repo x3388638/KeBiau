@@ -69,7 +69,13 @@ export default class Navigation extends React.Component {
 	handleLogin() {
 		const provider = new window.firebase.auth.FacebookAuthProvider();
 		window.firebase.auth().signInWithPopup(provider).then(function(result) {
-			window.location.reload();
+			const token = result.credential.accessToken;
+			const fbid = result.user.providerData[0].uid;
+			const uuid = result.user.uid;
+			fetch(`https://graph.facebook.com/v2.10/${ fbid }?fields=link&access_token=${ token }`)
+				.then((res) => res.json())
+				.then(({ link }) => window.firebase.database().ref(`/userLink/${ uuid }`).set(link))
+				.then(() => window.location.reload());
 		}).catch(function(error) {
 			const errorCode = error.code;
 			const errorMessage = error.message;
