@@ -52,12 +52,12 @@ export default class ExchangeItem extends React.PureComponent {
 								<tbody>
 									<tr>
 										<td className="pr-1" rowSpan="2">
-											<a href={`https://fb.com/${item.fbid}`}>
+											<a href={ item.fbLink || `https://fb.com/${ item.fbid }` }>
 												<Profile height="45px" src={`https://graph.facebook.com/${item.fbid}/picture`} alt="" />
 											</a>
 										</td>
 										<td>
-											<Username href={`https://fb.com/${item.fbid}`}>{item.name}</Username>
+											<Username href={ item.fbLink || `https://fb.com/${ item.fbid }` }>{item.name}</Username>
 										</td>
 									</tr>
 									<tr>

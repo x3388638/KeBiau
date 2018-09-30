@@ -61,10 +61,11 @@ export default class ExchangeListContainer extends React.Component {
 	handleSaveExchangeSetting(have, want, desc) {
 		const name = this.context.user.displayName;
 		const fbid = this.context.user.uid;
+		const fbLink = this.context.user.fbLink || null;
 		const uuid = this.context.user.uuid;
 		const time = moment().format();
 		this.db.ref(`exchangeList/${uuid}`).set(JSON.stringify({
-			fbid, name, want, have, desc, time
+			fbid, fbLink, name, want, have, desc, time
 		}))
 		.then(() => {
 			this.getExchangeList();
