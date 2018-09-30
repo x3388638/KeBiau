@@ -18,11 +18,17 @@ export default class App extends React.Component {
 			user: null
 		};
 
+		this.db = window.firebase.database();
 		window.firebase.auth().onAuthStateChanged((user) => {
 			if (user) {
-				this.setState({
-					user: Object.assign({}, user.providerData[0], {uuid: user.uid})
-				});
+				this.db.ref(`/userLink/${ user.uid }`).once('value').then((snapshot) => {
+					this.setState({
+						user: Object.assign({}, user.providerData[0], {
+							uuid: user.uid,
+							fbLink: snapshot.val()
+						})
+					});
+				})
 			} else {
 				this.setState({
 					user: {

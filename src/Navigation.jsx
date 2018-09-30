@@ -37,7 +37,7 @@ const UserName = styled.span`
 export default class Navigation extends React.Component {
 	constructor(props) {
 		super(props);
-
+		this.db = window.firebase.database();
 		this.toggleNavbar = this.toggleNavbar.bind(this);
 		this.toggleLoginTooltip = this.toggleLoginTooltip.bind(this);
 		this.toggleLogoutTooltip = this.toggleLogoutTooltip.bind(this);
@@ -74,7 +74,7 @@ export default class Navigation extends React.Component {
 			const uuid = result.user.uid;
 			fetch(`https://graph.facebook.com/v2.10/${ fbid }?fields=link&access_token=${ token }`)
 				.then((res) => res.json())
-				.then(({ link }) => window.firebase.database().ref(`/userLink/${ uuid }`).set(link))
+				.then(({ link }) => this.db.ref(`/userLink/${ uuid }`).set(link))
 				.then(() => window.location.reload());
 		}).catch(function(error) {
 			const errorCode = error.code;
@@ -138,7 +138,7 @@ export default class Navigation extends React.Component {
 						{
 							loginStatusInit && isLogin &&
 							<NavItem>
-								<NavLink href={`https://fb.com/${user.uid}`} target="_blank">
+								<NavLink href={ user.fbLink } target="_blank">
 									<UserImg src={`https://graph.facebook.com/${user.uid}/picture`} alt="" height="21" />
 									<UserName className="ml-2">{ user.displayName }</UserName>
 								</NavLink>
