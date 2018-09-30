@@ -198,11 +198,12 @@ export default class CourseReviewContainer extends React.Component {
 
 		const uid = this.context.user.uuid;
 		const fbid = this.context.user.uid;
+		const fbLink = this.context.user.fbLink || null;
 		const username = this.context.user.displayName;
 		const time = moment().format();
 		const randomKey = (Date.now().toString(32) + Math.random().toString(32)).replace('.', '');
 		this.db.ref(`review/${uid}/${randomKey}`).set(JSON.stringify({
-			cname, cid, teacher, content, fbid, username, time
+			cname, cid, teacher, content, fbid, fbLink, username, time
 		}))
 		.then(() => {
 			this.toggleAddReviewModal();
