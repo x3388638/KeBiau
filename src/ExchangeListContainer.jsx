@@ -44,14 +44,28 @@ export default class ExchangeListContainer extends React.Component {
 			});
 
 			// show alert
-			if (!window.localStorage['@KeBiau:exchangeAlert'] || !JSON.parse(window.localStorage['@KeBiau:exchangeAlert'])) {
-				ReactAlert.warning('請注意：<br />退選成功的名額可能不會立即釋出', {
+			// FIXME: 好像不需要這個 alert 了
+			// if (!window.localStorage['@KeBiau:exchangeAlert'] || !JSON.parse(window.localStorage['@KeBiau:exchangeAlert'])) {
+			// 	ReactAlert.warning('請注意：<br />退選成功的名額可能不會立即釋出', {
+			// 		position: 'bottom-right',
+			// 		effect: 'genie',
+			// 		beep: false,
+			// 		timeout: 'none',
+			// 		onClose: () => {
+			// 			window.localStorage['@KeBiau:exchangeAlert'] = JSON.stringify(true);
+			// 		}
+			// 	});
+			// }
+
+			// FIXME: 拿不到 fb userlink (userLink & fbLink)
+			if (!window.localStorage['@KeBiau:wtfFBuserlink'] || !JSON.parse(window.localStorage['@KeBiau:wtfFBuserlink'])) {
+				ReactAlert.warning('FB 帳號連結目前有問題，請見諒', {
 					position: 'bottom-right',
 					effect: 'genie',
 					beep: false,
 					timeout: 'none',
 					onClose: () => {
-						window.localStorage['@KeBiau:exchangeAlert'] = JSON.stringify(true);
+						window.localStorage['@KeBiau:wtfFBuserlink'] = JSON.stringify(true);
 					}
 				});
 			}
