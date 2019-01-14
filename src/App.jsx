@@ -27,29 +27,30 @@ export default class App extends React.Component {
 					})
 				});
 
-				setTimeout(() => {
-					this.db.ref(`/userLink/${user.uid}`).once('value').then((snapshot) => {
-						if (!snapshot.val()) {
-							window.firebase.auth().signOut().then(() => {
-								this.setState({
-									user: {
-										uid: null
-									}
-								}, () => {
-									window.location.reload();
-								});
-							}).catch(console.error);
-							return;
-						}
+				// FIXME: 拿不到 fb userlink (userLink & fbLink)
+				// setTimeout(() => {
+				// 	this.db.ref(`/userLink/${user.uid}`).once('value').then((snapshot) => {
+				// 		if (!snapshot.val()) {
+				// 			window.firebase.auth().signOut().then(() => {
+				// 				this.setState({
+				// 					user: {
+				// 						uid: null
+				// 					}
+				// 				}, () => {
+				// 					window.location.reload();
+				// 				});
+				// 			}).catch(console.error);
+				// 			return;
+				// 		}
 
-						this.setState({
-							user: Object.assign({}, user.providerData[0], {
-								uuid: user.uid,
-								fbLink: snapshot.val()
-							})
-						});
-					});
-				}, 1000);
+				// 		this.setState({
+				// 			user: Object.assign({}, user.providerData[0], {
+				// 				uuid: user.uid,
+				// 				fbLink: snapshot.val()
+				// 			})
+				// 		});
+				// 	});
+				// }, 1000);
 			} else {
 				this.setState({
 					user: {

@@ -73,7 +73,8 @@ export default class Navigation extends React.Component {
 			const uuid = result.user.uid;
 			fetch(`https://graph.facebook.com/v2.10/${ fbid }?fields=link&access_token=${ token }`)
 				.then((res) => res.json())
-				.then(({ link }) => window.firebase.database().ref(`/userLink/${ uuid }`).set(link))
+				// FIXME: 拿不到 fb userlink (userLink & fbLink)
+				// .then(({ link }) => window.firebase.database().ref(`/userLink/${ uuid }`).set(link))
 				.then(() => window.location.reload());
 		}).catch(function(error) {
 			const errorCode = error.code;
