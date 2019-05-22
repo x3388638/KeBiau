@@ -14,8 +14,19 @@ const CommonRow = styled.div`
 `;
 
 const TableHeader = styled(CommonRow)`
+	position: sticky;
+    top: 0;
+    left: 0;
+    background: #fff;
+    z-index: 10;
+    border-bottom: 1px solid #adadad;
 	& span {
+		padding: 10px 0px;
 		font-weight: bold;
+	}
+
+	@media screen and (max-width: 992px) {
+		display: none;
 	}
 `;
 
@@ -26,9 +37,76 @@ const TableRow = styled(CommonRow)`
 		display: flex;
 		align-items: center;
 		padding: 5px;
-		&:last-child,
-		&:nth-last-child(2) {
+		&.TableRow__link,
+		&.TableRow__btn {
 			justify-content: center;
+		}
+	}
+
+	@media screen and (max-width: 991px) {
+		padding: 5px;
+		box-shadow: 1px 1px 2px 0px #878787;
+		margin-bottom: 10px;
+		grid-template-columns: 1fr 3fr 1fr;
+		grid-template-rows: 1fr 1fr 1fr 1fr;
+		grid-template-areas: "cid cname classes"
+			"teacher teacher teacher"
+			"time time time"
+			"location location location"
+			"link link btn";
+		& span {
+			padding: 0 8px;
+		}
+
+		& span.TableRow__cid {
+			grid-area: cid;
+		}
+		& span.TableRow__cname {
+			grid-area: cname;
+			justify-content: center;
+			font-weight: bold;
+		}
+		& span.TableRow__classes {
+			grid-area: classes;
+			justify-content: flex-end;
+			&::after {
+				content: '班';
+				padding-left: 2px;
+			}
+		}
+		& span.TableRow__time {
+			grid-area: time;
+			&::before {
+				content: '時間:';
+				padding-right: 2px;
+			}
+		}
+		& span.TableRow__location {
+			grid-area: location;
+			&::before {
+				content: '地點:';
+				padding-right: 2px;
+			}
+		}
+		& span.TableRow__teacher {
+			grid-area: teacher;
+			&::before {
+				content: '教師:';
+				padding-right: 2px;
+			}
+		}
+		& span.TableRow__grade {
+			display: none;
+		}
+		& span.TableRow__link {
+			grid-area: link;
+			justify-content: flex-end;
+		}
+		& span.TableRow__btn {
+			grid-area: btn;
+			& button {
+				width: 100%;
+			}
 		}
 	}
 `;
@@ -121,17 +199,17 @@ export default class CourseList extends React.Component {
 								Object.keys(list).map((val) =>
 									this.props.filterConflict && list[val].isConflict ? null : (
 										<TableRow key={val} data-uuid={val}>
-											<span>{list[val].cid}</span>
-											<span>{list[val].cname}</span>
-											<span>{list[val].classes}</span>
-											<span>{list[val].time}</span>
-											<span>{list[val].location}</span>
-											<span>{list[val].teacher}</span>
-											<span>{list[val].grade}</span>
-											<span>
+											<span className="TableRow__cid">{list[val].cid}</span>
+											<span className="TableRow__cname">{list[val].cname}</span>
+											<span className="TableRow__classes">{list[val].classes}</span>
+											<span className="TableRow__time">{list[val].time}</span>
+											<span className="TableRow__location">{list[val].location}</span>
+											<span className="TableRow__teacher">{list[val].teacher}</span>
+											<span className="TableRow__grade">{list[val].grade}</span>
+											<span className="TableRow__link">
 												<a href={`https://ccweb.ncnu.edu.tw/student/aspmaker_course_opened_detail_viewview.php?showdetail=&year=${list[val].year}&courseid=${list[val].cid}&class=${list[val].classes}&modal=2`} target="_blank">課綱 <i className="fa fa-external-link" aria-hidden="true"></i></a>
 											</span>
-											<span>
+											<span className="TableRow__btn">
 												<Button color="success" size="sm" disabled={list[val].isConflict ? true : false} onClick={() => { this.props.onAddCourse(list[val], true) }}>{list[val].isConflict ? '衝堂' : '加入'}</Button>
 											</span>
 										</TableRow>
