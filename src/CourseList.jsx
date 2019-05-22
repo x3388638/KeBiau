@@ -3,7 +3,35 @@ import {
 	Table,
 	Button
 } from 'reactstrap';
+import styled from 'styled-components'
 import Loading from './Loading';
+
+const CommonRow = styled.div`
+	display: grid;
+	grid-template-columns: 2fr 3fr 1fr 1fr 2fr 3fr 1fr 1fr 1fr;
+	grid-gap: 2px;
+	margin: 5px;
+`;
+
+const TableHeader = styled(CommonRow)`
+	& span {
+		font-weight: bold;
+	}
+`;
+
+const TableRow = styled(CommonRow)`
+	background: #f9f9f9;
+	border-radius: 2px;
+	& span {
+		display: flex;
+		align-items: center;
+		padding: 5px;
+		&:last-child,
+		&:nth-last-child(2) {
+			justify-content: center;
+		}
+	}
+`;
 
 class DeptSelector extends React.Component {
 	constructor(props) {
@@ -72,49 +100,45 @@ export default class CourseList extends React.Component {
 			<div>
 				<DeptSelector { ...this.props } />
 				<div style={{overflow: 'auto', maxHeight: '487px', background: '#fff', width: '100%'}}>
-
 					{ !list.length &&
 						<Loading />
 					}
+
 					{ !!list.length &&
-						<Table hover responsive striped>
-							<thead>
-								<tr>
-									<th>課號</th>
-									<th>課程名稱</th>
-									<th>班別</th>
-									<th>時段</th>
-									<th>授課地點</th>
-									<th>教師</th>
-									<th>年級</th>
-									<th></th>
-									<th></th>
-								</tr>
-							</thead>
-							<tbody>
-								{
-									Object.keys(list).map((val) =>
-										this.props.filterConflict && list[val].isConflict ? null : (
-											<tr key={val} data-uuid={val}>
-												<td>{list[val].cid}</td>
-												<td>{list[val].cname}</td>
-												<td>{list[val].classes}</td>
-												<td>{list[val].time}</td>
-												<td>{list[val].location}</td>
-												<td>{list[val].teacher}</td>
-												<td>{list[val].grade}</td>
-												<td>
-													<a href={`https://ccweb.ncnu.edu.tw/student/aspmaker_course_opened_detail_viewview.php?showdetail=&year=${list[val].year}&courseid=${list[val].cid}&class=${list[val].classes}&modal=2`} target="_blank">課綱 <i className="fa fa-external-link" aria-hidden="true"></i></a>
-												</td>
-												<td>
-													<Button color="success" size="sm" disabled={list[val].isConflict ? true : false} onClick={() => {this.props.onAddCourse(list[val], true)}}>{list[val].isConflict ? '衝堂' : '加入'}</Button>
-												</td>
-											</tr>
-										)
+						<React.Fragment>
+							<TableHeader>
+								<span>課號</span>
+								<span>課程名稱</span>
+								<span>班別</span>
+								<span>時段</span>
+								<span>授課地點</span>
+								<span>教師</span>
+								<span>年級</span>
+								<span></span>
+								<span></span>
+							</TableHeader>
+							{
+								Object.keys(list).map((val) =>
+									this.props.filterConflict && list[val].isConflict ? null : (
+										<TableRow key={val} data-uuid={val}>
+											<span>{list[val].cid}</span>
+											<span>{list[val].cname}</span>
+											<span>{list[val].classes}</span>
+											<span>{list[val].time}</span>
+											<span>{list[val].location}</span>
+											<span>{list[val].teacher}</span>
+											<span>{list[val].grade}</span>
+											<span>
+												<a href={`https://ccweb.ncnu.edu.tw/student/aspmaker_course_opened_detail_viewview.php?showdetail=&year=${list[val].year}&courseid=${list[val].cid}&class=${list[val].classes}&modal=2`} target="_blank">課綱 <i className="fa fa-external-link" aria-hidden="true"></i></a>
+											</span>
+											<span>
+												<Button color="success" size="sm" disabled={list[val].isConflict ? true : false} onClick={() => { this.props.onAddCourse(list[val], true) }}>{list[val].isConflict ? '衝堂' : '加入'}</Button>
+											</span>
+										</TableRow>
 									)
-								}
-							</tbody>
-						</Table>
+								)
+							}
+						</React.Fragment>
 					}
 				</div>
 			</div>
