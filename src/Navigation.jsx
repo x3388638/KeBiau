@@ -70,7 +70,7 @@ export default class Navigation extends React.Component {
 		window.firebase.auth().signInWithPopup(provider).then(function(result) {
 			const token = result.credential.accessToken;
 			const fbid = result.user.providerData[0].uid;
-			const uuid = result.user.uid;
+			// const uuid = result.user.uid;
 			fetch(`https://graph.facebook.com/v2.10/${ fbid }?fields=link&access_token=${ token }`)
 				.then((res) => res.json())
 				// FIXME: 拿不到 fb userlink (userLink & fbLink)

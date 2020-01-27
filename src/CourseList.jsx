@@ -1,8 +1,5 @@
 import React from 'react';
-import {
-	Table,
-	Button
-} from 'reactstrap';
+import { Button } from 'reactstrap';
 import styled from 'styled-components'
 import Loading from './Loading';
 
@@ -207,7 +204,7 @@ export default class CourseList extends React.Component {
 											<span className="TableRow__teacher">{list[val].teacher}</span>
 											<span className="TableRow__grade">{list[val].grade}</span>
 											<span className="TableRow__link">
-												<a href={`https://ccweb.ncnu.edu.tw/student/aspmaker_course_opened_detail_viewview.php?showdetail=&year=${list[val].year}&courseid=${list[val].cid}&class=${list[val].classes}&modal=2`} target="_blank">課綱 <i className="fa fa-external-link" aria-hidden="true"></i></a>
+												<a href={`https://ccweb.ncnu.edu.tw/student/aspmaker_course_opened_detail_viewview.php?showdetail=&year=${list[val].year}&courseid=${list[val].cid}&_class=${list[val].classes}&modal=0`} target="_blank">課綱 <i className="fa fa-external-link" aria-hidden="true"></i></a>
 											</span>
 											<span className="TableRow__btn">
 												<Button color="success" size="sm" disabled={list[val].isConflict ? true : false} onClick={() => { this.props.onAddCourse(list[val], true) }}>{list[val].isConflict ? '衝堂' : '加入'}</Button>
