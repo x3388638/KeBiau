@@ -4,7 +4,7 @@
   "private": true,
   "homepage": "https://x3388638.github.io/KeBiau",
   "dependencies": {
-    "bootstrap": "^4.1.2",
+    "bootstrap": "^4.3.1",
     "lodash.clonedeep": "^4.5.0",
     "moment": "^2.18.1",
     "prop-types": "^15.5.10",
