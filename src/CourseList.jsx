@@ -11,6 +11,7 @@ const CommonRow = styled.div`
 `;
 
 const TableHeader = styled(CommonRow)`
+	margin: 0 5px 5px;
 	position: sticky;
     top: 0;
     left: 0;
