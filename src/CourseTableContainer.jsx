@@ -247,7 +247,7 @@ export default class CourseTableContainer extends React.Component {
 		if (/^[1-7]{1}[A-MZa-mz]+$/.test(t)) {
 			let last = -1;
 			let err = 0;
-			for (let i = i; i < t.length; i ++) {
+			for (let i = 1; i < t.length; i ++) {
 				let current = t[i].charCodeAt();
 				if (last !== -1) {
 					if (current === 122) { // z
