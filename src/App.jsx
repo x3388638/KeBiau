@@ -21,36 +21,43 @@ export default class App extends React.Component {
     this.db = window.firebase.database()
     window.firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        this.setState({
-          user: Object.assign({}, user.providerData[0], {
-            uuid: user.uid
+        Promise.all([
+          this.db
+            .ref(`/userLink/${user.uid}`)
+            .once('value')
+            .then((snapshot) => {
+              const userLink = snapshot.val()
+              return userLink ? Promise.resolve(userLink) : Promise.reject()
+            }),
+          this.db
+            .ref(`/userPicture/${user.uid}`)
+            .once('value')
+            .then((snapshot) => {
+              const userPicture = snapshot.val()
+              return userPicture
+                ? Promise.resolve(userPicture)
+                : Promise.reject()
+            })
+        ])
+          .then(([userLink, userPicture]) => {
+            this.setState({
+              user: Object.assign({}, user.providerData[0], {
+                uuid: user.uid,
+                fbLink: userLink,
+                fbPicture: userPicture
+              })
+            })
           })
-        })
-
-        // FIXME: 拿不到 fb userlink (userLink & fbLink)
-        // setTimeout(() => {
-        // 	this.db.ref(`/userLink/${user.uid}`).once('value').then((snapshot) => {
-        // 		if (!snapshot.val()) {
-        // 			window.firebase.auth().signOut().then(() => {
-        // 				this.setState({
-        // 					user: {
-        // 						uid: null
-        // 					}
-        // 				}, () => {
-        // 					window.location.reload();
-        // 				});
-        // 			}).catch(console.error);
-        // 			return;
-        // 		}
-
-        // 		this.setState({
-        // 			user: Object.assign({}, user.providerData[0], {
-        // 				uuid: user.uid,
-        // 				fbLink: snapshot.val()
-        // 			})
-        // 		});
-        // 	});
-        // }, 1000);
+          .catch(() => {
+            // no userLink or userPicture in DB; re-login to store data
+            window.firebase
+              .auth()
+              .signOut()
+              .then(() => {
+                window.location.reload()
+              })
+              .catch(console.error)
+          })
       } else {
         this.setState({
           user: {

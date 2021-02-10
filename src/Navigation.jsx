@@ -67,20 +67,25 @@ export default class Navigation extends React.Component {
 
   handleLogin() {
     const provider = new window.firebase.auth.FacebookAuthProvider()
+    provider.addScope('user_link')
     window.firebase
       .auth()
       .signInWithPopup(provider)
-      .then(function (result) {
-        const token = result.credential.accessToken
-        const fbid = result.user.providerData[0].uid
-        // const uuid = result.user.uid;
-        fetch(
-          `https://graph.facebook.com/v2.10/${fbid}?fields=link&access_token=${token}`
-        )
-          .then((res) => res.json())
-          // FIXME: 拿不到 fb userlink (userLink & fbLink)
-          // .then(({ link }) => window.firebase.database().ref(`/userLink/${ uuid }`).set(link))
-          .then(() => window.location.reload())
+      .then(function ({ user, additionalUserInfo }) {
+        const uuid = user.uid
+        const userProfile = additionalUserInfo.profile
+        const userLink = userProfile.link
+        const userPicture = userProfile.picture.data.url
+        return Promise.all([
+          window.firebase.database().ref(`/userLink/${uuid}`).set(userLink),
+          window.firebase
+            .database()
+            .ref(`/userPicture/${uuid}`)
+            .set(userPicture)
+        ])
+      })
+      .then(() => {
+        window.location.reload()
       })
       .catch(function (error) {
         const errorCode = error.code
@@ -195,11 +200,7 @@ export default class Navigation extends React.Component {
                   href={user.fbLink || `https://fb.com/${user.uid}`}
                   target="_blank"
                 >
-                  <UserImg
-                    src={`https://graph.facebook.com/${user.uid}/picture`}
-                    alt=""
-                    height="21"
-                  />
+                  <UserImg src={user.fbPicture} alt="" height="21" />
                   <UserName className="ml-2">{user.displayName}</UserName>
                 </NavLink>
               </NavItem>
