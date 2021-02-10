@@ -74,9 +74,10 @@ export default class Navigation extends React.Component {
       .then(function ({ user, additionalUserInfo }) {
         const uuid = user.uid
         const userProfile = additionalUserInfo.profile
-        const userLink = userProfile.link
+        const userLink = userProfile.link || ''
         const userPicture = userProfile.picture.data.url
-        return Promise.all([
+
+        return Promise.allSettled([
           window.firebase.database().ref(`/userLink/${uuid}`).set(userLink),
           window.firebase
             .database()

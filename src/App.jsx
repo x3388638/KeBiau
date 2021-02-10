@@ -2,6 +2,10 @@ import React from 'react'
 import { Container } from 'reactstrap'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
+import ReactAlert from 'react-s-alert'
+
+import 'react-s-alert/dist/s-alert-default.css'
+import 'react-s-alert/dist/s-alert-css-effects/genie.css'
 
 import Navigation from './Navigation.jsx'
 
@@ -25,39 +29,35 @@ export default class App extends React.Component {
           this.db
             .ref(`/userLink/${user.uid}`)
             .once('value')
-            .then((snapshot) => {
-              const userLink = snapshot.val()
-              return userLink ? Promise.resolve(userLink) : Promise.reject()
-            }),
+            .then((snapshot) => snapshot.val()),
           this.db
             .ref(`/userPicture/${user.uid}`)
             .once('value')
-            .then((snapshot) => {
-              const userPicture = snapshot.val()
-              return userPicture
-                ? Promise.resolve(userPicture)
-                : Promise.reject()
-            })
+            .then((snapshot) => snapshot.val())
         ])
           .then(([userLink, userPicture]) => {
+            if (!userLink || !userPicture) {
+              // no userLink or userPicture in DB
+              ReactAlert.warning(
+                '請重新登入 FB 並允許「動態時報連結」權限存取，以獲得最佳的使用者體驗',
+                {
+                  position: 'bottom-right',
+                  effect: 'genie',
+                  beep: false,
+                  timeout: 'none'
+                }
+              )
+            }
+
             this.setState({
               user: Object.assign({}, user.providerData[0], {
                 uuid: user.uid,
-                fbLink: userLink,
-                fbPicture: userPicture
+                fbLink: userLink || '',
+                fbPicture: userPicture || ''
               })
             })
           })
-          .catch(() => {
-            // no userLink or userPicture in DB; re-login to store data
-            window.firebase
-              .auth()
-              .signOut()
-              .then(() => {
-                window.location.reload()
-              })
-              .catch(console.error)
-          })
+          .catch(console.error)
       } else {
         this.setState({
           user: {
@@ -79,6 +79,7 @@ export default class App extends React.Component {
       <div>
         <Navigation />
         <RelativeContainer>{this.props.children}</RelativeContainer>
+        <ReactAlert html />
       </div>
     )
   }

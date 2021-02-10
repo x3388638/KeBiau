@@ -3,10 +3,6 @@ import { Row, Col, Container, Alert } from 'reactstrap'
 import PropTypes from 'prop-types'
 import moment from 'moment'
 import cloenDeep from 'lodash.clonedeep'
-import ReactAlert from 'react-s-alert'
-
-import 'react-s-alert/dist/s-alert-default.css'
-import 'react-s-alert/dist/s-alert-css-effects/genie.css'
 
 import ExchangeSetting from './ExchangeSetting.jsx'
 import ExchangeList from './ExchangeList.jsx'
@@ -40,38 +36,6 @@ export default class ExchangeListContainer extends React.Component {
         this.setState({
           exchangeList: data
         })
-
-        // show alert
-        // FIXME: 好像不需要這個 alert 了
-        // if (!window.localStorage['@KeBiau:exchangeAlert'] || !JSON.parse(window.localStorage['@KeBiau:exchangeAlert'])) {
-        // 	ReactAlert.warning('請注意：<br />退選成功的名額可能不會立即釋出', {
-        // 		position: 'bottom-right',
-        // 		effect: 'genie',
-        // 		beep: false,
-        // 		timeout: 'none',
-        // 		onClose: () => {
-        // 			window.localStorage['@KeBiau:exchangeAlert'] = JSON.stringify(true);
-        // 		}
-        // 	});
-        // }
-
-        // FIXME: 拿不到 fb userlink (userLink & fbLink)
-        if (
-          !window.localStorage['@KeBiau:wtfFBuserlink'] ||
-          !JSON.parse(window.localStorage['@KeBiau:wtfFBuserlink'])
-        ) {
-          ReactAlert.warning('FB 帳號連結目前有問題，請見諒', {
-            position: 'bottom-right',
-            effect: 'genie',
-            beep: false,
-            timeout: 'none',
-            onClose: () => {
-              window.localStorage['@KeBiau:wtfFBuserlink'] = JSON.stringify(
-                true
-              )
-            }
-          })
-        }
       })
   }
 
@@ -198,7 +162,6 @@ export default class ExchangeListContainer extends React.Component {
                 </Col>
               </Row>
             </Container>
-            <ReactAlert html />
           </div>
         )}
       </div>
