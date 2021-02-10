@@ -46,11 +46,20 @@ export default class ExchangeSetting extends React.Component {
     this.handleSave = this.handleSave.bind(this)
     this.handleFilter = this.handleFilter.bind(this)
     this.handleToggleSetting = this.handleToggleSetting.bind(this)
+    this.setSettingsFromProps = this.setSettingsFromProps.bind(this)
+  }
+
+  componentDidMount() {
+    this.setSettingsFromProps(this.props)
   }
 
   componentWillReceiveProps(nextProps) {
-    const exchangeSetting = nextProps.exchangeList[this.context.user.uuid]
-      ? JSON.parse(nextProps.exchangeList[this.context.user.uuid])
+    this.setSettingsFromProps(nextProps)
+  }
+
+  setSettingsFromProps(props) {
+    const exchangeSetting = props.exchangeList[this.context.user.uuid]
+      ? JSON.parse(props.exchangeList[this.context.user.uuid])
       : null
     if (exchangeSetting) {
       this.setState({

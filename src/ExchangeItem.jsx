@@ -37,7 +37,7 @@ const Course = styled.div`
 
 export default class ExchangeItem extends React.PureComponent {
   render() {
-    const { item } = this.props
+    const { fbLink, fbPicture, name, time, desc, have, want } = this.props.item
     return (
       <Container>
         <Row>
@@ -47,41 +47,54 @@ export default class ExchangeItem extends React.PureComponent {
                 <tbody>
                   <tr>
                     <td className="pr-1" rowSpan="2">
-                      <a href={item.fbLink || `https://fb.com/${item.fbid}`}>
+                      <a
+                        href={fbLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        {...(!fbLink
+                          ? { onClick: (e) => e.preventDefault() }
+                          : {})}
+                      >
                         <Profile
                           height="45px"
-                          src={`https://graph.facebook.com/${item.fbid}/picture`}
+                          src={
+                            fbPicture ||
+                            'https://graph.facebook.com/100/picture'
+                          }
                           alt=""
                         />
                       </a>
                     </td>
                     <td>
                       <Username
-                        href={item.fbLink || `https://fb.com/${item.fbid}`}
+                        href={fbLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        {...(!fbLink
+                          ? { onClick: (e) => e.preventDefault() }
+                          : {})}
                       >
-                        {item.name}
+                        {name}
                       </Username>
                     </td>
                   </tr>
                   <tr>
                     <Timestamp>
-                      {moment(item.time)
-                        .utcOffset(8)
-                        .format('YYYY/MM/DD HH:mm:ss')}
+                      {moment(time).utcOffset(8).format('YYYY/MM/DD HH:mm:ss')}
                     </Timestamp>
                   </tr>
                 </tbody>
               </table>
             </div>
             <Desc className="mt-1 ml-2 pl-1">
-              {item.desc.split('\n').map((val, i) => {
+              {desc.split('\n').map((val, i) => {
                 return <div key={i}>{val}</div>
               })}
             </Desc>
           </Col>
           <Col lg="4" sm="12" xs="12">
             <CourseTitle className="pl-3">想要的課</CourseTitle>
-            {item.want.map((wnatCourse, i) => {
+            {want.map((wnatCourse, i) => {
               return (
                 <Course key={i}>
                   <Badge color="secondary" pill>
@@ -94,7 +107,7 @@ export default class ExchangeItem extends React.PureComponent {
           </Col>
           <Col lg="3" sm="12" xs="12">
             <CourseTitle className="pl-3">不需要的課</CourseTitle>
-            {item.have.map((haveCourse, i) => {
+            {have.map((haveCourse, i) => {
               return (
                 <Course key={i}>
                   <Badge color="secondary" pill>

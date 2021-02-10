@@ -201,10 +201,13 @@ export default class CourseReviewContainer extends React.Component {
       return
     }
 
-    const uid = this.context.user.uuid
-    const fbid = this.context.user.uid
-    const fbLink = this.context.user.fbLink || null
-    const username = this.context.user.displayName
+    const {
+      uuid: uid,
+      uid: fbid,
+      fbLink = null,
+      fbPicture = '',
+      displayName: username
+    } = this.context.user
     const time = moment().format()
     const randomKey = (
       Date.now().toString(32) + Math.random().toString(32)
@@ -219,6 +222,7 @@ export default class CourseReviewContainer extends React.Component {
           content,
           fbid,
           fbLink,
+          fbPicture,
           username,
           time
         })

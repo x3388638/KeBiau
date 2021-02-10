@@ -96,16 +96,33 @@ class ReviewItem extends React.Component {
               <tbody>
                 <tr>
                   <td className="pr-2" rowSpan="2">
-                    <a href={data.fbLink || `https://fb.com/${data.fbid}`}>
+                    <a
+                      href={data.fbLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      {...(!data.fbLink
+                        ? { onClick: (e) => e.preventDefault() }
+                        : {})}
+                    >
                       <ReviewCard.UserImg
-                        src={`https://graph.facebook.com/${data.fbid}/picture`}
+                        src={
+                          data.fbPicture ||
+                          'https://graph.facebook.com/100/picture'
+                        }
                         height="55"
                         alt=""
                       />
                     </a>
                   </td>
                   <td>
-                    <a href={data.fbLink || `https://fb.com/${data.fbid}`}>
+                    <a
+                      href={data.fbLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      {...(!data.fbLink
+                        ? { onClick: (e) => e.preventDefault() }
+                        : {})}
+                    >
                       <ReviewCard.Username>{data.username}</ReviewCard.Username>
                     </a>
                     {!!data.currentUserPost && (

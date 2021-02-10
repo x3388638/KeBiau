@@ -226,6 +226,7 @@ export default class CourseList extends React.Component {
                       <a
                         href={`https://ccweb.ncnu.edu.tw/student/aspmaker_course_opened_detail_viewview.php?showdetail=&year=${list[val].year}&courseid=${list[val].cid}&_class=${list[val].classes}&modal=0`}
                         target="_blank"
+                        rel="noopener noreferrer"
                       >
                         課綱{' '}
                         <i

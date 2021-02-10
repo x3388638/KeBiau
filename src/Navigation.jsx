@@ -172,6 +172,7 @@ export default class Navigation extends React.Component {
               <NavLink
                 href="https://fb.com/MOLi.rocks/posts/2104134533131853"
                 target="_blank"
+                rel="noopener noreferrer"
               >
                 <span>
                   <i className="fa fa-question-circle" aria-hidden="true"></i>{' '}
@@ -183,6 +184,7 @@ export default class Navigation extends React.Component {
               <NavLink
                 href="https://github.com/x3388638/KeBiau/issues"
                 target="_blank"
+                rel="noopener noreferrer"
               >
                 <span>
                   <i
@@ -200,6 +202,7 @@ export default class Navigation extends React.Component {
                 <NavLink
                   href={user.fbLink || `https://fb.com/${user.uid}`}
                   target="_blank"
+                  rel="noopener noreferrer"
                 >
                   <UserImg src={user.fbPicture} alt="" height="21" />
                   <UserName className="ml-2">{user.displayName}</UserName>
@@ -208,7 +211,7 @@ export default class Navigation extends React.Component {
             )}
             {loginStatusInit && (
               <NavItem>
-                {isLogin && (
+                {isLogin ? (
                   <NavLink id="LogoutBtn" href="#" onClick={this.handleLogout}>
                     <i className="fa fa-sign-out" aria-hidden="true"></i>{' '}
                     <span className="d-inline d-sm-none">登出</span>
@@ -222,8 +225,7 @@ export default class Navigation extends React.Component {
                       登出
                     </Tooltip>
                   </NavLink>
-                )}
-                {isLogin || (
+                ) : (
                   <NavLink id="LoginBtn" href="#" onClick={this.handleLogin}>
                     <i className="fa fa-facebook-square" aria-hidden="true"></i>
                     <Tooltip
