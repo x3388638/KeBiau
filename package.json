@@ -7,7 +7,7 @@
     "bootstrap": "^4.5.0",
     "lodash.clonedeep": "^4.5.0",
     "moment": "^2.27.0",
-    "prop-types": "^15.5.10",
+    "prop-types": "^15.7.2",
     "react": "^16.4.1",
     "react-addons-css-transition-group": "^15.6.0",
     "react-addons-transition-group": "^15.6.0",
@@ -15,7 +15,7 @@
     "react-router-dom": "^4.2.2",
     "react-s-alert": "^1.4.1",
     "react-scripts": "^3.4.1",
-    "react-spinners": "^0.3.2",
+    "react-spinners": "^0.10.4",
     "react-tagsinput": "^3.17.0",
     "reactstrap": "^6.3.0",
     "styled-components": "^3.3.3"
@@ -25,10 +25,15 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "prettier:check": "prettier --check './**/*.{js,json,jsx,html,css}'",
+    "prettier:write": "prettier --write './**/*.{js,json,jsx,html,css}'"
   },
   "devDependencies": {
-    "gh-pages": "^1.0.0"
+    "gh-pages": "^1.0.0",
+    "husky": "^5.0.9",
+    "lint-staged": "^10.5.4",
+    "prettier": "^2.2.1"
   },
   "browserslist": {
     "production": [
@@ -41,5 +46,13 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,json,jsx,html,css}": "npm run prettier:check"
   }
 }
