@@ -24,10 +24,6 @@ const Hide850 = styled.span`
   }
 `
 
-const UserImg = styled.img`
-  border-radius: 50px;
-`
-
 const UserName = styled.span`
   @media (max-width: 1000px) and (min-width: 576px) {
     display: none;
