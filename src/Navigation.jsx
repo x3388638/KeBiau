@@ -67,25 +67,10 @@ export default class Navigation extends React.Component {
 
   handleLogin() {
     const provider = new window.firebase.auth.FacebookAuthProvider()
-    provider.addScope('user_link')
     window.firebase
       .auth()
       .signInWithPopup(provider)
-      .then(function ({ user, additionalUserInfo }) {
-        const uuid = user.uid
-        const userProfile = additionalUserInfo.profile
-        const userLink = userProfile.link || ''
-        const userPicture = userProfile.picture.data.url
-
-        return Promise.allSettled([
-          window.firebase.database().ref(`/userLink/${uuid}`).set(userLink),
-          window.firebase
-            .database()
-            .ref(`/userPicture/${uuid}`)
-            .set(userPicture)
-        ])
-      })
-      .then(() => {
+      .then(function () {
         window.location.reload()
       })
       .catch(function (error) {
@@ -138,7 +123,7 @@ export default class Navigation extends React.Component {
                 </span>
               </Link>
             </NavItem>
-            <NavItem>
+            {/* <NavItem>
               <Link
                 className={
                   route.match.path === '/exchange'
@@ -167,7 +152,7 @@ export default class Navigation extends React.Component {
                   <Hide850>課程</Hide850>評價
                 </span>
               </Link>
-            </NavItem>
+            </NavItem> */}
             <NavItem>
               <NavLink
                 href="https://fb.com/MOLi.rocks/posts/2104134533131853"
@@ -199,12 +184,7 @@ export default class Navigation extends React.Component {
           <Nav className="ml-auto" navbar>
             {loginStatusInit && isLogin && (
               <NavItem>
-                <NavLink
-                  href={user.fbLink || `https://fb.com/${user.uid}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <UserImg src={user.fbPicture} alt="" height="21" />
+                <NavLink>
                   <UserName className="ml-2">{user.displayName}</UserName>
                 </NavLink>
               </NavItem>
