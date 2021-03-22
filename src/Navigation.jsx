@@ -7,14 +7,18 @@ import {
   Nav,
   NavItem,
   NavLink,
-  Tooltip
+  Tooltip,
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem
 } from 'reactstrap'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 const NavigationBar = styled(Navbar)`
-  z-index: 5;
+  z-index: 100;
   padding: 0.3rem 1rem;
 `
 
@@ -61,8 +65,21 @@ export default class Navigation extends React.Component {
     }))
   }
 
-  handleLogin() {
-    const provider = new window.firebase.auth.FacebookAuthProvider()
+  handleLogin(providerName) {
+    let provider
+    switch (providerName) {
+      case 'fb': {
+        provider = new window.firebase.auth.FacebookAuthProvider()
+        break
+      }
+
+      case 'google':
+      default: {
+        provider = new window.firebase.auth.GoogleAuthProvider()
+        break
+      }
+    }
+
     window.firebase
       .auth()
       .signInWithPopup(provider)
@@ -185,37 +202,45 @@ export default class Navigation extends React.Component {
                 </NavLink>
               </NavItem>
             )}
-            {loginStatusInit && (
+            {loginStatusInit && isLogin ? (
               <NavItem>
-                {isLogin ? (
-                  <NavLink id="LogoutBtn" href="#" onClick={this.handleLogout}>
-                    <i className="fa fa-sign-out" aria-hidden="true"></i>{' '}
-                    <span className="d-inline d-sm-none">登出</span>
-                    <Tooltip
-                      delay={{ show: 0, hide: 0 }}
-                      placement="left"
-                      isOpen={this.state.logoutTooltip}
-                      target="LogoutBtn"
-                      toggle={this.toggleLogoutTooltip}
-                    >
-                      登出
-                    </Tooltip>
-                  </NavLink>
-                ) : (
-                  <NavLink id="LoginBtn" href="#" onClick={this.handleLogin}>
-                    <i className="fa fa-facebook-square" aria-hidden="true"></i>
-                    <Tooltip
-                      delay={{ show: 0, hide: 0 }}
-                      placement="left"
-                      isOpen={this.state.loginTooltip}
-                      target="LoginBtn"
-                      toggle={this.toggleLoginTooltip}
-                    >
-                      登入 Facebook
-                    </Tooltip>
-                  </NavLink>
-                )}
+                <NavLink id="LogoutBtn" href="#" onClick={this.handleLogout}>
+                  <i className="fa fa-sign-out" aria-hidden="true"></i>{' '}
+                  <span className="d-inline d-sm-none">登出</span>
+                  <Tooltip
+                    delay={{ show: 0, hide: 0 }}
+                    placement="left"
+                    isOpen={this.state.logoutTooltip}
+                    target="LogoutBtn"
+                    toggle={this.toggleLogoutTooltip}
+                  >
+                    登出
+                  </Tooltip>
+                </NavLink>
               </NavItem>
+            ) : (
+              <UncontrolledDropdown nav inNavbar>
+                <DropdownToggle nav caret>
+                  登入
+                </DropdownToggle>
+                <DropdownMenu right>
+                  <DropdownItem
+                    onClick={() => {
+                      this.handleLogin('fb')
+                    }}
+                  >
+                    <i className="fa fa-facebook-square" aria-hidden="true"></i>{' '}
+                    Facebook
+                  </DropdownItem>
+                  <DropdownItem
+                    onClick={() => {
+                      this.handleLogin('google')
+                    }}
+                  >
+                    <i className="fa fa-google" aria-hidden="true"></i> Google
+                  </DropdownItem>
+                </DropdownMenu>
+              </UncontrolledDropdown>
             )}
           </Nav>
         </Collapse>
