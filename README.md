@@ -25,7 +25,7 @@ Website: https://2yc.tw/KeBiau/#/
 ![](https://i.imgur.com/1totRc4.png)
 
 ### 重點功能
-- 以 FB 登入做帳號管理
+- 以 FB/Google 登入做帳號管理
 - 原汁原味的教務系統課程資訊
 - 多元欄位篩選課程
 - 一鍵加入課程
