@@ -1,25 +1,25 @@
 {
   "files": {
     "main.css": "/KeBiau/static/css/main.42a4954a.chunk.css",
-    "main.js": "/KeBiau/static/js/main.201f6784.chunk.js",
-    "main.js.map": "/KeBiau/static/js/main.201f6784.chunk.js.map",
+    "main.js": "/KeBiau/static/js/main.ea5285cf.chunk.js",
+    "main.js.map": "/KeBiau/static/js/main.ea5285cf.chunk.js.map",
     "runtime-main.js": "/KeBiau/static/js/runtime-main.4fb8a97d.js",
     "runtime-main.js.map": "/KeBiau/static/js/runtime-main.4fb8a97d.js.map",
     "static/css/2.af3c1da9.chunk.css": "/KeBiau/static/css/2.af3c1da9.chunk.css",
-    "static/js/2.fcfc60f0.chunk.js": "/KeBiau/static/js/2.fcfc60f0.chunk.js",
-    "static/js/2.fcfc60f0.chunk.js.map": "/KeBiau/static/js/2.fcfc60f0.chunk.js.map",
+    "static/js/2.42133216.chunk.js": "/KeBiau/static/js/2.42133216.chunk.js",
+    "static/js/2.42133216.chunk.js.map": "/KeBiau/static/js/2.42133216.chunk.js.map",
     "index.html": "/KeBiau/index.html",
-    "precache-manifest.6ec7113a8d15739441debe17771c065a.js": "/KeBiau/precache-manifest.6ec7113a8d15739441debe17771c065a.js",
+    "precache-manifest.223cb365381c2161fb314e7b5eb903f8.js": "/KeBiau/precache-manifest.223cb365381c2161fb314e7b5eb903f8.js",
     "service-worker.js": "/KeBiau/service-worker.js",
     "static/css/2.af3c1da9.chunk.css.map": "/KeBiau/static/css/2.af3c1da9.chunk.css.map",
     "static/css/main.42a4954a.chunk.css.map": "/KeBiau/static/css/main.42a4954a.chunk.css.map",
-    "static/js/2.fcfc60f0.chunk.js.LICENSE.txt": "/KeBiau/static/js/2.fcfc60f0.chunk.js.LICENSE.txt"
+    "static/js/2.42133216.chunk.js.LICENSE.txt": "/KeBiau/static/js/2.42133216.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.4fb8a97d.js",
     "static/css/2.af3c1da9.chunk.css",
-    "static/js/2.fcfc60f0.chunk.js",
+    "static/js/2.42133216.chunk.js",
     "static/css/main.42a4954a.chunk.css",
-    "static/js/main.201f6784.chunk.js"
+    "static/js/main.ea5285cf.chunk.js"
   ]
 }

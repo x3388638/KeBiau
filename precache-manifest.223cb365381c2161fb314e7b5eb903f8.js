@@ -1,27 +1,27 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "9cc00002b526e58b36e6fefd10ab7477",
+    "revision": "1d488237a69d93ba077ee1a394dec652",
     "url": "/KeBiau/index.html"
   },
   {
-    "revision": "b8ce46dbf43881d25283",
+    "revision": "0c1ee975a5037de7e4aa",
     "url": "/KeBiau/static/css/2.af3c1da9.chunk.css"
   },
   {
-    "revision": "6fc32e11d11595daa318",
+    "revision": "3c52dff9907152ebcf74",
     "url": "/KeBiau/static/css/main.42a4954a.chunk.css"
   },
   {
-    "revision": "b8ce46dbf43881d25283",
-    "url": "/KeBiau/static/js/2.fcfc60f0.chunk.js"
+    "revision": "0c1ee975a5037de7e4aa",
+    "url": "/KeBiau/static/js/2.42133216.chunk.js"
   },
   {
     "revision": "40c3a33808930d3a21d6f2780ce2fb6e",
-    "url": "/KeBiau/static/js/2.fcfc60f0.chunk.js.LICENSE.txt"
+    "url": "/KeBiau/static/js/2.42133216.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "6fc32e11d11595daa318",
-    "url": "/KeBiau/static/js/main.201f6784.chunk.js"
+    "revision": "3c52dff9907152ebcf74",
+    "url": "/KeBiau/static/js/main.ea5285cf.chunk.js"
   },
   {
     "revision": "5cd4f3a733689bfa231e",
