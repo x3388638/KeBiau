@@ -224,7 +224,7 @@ export default class CourseList extends React.Component {
                     <span className="TableRow__grade">{list[val].grade}</span>
                     <span className="TableRow__link">
                       <a
-                        href={`https://ccweb6.ncnu.edu.tw/student/aspmaker_course_opened_detail_viewview.php?showdetail=&year=${list[val].year}&courseid=${list[val].cid}&_class=${list[val].classes}&modal=0`}
+                        href={`https://ccweb6.ncnu.edu.tw/student/current_semester_opened_listview.php?showdetail=&year=${list[val].year}&courseid=${list[val].cid}&_class=${list[val].classes}&modal=0`}
                         target="_blank"
                         rel="noopener noreferrer"
                       >
