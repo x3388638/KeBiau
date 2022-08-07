@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "2dca82abb9bf43c8bb0c60a32ad16008",
+    "revision": "8601b9ff7e2eaee487a157639d952504",
     "url": "/KeBiau/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/KeBiau/static/css/2.af3c1da9.chunk.css"
   },
   {
-    "revision": "c139d9159a33c87df343",
+    "revision": "6441f58f8ea32717984f",
     "url": "/KeBiau/static/css/main.42a4954a.chunk.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/KeBiau/static/js/2.42133216.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "c139d9159a33c87df343",
-    "url": "/KeBiau/static/js/main.41bdd30a.chunk.js"
+    "revision": "6441f58f8ea32717984f",
+    "url": "/KeBiau/static/js/main.94a60c70.chunk.js"
   },
   {
     "revision": "5cd4f3a733689bfa231e",
